@@ -1,0 +1,85 @@
+{% extends "index.html.twig" %}
+
+{% block content %}
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h2><span>Your Cart</span> </h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="row margin-b-20">
+        <div id="carttablecontainer" class="col-md-12">
+            {% include 'include/cart-table.html.twig' %}
+        </div>
+    </div>
+    <!-- /.row -->
+
+    {#
+    <!-- Related products  -->
+    {% if productsettings %}
+        {% if productsettings.related_product == "Y" %}
+            {% include 'include/cart-page-suggested-product.html.twig' %}
+        {% endif %}
+    {% endif %}
+    <!-- Related products  -->
+    #}
+    
+</div>
+<!-- /container-fluid-->
+
+
+<script type="text/javascript">   
+    function updatecartitem(rowid)
+    {
+        //alert(rowid);
+        $.ajaxSetup ({cache: false});
+        var loadUrl = "{{ base_url('front/updatecartitem') }}"+"/"+rowid;
+        var formdata = $("#carttblfrm").serialize();
+
+        $.ajax({
+                type: "POST",
+                url: loadUrl,
+                dataType:"html",
+                data:formdata,
+                success:function(responseText)
+                {
+                    //$("#carttablecontainer").html(responseText);
+                    //alert(responseText);
+                    window.location.href="{{ site_url('cart') }}";
+                },
+                error: function(jqXHR, exception) {
+                    return false;
+                }
+        });
+        return false;
+    }
+
+    function removecartitem(rowid)
+    {
+        $.ajaxSetup ({cache: false});
+        var loadUrl = "{{ base_url('front/removecartitem') }}"+"/"+rowid;
+        //var formdata = $("#productfrm").serialize();
+
+        $.ajax({
+                type: "POST",
+                url: loadUrl,
+                dataType:"html",
+                //data:formdata,
+                success:function(responseText)
+                {
+                    $("#carttablecontainer").html(responseText);
+                    //alert(responseText);
+                    window.location.href="{{ site_url('cart') }}";
+                },
+                error: function(jqXHR, exception) {
+                    return false;
+                }
+        });
+        return false;
+    }
+</script>
+
+{% endblock %}

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {{ meta }}
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>{{ title }}</title>
+
+    <!-- Bootstrap -->
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic,800,800italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Work+Sans:400,100,200,300,500,600,700,800,900' rel='stylesheet' type='text/css'>
+    <link href="{{ base_url() }}assets/css/bootstrap.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+
+    <!-- custom css -->
+    <link rel="stylesheet" href="{{ base_url() }}assets/css/styles.css">
+    <link rel="stylesheet" href="{{ base_url() }}assets/css/responsive.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+<script src="{{ base_url() }}assets/js/jquery.min.js"></script>  
+<script src="{{ base_url() }}assets/admin/js/jquery.validate.min.js"></script>    
+<script src="{{ base_url() }}assets/js/bootstrap.min.js"></script>
+
+</head>
+
+<body class="fluid">
+    <div class="settings">
+        <div class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><i class="fa fa-gear"></i></a>
+            <ul class="dropdown-menu">
+                <li><a class="toggleLayout" href="#">Toggle Layout </a></li>
+                <li><a class="toggleSidebar" href="#">Toggle Sidebar</a></li>
+                <li><a class="toggleSidebar" href="{{ base_url() }}admin" target="_blank">Admin</a></li>
+            </ul>
+        </div>
+    </div>
+<!-- / wrapper -->
+    <div id="wrapper" class="active2">
+      {% include 'include/sidemenu.html.twig' %}
+ <!-- Page content -->
+        <div id="page-content-wrapper">
+            <!-- Keep all page content within the page-content inset div! -->
+            <div class="page-content inset">
+
+                  {% include 'include/header.html.twig' %}
+
+		        {% block content %}
+
+
+
+		        {% endblock %}
+
+
+                  {% include 'include/footer.html.twig' %}
+	
+    </div> <!-- /page-content opening - TAG in header.php -->
+  </div> <!-- /page-content-wrapper - TAG in header.php -->      
+</div> <!-- / wrapper - TAG in header.php -->
+
+<!-- Script  -->
+
+
+<!-- Script  common-custom -->
+<script src="{{ base_url() }}assets/js/common.js"></script>
+<script src="{{ base_url() }}assets/js/projectbuildervalidation.js"></script> <!--This File Contains All Validation Rules -->
+
+
+<!-- Include Cloud Zoom JavaScript -->
+<script type="text/javascript" src="{{ base_url() }}assets/js/cloudzoom/cloudzoom.js"></script>
+
+<!-- Include Thumbelina JavaScript -->
+<script type="text/javascript" src="{{ base_url() }}assets/js/cloudzoom/thumbelina.js"></script>
+
+
+<!-- Include Cloud Zoom CSS -->
+<link href="{{ base_url() }}assets/css/cloudzoom/cloudzoom.css" type="text/css" rel="stylesheet" />
+
+<!-- Include Thumbelina CSS -->
+<link href="{{ base_url() }}assets/css/cloudzoom/thumbelina.css" type="text/css" rel="stylesheet" />
+
+
+<script type = "text/javascript">
+            CloudZoom.quickStart();
+            
+            // Initialize the slider.
+            $(function(){
+                $('#slider1').Thumbelina({
+                    $bwdBut:$('#slider1 .left'), 
+                    $fwdBut:$('#slider1 .right')
+                });
+            });
+
+            
+        </script>
+        
+        <style>
+            
+            /* div that surrounds Cloud Zoom image and content slider. */
+            #surround {
+                width:100%;
+                min-width: 256px;
+                max-width: 480px;
+            }
+            
+            /* Image expands to width of surround */
+                       
+            /* CSS for slider - will expand to width of surround */
+            #slider1 {
+                margin-left:20px;
+                margin-right:20px;
+                height:119px;
+                border-top:1px solid #aaa;
+                border-bottom:1px solid #aaa;
+                position:relative;
+            }
+            
+        </style>
+
+
+
+    </body>
+</html>

@@ -1,0 +1,1081 @@
+{% extends "index.html.twig" %}
+
+{% block content %}
+    
+    <div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h2>My Profile</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="row margin-b-20">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#profile_profile" data-toggle="tab">Profile Info</a></li>
+                
+                <li><a href="#profile_address" data-toggle="tab">Addressfdhfdhdfhd</a></li>
+                <li><a href="#profile_order" data-toggle="tab">Order History</a></li>
+                <!--<li><a href="#profile_return" data-toggle="tab">Returned Item</a></li>
+                <li><a href="#profile_wishlist" data-toggle="tab">My Wishlist</a></li>-->
+            </ul>
+            <!-- Tab panes -->
+            
+            <div class="tab-content">
+                <div class="tab-pane active" id="profile_profile">
+                    <form name="userinfofrm" id="userinfofrm" method="post" enctype="multipart/form-data">
+                    <div class="row">
+                       
+
+                        <article class="form-wrapper clearfix">
+                            
+                            <div class="col-md-3 text-center">
+                               
+                               <div class="image-box">
+                            <img alt="User Pic" {% if userdata.image %} src="{{ base_url('application/modules/customer/uploads/thumb/') }}/{{userdata.image}}" {% else %} src="http://placehold.it/200x200.jpg" {% endif %} class="img-circle img-responsive">
+                            </div>
+
+                            <br>
+                            <input type="file" name="userimage" id="userimage">
+
+                            </div>
+
+                            <div class="col-md-9">
+                                <div class="form-group clearfix">
+
+                                  <div class="col-md-6">
+                                      <label>First Name:</label>
+                                    <input onfocus="removeerrorclass()" type="text" name="firstname" id="firstname"  value="{% if userdata.fname %} {{userdata.fname}} {% endif %}" class="form-control">
+                                  </div>
+
+                                  <div class="col-md-6">
+                                      
+                                       <label>Last Name:</label>
+                                <input onfocus="removeerrorclass()" type="text" name="lastname" id="lastname"  value="{% if userdata.lname %} {{userdata.lname}} {% endif %}" class="form-control">
+                                  </div>
+                                    
+                                </div>
+
+                                <div class="form-group clearfix">
+                                    
+                                    <div class="col-md-6">
+                                        <label>Email ID:</label>
+                                        <input onfocus="removeerrorclass()" type="email" name="email" id="email"  value="{% if userdata.email %} {{userdata.email}} {% endif %}" class="form-control">
+                                    </div>
+
+                                    <div class="col-md-6">
+                                        
+                                        <label>Mobile:</label>
+                                        <input onfocus="removeerrorclass()" type="text" name="phone" id="phone"  value="{% if userdata.phone %} {{userdata.phone}} {% endif %}" class="form-control">
+
+                                    </div>
+
+
+                                </div>
+
+                                <div class="form-group clearfix">
+                                    <div class="col-md-12">
+                                        <label>Address:</label>
+                                        <input onfocus="removeerrorclass()" type="text" name="address" id="address"  value="{% if userdata.address %} {{userdata.address}} {% endif %}" class="form-control">
+                                    </div>
+                                    
+                                </div>
+
+                                <div class="form-group clearfix">
+                                    <div class="col-md-4">
+                                        <label>Country:</label>
+                                         <select onfocus="removeerrorclass()" onchange="fetchstate(this.value,'default')" name="defaultcountry" id="defaultcountry" class="form-control">
+                                                <option value="">Select</option>
+                                                {% if userdata.countries %}
+                                                {% for country in userdata.countries %}
+                                                    <option {% if userdata.country_id == country.id %} selected {% endif %} value="{{country.id}}">{{country.name}}</option>
+                                                {% endfor %}
+                                                {% endif %}
+                                            </select>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                         <label>State:</label>
+                                      <select onfocus="removeerrorclass()" onchange="fetchcities(this.value,'default')" name="defaultstate" id="defaultstate" class="form-control">
+                                                <option value="">Select</option>
+                                                {% if userdata.states %}
+                                                    {% for staterow in userdata.states %}
+                                                        <option {% if userdata.state_id == staterow.id %} selected {% endif %} value="{{staterow.id}}">{{staterow.name}}</option>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </select>
+                                    </div>
+
+                                    <div class="col-md-4">
+                                        <label> City:</label>
+                                      <select onfocus="removeerrorclass()" name="defaultcity" id="defaultcity" class="form-control">
+                                                <option value="">Select</option>
+                                                {% if userdata.cities %}
+                                                    {% for cityrow in userdata.cities %}
+                                                        <option {% if userdata.city_id == cityrow.id %} selected {% endif %} value="{{cityrow.id}}">{{cityrow.name}}</option>
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </select>
+                                    </div>
+                                </div>
+                            
+
+
+                            </div><!-- /col-md-9 -->
+
+    
+                        </article>
+
+                         
+
+                         <article class="form-wrapper clearfix">
+                         <div class="form-group clearfix">
+                             <div class="col-md-12">
+                            
+                            <input type="hidden" name="userhidimage" id="userhidimage" {% if userdata.image %} value="{{userdata.image}}" {% endif %}>
+                            <input type="hidden" name="userid" id="userid" {% if userdata.id %} value="{{userdata.id}}" {% endif %}>
+                            <button onclick="updateuserinfo()" class="btn btn-default btn-sm pull-right shift-from-right-15 btn-info">Update</button>
+                        </div>
+                         </div>
+                             
+                         </article>
+                        
+                    </div>
+                    </form>
+                    
+                    <hr class="gray">
+                    <form name="changepasswordfrm" id="changepasswordfrm" method="post">
+                    <div class="page-header clearfix">
+                    <div class="col-md-12">
+                        <h3> <span>Change your Password</span></h3>
+                    </div>
+                        
+                    </div>
+                        <article class="form-wrapper clearfix">
+                            
+                            <div class="form-group clearfix">
+                                <div class="col-md-4">
+                                    <label>Old Password:</label>
+                                     <input onfocus="removeerrorclass()" type="password" name="existingpassword" id="existingpassword" class="form-control"/>
+                                <span id="existinginvalid" style="display:none;" class="text-danger">Dose not match</span>
+                                <span id="existingvalid" style="display:none;" class="text-success">Matched</span>
+                                <input type="hidden" name="existingvalidcheck" id="existingvalidcheck">
+
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label>New Password</label>
+                                <input onfocus="removeerrorclass()" type="password" name="password" id="password" class="form-control"/>
+                                </div>
+
+                                <div class="col-md-4">
+                                    <label>Confirm New Password</label>
+                                <input onfocus="removeerrorclass()" type="password" name="confirmpassword" id="confirmpassword" class="form-control"/>
+                                </div>
+                            </div>
+                        </article>
+
+                        <article class="form-wrapper clearfix">
+                         <div class="form-group clearfix">
+                             <div class="col-md-12">
+                            
+                            <button onclick="changefrontpassword()" class="btn btn-default btn-sm pull-right btn-info">Update</button>
+                        </div>
+                         </div>
+                             
+                         </article>
+
+
+                    </form>
+
+                </div>
+                
+                <div class="tab-pane" id="profile_address">
+                   <form name="useraddressfrm" id="useraddressfrm" method="post">
+                   <div class="row">
+                       
+                        <article class="form-wrapper clearfix">
+                           
+
+                          
+                              <div class="col-md-6">
+                                  <div class="form-group clearfix">
+                                      <label>Street Address</label>
+                                      <textarea style="min-height:108px;" class="form-control" onfocus="removeerrorclass()" name="useraddress" id="useraddress"  value="{% if userdata.address %} {{userdata.address}} {% endif %}"></textarea>
+                                  </div>
+                              </div>
+
+                              <div class="col-md-6">
+                                   <div class="row">
+                                         <div class="form-group clearfix">
+                                      <div class="col-md-6">
+                                          <label>Country</label>
+                                          <select onfocus="removeerrorclass()" onchange="fetchstate(this.value,'address')" name="addresscountry" id="addresscountry" class="form-control">
+                                                    <option value="">Select</option>
+                                                    {% if userdata.countries %}
+                                                    {% for country in userdata.countries %}
+                                                        <option {% if userdata.country_id == country.id %} selected {% endif %} value="{{country.id}}">{{country.name}}</option>
+                                                    {% endfor %}
+                                                    {% endif %}
+                                                </select>
+                                      </div>
+
+
+                                      <div class="col-md-6">
+                                           <label>State</label>
+                                           <select onfocus="removeerrorclass()" onchange="fetchcities(this.value,'address')" name="addressstate" id="addressstate" class="form-control">
+                                                    <option value="">Select</option>
+                                                    {% if userdata.states %}
+                                                        {% for staterow in userdata.states %}
+                                                            <option {% if userdata.state_id == staterow.id %} selected {% endif %} value="{{staterow.id}}">{{staterow.name}}</option>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </select>
+                                      </div>
+                                  </div>
+
+
+                                    <div class="form-group clearfix">
+                                      <div class="col-md-6">
+                                          <label>City</label>
+                                          <select onfocus="removeerrorclass()" name="addresscity" id="addresscity" class="form-control">
+                                                    <option value="">Select</option>
+                                                    {% if userdata.cities %}
+                                                        {% for cityrow in userdata.cities %}
+                                                            <option {% if userdata.city_id == cityrow.id %} selected {% endif %} value="{{cityrow.id}}">{{cityrow.name}}</option>
+                                                        {% endfor %}
+                                                    {% endif %}
+                                                </select>
+                                      </div>
+
+                                      <div class="col-md-6">
+                                          
+                                          <label>Zip / Postal Code</label>
+                                          <input onfocus="removeerrorclass()" type="text" name="userzipcode" id="userzipcode" class="form-control" {% if userdata.postal_code %} value="{{userdata.postal_code}}" {% endif %} />
+
+                                      </div>
+
+
+                                  </div>
+
+                                   </div>
+                                  
+                                
+                                 
+                              </div>
+
+                          
+                       </article>
+
+                       <article class="form-wrapper clearfix">
+                         <div class="form-group clearfix">
+                             <div class="col-md-12">
+                            
+                           <input type="hidden" name="addressuserid" id="addressuserid" {% if userdata.id %} value="{{userdata.id}}" {% endif %}>
+                            <button onclick="saveuseraddress()" class="btn btn-default btn-sm pull-right  btn-info">Update</button>
+                        </div>
+                         </div>
+                             
+                         </article>
+                   </div>
+                      
+
+                   </form>
+                </div>
+
+
+                <div class="tab-pane" id="profile_order">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Product Name</th>
+                                            <th>Ord. Date</th>
+                                            <th>Price</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% if orders %}
+                                            {% for orderrow in orders %}
+                                                <tr>
+                                                    <td>
+                                                        <a href="#myModal{{orderrow.id}}" data-toggle="modal" data-target="#myModal{{orderrow.id}}">{{orderrow.order_number}}</a>
+
+                                                        <div class="modal fade" id="myModal{{orderrow.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                                        <div class="modal-dialog" role="document">
+                                                          <div class="modal-content">
+                                                            <div class="modal-header">
+                                                              <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                                              <h4 class="modal-title" id="myModalLabel">{{orderrow.order_number}} - Order details</h4>
+                                                            </div>
+                                                            <div class="modal-body">
+
+                                                            
+                                                            <div class="box">
+                                                                <div class="box box-solid newinvoice">
+                                                                <div class="box-header">
+                                                                    {# 
+                                                                    <div class="invoice-small-buttons">
+                                                                        <a class="btn btn-info btn-sm" onclick="printDiv('invoiceprint');" href="javascript:void(0)"><i class="fa fa-print"></i></a>
+                                                                        <a href="" class="btn btn-warning btn-sm"><i class="fa fa-file-pdf-o"></i></a>
+                                                                        <a href="" class="btn btn-primary btn-sm"><i class="fa fa-envelope"></i></a>                        
+                                                                    </div>
+                                                                    #}
+                                                                </div>
+                                                                <!-- /.box-header -->
+                                                                <div class="box-body" id="invoiceprint">
+                                                                    <form method="" action="" class="form-horizontal">
+                                                                        <!-- row 1 -->
+                                                                        <div class="form-group border-bottom-gray">
+                                                                          <label class="col-sm-3">Order No.</label>
+                                                                          <div class="col-sm-2">
+                                                                              <label id="invoiceNo">{{orderrow.order_number}}</label>
+                                                                          </div>
+                                                                            <label class="col-sm-1 col-sm-offset-2">Date</label>
+                                                                            <div class="col-sm-2">
+                                                                            {{orderrow.order_date|date(d-m-Y)}}
+                                                                            </div>
+                                                                        </div>
+                                                                        <hr>
+                                                                        <!-- row 2 -->                        
+                                                                        <div class="row">
+                                                                            <div class="col-md-4">
+                                                                                <div class="invoice_clientDtls">                                    
+                                                                                    <label><i class="fa fa-user"></i> &nbsp; test1       test1     </label>
+                                                                                    <p><i class="fa fa-envelope"></i> &nbsp;test@test.com <br>
+                                                                                      <i class="fa fa-phone"></i>  &nbsp; 1234567890  
+                                                                                    </p>                                    
+                                                                                </div>                                
+                                                                                </div>
+                                                                            <div class="col-md-4">
+                                                                                <div class="invoice_shippingAddress">
+                                                                                    <p><strong>Shipping Address</strong></p>                                    
+                                                                                    <p>
+                                                                                        <i class="fa fa-map-marker"></i> &nbsp;behala jjhgjhlj llj jkg jhgl ljh,&nbsp;West Bengal&nbsp;Kolkata                                        <br>Pin - 700034                                    </p>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="col-md-4">
+                                                                                <div class="invoice_billingAddress"> 
+                                                                                    <p><strong>Billing Address</strong></p>                                    
+                                                                                    <p> 
+                                                                                        <i class="fa fa-map-marker"></i> &nbsp;behala jjhgjhlj llj jkg jhgl ljh,&nbsp;West Bengal&nbsp;Kolkata 
+                                                                                        <br>Pin - 700034                                    </p>                                    
+                                                                                </div>
+                                                                            </div>
+
+                                                                        </div>                        
+                                                                            <hr>                   
+                                                                        <!--- /row 1 --->                        
+                                                                        <div class="row">
+                                                                            <div class="col-md-12 table-fullwidth">
+                                                                                <div class="table-responsive">
+                                                                                <table class="table table-bordered table-hover invoicvemaintable">
+                                                                                    <thead>
+                                                                                        <tr>
+                                                                                            <!--<th width="2%"></th>-->
+                                                                                            <th>Description</th>                                            
+                                                                                            <th width="15%" style="text-align:center">Quantity</th>
+                                                                                            <th width="30"></th>
+                                                                                            <th width="100" style="text-align:right">Rate</th>
+                                                                                            <th width="30"></th>
+                                                                                            <th width="100" style="text-align:right">Value </th>                                            
+                                                                                        </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+
+                                                                                        <tr>
+                                                                                            <!--<td>
+                                                                                                <button class="btn btn-danger btn-xs disabled" type="button"><i class="fa fa-minus"></i></button>                                                
+                                                                                            </td>-->                                            
+                                                                                            <td>
+                                                                                                Shoes 6-Dark Tan-Leather                                            </td>
+                                                                                            <td style="text-align:left;">
+                                                                                                <div class="input-group spinner">
+                                                                                                    <label>4</label>
+                                                                                                                                                    </div>
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                X
+                                                                                            </td>
+                                                                                            <td style="text-align:right;">
+                                                                                                650.00                                            </td>
+                                                                                            <td>
+                                                                                                =
+                                                                                            </td>
+                                                                                            <td style="text-align:right;">                                                
+                                                                                                2,600.00                                            </td>
+                                                                                        </tr> 
+
+
+
+
+                                                                                    </tbody>
+                                                                                </table>                                    
+                                                                                    </div>
+                                                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="row">
+                                                                            <div class="col-md-8 col-sm-6 col-xs-12">
+                                                                                <!--<label>Notes</label>
+                                                                                    <textarea type="text" rows="3" class="form-control" placeholder="Notes"></textarea>-->
+                                                                            </div>
+                                                                            <div class="col-md-4 col-sm-6 col-xs-12">                                
+                                                                                <table class="table invoiceSubTable">
+                                                                                    <tbody><tr>
+                                                                                        <td>Subtotal &nbsp;</td>
+                                                                                        <td><span id="subtotal">2,600.00</span></td>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <td>Service Tax&nbsp;</td>
+                                                                                        <td><span id="discount">377.00</span></td>
+                                                                                    </tr>                                    
+                                                                                    <tr>
+                                                                                        <td>VAT &nbsp;</td>
+                                                                                        <td><span id="VAT">130.00</span></td>
+                                                                                    </tr>
+                                                                                    <!--<tr>
+                                                                                        <td>Add Shipping&nbsp;</td>
+                                                                                        <td><span id="shipping"><a href="" class="invoice_shipping editable editable-click">0.00</a></span></td>
+                                                                                    </tr>-->
+                                                                                    <tr>
+                                                                                        <td>Total &nbsp;</td>
+                                                                                        <td>
+                                                                                            <span id="grandtotal">3,107.00</span></td>
+                                                                                    </tr>                                    
+
+                                                                                </tbody></table>                                    
+                                                                                    </div>                               
+                                                                            </div> 
+
+                                                                    </form>
+
+                                                                    <!--<div class="row">
+                                                                        <div class="col-md-12">
+                                                                        <button type="submit" class="btn btn-primary pull-right">Generate Invoice </button>
+                                                                        </div>
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6">
+                                                                            <h4>Shipping</h4>
+                                                                        </div>
+                                                                        <div class="col-sm-6">
+                                                                            <div class="pull-right">
+                                                                            <a class="btn btn-default" data-toggle="modal" data-target="#fullfill">Fulfill</a> 
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+                                                                    <hr>
+                                                                    <div class="row">
+                                                                        <div class="col-sm-6">
+                                                                            <h4>Accept Payment</h4>
+                                                                        </div>
+                                                                        <div class="col-sm-6">
+                                                                            <div class="pull-right">
+                                                                            <button class="btn btn-default">Mark as Paid</button> <button class="btn btn-default">Mark as Pending</button> <button class="btn btn-default">Pay with Credit Card</button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>-->
+
+
+
+                                                                </div>
+                                                                <!-- /.box-body -->                
+                                                            </div>
+
+                                                              </div>
+
+
+
+
+
+                                                            {#
+                                                              <table id="example1" class="table table-bordered table-striped">
+                                                                <thead>
+                                                                  <tr>
+                                                                    <th width="50%">Shipping Address</th>
+                                                                    <th width="50%">Billing Address</th>
+                                                                  </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <td>
+                                                                            {{orderrow.shipping_address}}<br>
+                                                                            Country - {{orderrow.shipping_countryname}}<br>
+                                                                            State - {{orderrow.shipping_statename}}<br>
+                                                                            City - {{orderrow.shipping_cityname}}
+                                                                        </td>
+                                                                        <td>
+                                                                            {{orderrow.billing_address}}<br>
+                                                                            Country - {{orderrow.billing_countryname}}<br>
+                                                                            State - {{orderrow.billing_statename}}<br>
+                                                                            City - {{orderrow.billing_cityname}}
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                              </table>
+
+                                                              <table id="example1" class="table table-bordered table-striped">
+                                                                <thead>
+                                                                  <tr>
+                                                                    <th width="40%">Product</th>
+                                                                    <th width="6%">Quantity</th>
+                                                                    <th width="5%"></th>
+                                                                    <th width="22%">Rate</th>
+                                                                    <th width="5%"></th>
+                                                                    <th width="22%">Value</th>
+
+                                                                  </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    {% if orderrow.orderedproducts %}
+                                                                        {% for prorow in orderrow.orderedproducts %}
+                                                                        <tr>
+                                                                            <td>{{prorow.name}}</td>
+                                                                            <td>{{prorow.quantity}}</td>
+                                                                            <td>x</td>
+                                                                            <td>{{prorow.price}}</td>
+                                                                            <td>=</td>
+                                                                            <td>{{prorow.total}}</td>
+                                                                        </tr>
+                                                                        {% endfor %}
+                                                                        <tr>
+                                                                            <td colspan="3"></td>
+                                                                            <td>Subtotal</td>
+                                                                            <td>=</td>
+                                                                            <td>{{orderrow.ordersubtotal}}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="3"></td>
+                                                                            <td>Service tax</td>
+                                                                            <td>=</td>
+                                                                            <td>{{orderrow.service_tax}}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="3"></td>
+                                                                            <td>VAT</td>
+                                                                            <td>=</td>
+                                                                            <td>{{orderrow.vat}}</td>
+                                                                        </tr>
+                                                                        <tr>
+                                                                            <td colspan="3"></td>
+                                                                            <td>Total</td>
+                                                                            <td>=</td>
+                                                                            <td>{{orderrow.grand_total}}</td>
+                                                                        </tr>
+                                                                    {% else %}
+                                                                        <tr>
+                                                                            <td colspan="6">Record not found</td>
+                                                                        </tr>
+                                                                    {% endif %} 
+                                                                </tbody>
+                                                            </table>
+                                                            #}
+                                                          </div>
+                                                        </div>
+                                                      </div>
+                                                      </div>
+                                                    </td>
+                                                    <td>
+                                                        {% if orderrow.orderedproducts %}
+                                                            {% for productrow in orderrow.orderedproducts %}
+                                                                {{productrow.name}}&nbsp;{{productrow.product_attribute}}<br>
+                                                            {% endfor %}
+                                                        {% endif %}
+                                                    </td>
+                                                    <td>{{orderrow.order_date|date("d-m-Y")}}</td>
+                                                    <td>{{orderrow.grand_total}}</td>
+                                                    <td>
+                                                        {% if orderrow.delivery_status == 0 %}
+                                                            <span class="label label-info">Pending</span>
+                                                        {% endif %}
+                                                        {% if orderrow.delivery_status == 1%}
+                                                            <span class="label label-warning">In Progress</span>
+                                                        {% endif %}
+                                                        {% if orderrow.delivery_status == 2%}
+                                                            <span class="label label-primary">Shipped</span>
+                                                        {% endif %}
+                                                        {% if orderrow.delivery_status == 3%}
+                                                            <span class="label label-success">Delivered</span>
+                                                        {% endif %}
+                                                        {% if orderrow.delivery_status == 4%}
+                                                            <span class="label label-danger">Canceled</span>
+                                                        {% endif %}
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        {% else %}
+                                        {% endif %}
+                                        
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               <!--
+                <div class="tab-pane" id="profile_return">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>Product Name</th>
+                                            <th>Full Name</th>
+                                            <th>Return Date</th>
+                                            <th>Price</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td><a href="http://www.mirchu.net/mobiles/apple-iphone-6/" target="_blank">Apple iphone 6</a></td>
+                                            <td>Waqas Hussain</td>
+                                            <td>11/6/2015</td>
+                                            <td>$899.00</td>
+                                            <td><span class="label label-success">Received & Refunded</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td><a href="http://www.mirchu.net/mobiles/lg-g3/" target="_blank">LG G3</a></td>
+                                            <td>Basit Raza</td>
+                                            <td>10/6/2015</td>
+                                            <td>$621.00</td>
+                                            <td><span class="label label-info">Received but not refunded</span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td><a href="http://www.mirchu.net/mobiles/samsung-galaxy-s5/" target="_blank">Samsung Galaxy S5</a></td>
+                                            <td>Raza Ahmed</td>
+                                            <td>11/9/2014</td>
+                                            <td>$640.00</td>
+                                            <td><span class="label label-danger">Not yet received</span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                -->
+
+                <!--
+                <div class="tab-pane" id="profile_wishlist">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="table-responsive">
+                                <table class="table table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Product</th>
+                                            <th>Quantity</th>
+                                            <th class="text-center">Price</th>
+                                            <th>&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="col-sm-1 col-md-1">
+                                                <a href="#"> <img class="img-responsive thumbnail" src="http://placehold.it/80x80" alt=""></a>
+                                            </td>
+                                            <td class="col-sm-7 col-md-5">
+                                                <div class="media">
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading"><a href="#">Product name</a></h4>
+                                                        <h5 class="media-heading"> by <a href="#">Brand name</a></h5>
+                                                        <span>Status: </span><span class="text-success"><strong>In Stock</strong></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="col-sm-1 col-md-1" style="text-align: center">
+                                                <input type="email" class="form-control" id="exampleInputEmail1" value="1">
+                                            </td>
+                                            <td class="col-sm-1 col-md-1 text-center"><strong>200</strong>
+                                            </td>
+
+                                            <td class="col-sm-1 col-md-1">
+                                                <button type="button" class="btn btn-info btn-sm">
+                                                    Order Now
+                                                </button>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="col-sm-1 col-md-1">
+                                                <a href="#"> <img class="img-responsive thumbnail" src="http://placehold.it/80x80" alt="">
+                                                </a>
+                                            </td>
+                                            <td class="col-sm-7 col-md-5">
+                                                <div class="media">
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading"><a href="#">Product name</a></h4>
+                                                        <h5 class="media-heading"> by <a href="#">Brand name</a></h5>
+                                                        <span>Status: </span><span class="text-success"><strong>In Stock</strong></span>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                            <td class="col-sm-1 col-md-1" style="text-align: center">
+                                                <input type="email" class="form-control" id="exampleInputEmail1" value="1">
+                                            </td>
+                                            <td class="col-sm-1 col-md-1 text-center"><strong>200</strong>
+                                            </td>
+
+                                            <td class="col-sm-1 col-md-1">
+                                                <button type="button" class="btn btn-info btn-sm">
+                                                    Order Now
+                                                </button>
+                                            </td>
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+                -->
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /container-fluid-->
+
+<script type="text/javascript">
+
+    function removeerrorclass()
+    {
+        $("#existingpassword").removeClass('errorclass');
+        $("#password").removeClass('errorclass');
+        $("#confirmpassword").removeClass('errorclass');
+
+        $("#firstname").removeClass('errorclass');
+        $("#lastname").removeClass('errorclass');
+        $("#email").removeClass('errorclass');
+        $("#phone").removeClass('errorclass');
+        $("#address").removeClass('errorclass');
+        $("#defaultcountry").removeClass('errorclass');
+        $("#defaultstate").removeClass('errorclass');
+        $("#defaultcity").removeClass('errorclass');
+
+        $("#useraddress").removeClass('errorclass');
+        $("#addresscountry").removeClass('errorclass');
+        $("#addressstate").removeClass('errorclass');
+        $("#addresscity").removeClass('errorclass');
+        $("#userzipcode").removeClass('errorclass');
+    }
+
+    $('#existingpassword').on('keyup blur change', function(e) {
+        var existingpassword=$("#existingpassword").val();
+        if(existingpassword!="")
+        {
+            $.ajaxSetup ({cache: false});
+            var loadUrl = "{{ base_url('front/checkexistingpassword') }}/"+existingpassword;
+            //var formdata = $("#changepasswordfrm").serialize();
+
+            $.ajax({
+                    type: "POST",
+                    url: loadUrl,
+                    dataType:"html",
+                    //data:formdata,
+                    success:function(responseText)
+                    {
+                        //alert(responseText);
+                        if(responseText==1)
+                        {
+                            $("#existinginvalid").hide();
+                            $("#existingvalid").show();
+                            $("#existingvalidcheck").val(1);
+                        }    
+                        else
+                        {
+                            $("#existingvalid").hide();
+                            $("#existinginvalid").show();
+                            $("#existingvalidcheck").val(0);
+                        }
+                    },
+                    error: function(jqXHR, exception) {
+                        return false;
+                    }
+            });
+            return false;
+        }
+    });
+    function changefrontpassword()
+    {
+        var existingpassword=$('#existingpassword').val();
+        var password=$('#password').val();
+        var confirmpassword = $('#confirmpassword').val();
+        var existingvalidcheck=$('#existingvalidcheck').val();
+	var flag=0;
+        
+        if(existingpassword === ''){
+            $('#existingpassword').addClass('errorclass');  
+            flag=1;
+        }
+        if(password === ''){
+            $('#password').addClass('errorclass');  
+            flag=1;
+        }
+        if(confirmpassword === ''){
+            $('#confirmpassword').addClass('errorclass');  
+            flag=1;
+        }
+        else if(password != confirmpassword){
+            $('#confirmpassword').val("");
+            $('#confirmpassword').addClass('errorclass');  
+            flag=1;
+        }
+
+        if(existingvalidcheck != 1){
+            $('#existingpassword').val('');
+            $('#existingpassword').addClass('errorclass');  
+            flag=1;
+        }
+        
+        if(flag!=0)
+        {
+            return false;
+        }
+
+        $.ajaxSetup ({cache: false});
+        var loadUrl = "{{ base_url('front/changepassword') }}";
+        var formdata = $("#changepasswordfrm").serialize();
+
+        $.ajax({
+                type: "POST",
+                url: loadUrl,
+                dataType:"html",
+                data:formdata,
+                success:function(responseText)
+                {
+                    //alert(responseText);
+                    if(responseText==1)
+                        window.location.reload(true); 
+                    else
+                        window.location.reload(true); 
+                },
+                error: function(jqXHR, exception) {
+                    return false;
+                }
+        });
+        return false;
+    }
+
+    
+    function fetchstate(countryid,containerid)
+    {
+        if(countryid=="")
+            countryid=0;
+
+        $.ajaxSetup ({cache: false});
+
+        var loadUrl = "{{ base_url('front/fetchstate') }}/"+countryid+"/"+containerid;
+        //var formdata = $("#categoryListfrm").serialize();
+        //var del_id= $(this).attr('id');
+        $.ajax({
+                    type: "POST",
+                    url: loadUrl,
+                    dataType:"html",
+                    //data:formdata,
+                    success:function(responseText)
+                    {
+                        $("#"+containerid+"statecontainer").html(responseText);
+                        $("#"+containerid+"city").val('');
+                    },
+                    error: function(jqXHR, exception) {
+                          return false;
+                    }
+        });
+        return false;
+    }
+
+    function fetchcities(stateid,containerid)
+    {
+        if(stateid=="")
+            stateid=0;
+
+        $.ajaxSetup ({cache: false});
+        var loadUrl = "{{ base_url('front/fetchcities') }}/"+stateid+"/"+containerid;
+        //var formdata = $("#categoryListfrm").serialize();
+        //var del_id= $(this).attr('id');
+        $.ajax({
+                type: "POST",
+                url: loadUrl,
+                dataType:"html",
+                //data:formdata,
+                success:function(responseText)
+                {
+                    $("#"+containerid+"citycontainer").html(responseText);
+                },
+           error: function(jqXHR, exception) {
+                        return false;
+         }
+        });
+        return false;
+    }
+
+    function updateuserinfo()
+    {
+        var firstname=$('#firstname').val();
+        var lastname=$('#lastname').val();
+        var email = $('#email').val();
+        var phone=$('#phone').val();
+        var address=$('#address').val();
+        var defaultcountry=$('#defaultcountry').val();
+        var defaultstate=$('#defaultstate').val();
+        var defaultcity=$('#defaultcity').val();
+	var flag=0;
+        
+        if(firstname === ''){
+            $('#firstname').addClass('errorclass');  
+            flag=1;
+        }
+        if(lastname === ''){
+            $('#lastname').addClass('errorclass');  
+            flag=1;
+        }
+        if(email === ''){
+            $('#email').addClass('errorclass');  
+            flag=1;
+        }
+        if(phone === ''){
+            $('#phone').addClass('errorclass');  
+            flag=1;
+        }
+        if(address === ''){
+            $('#address').addClass('errorclass');  
+            flag=1;
+        }
+        if(defaultcountry === ''){
+            $('#defaultcountry').addClass('errorclass');  
+            flag=1;
+        }
+        if(defaultstate === ''){
+            $('#defaultstate').addClass('errorclass');  
+            flag=1;
+        }
+        if(defaultcity === ''){
+            $('#defaultcity').addClass('errorclass');  
+            flag=1;
+        }
+
+        
+        if(flag!=0)
+        {
+            return false;
+        }
+
+
+        var form = new FormData(document.getElementById('userinfofrm'));
+	var file = document.getElementById('userimage').files[0];
+    	if (file) {   
+        form.append('userimage', file);
+    	}
+
+      	$.ajax({
+        url: "{{ base_url('front/updateuserinfo') }}",
+        type: 'POST',
+        data: form,             
+        cache: false,
+        contentType: false, //must, tell jQuery not to process the data
+        processData: false, //must, tell jQuery not to set contentType
+        success: function(data) {
+            console.log(data);
+            //var uId = data;
+            //var userId = uId.trim(uId);
+            window.location.reload(true); 
+        },
+        complete: function(XMLHttpRequest) {
+            var data = XMLHttpRequest.responseText;
+            
+        },
+        error: function() {
+            //alert("ERROR");
+        }
+    	}).done(function() { 
+        //console.log('Done');
+	//alert("done");
+
+    	}).fail(function() {       
+        //alert("fail!");
+    	});
+    }
+
+
+    function saveuseraddress()
+    {
+        var useraddress=$('#useraddress').val();
+        var addresscountry=$('#addresscountry').val();
+        var addressstate = $('#addressstate').val();
+        var addresscity=$('#addresscity').val();
+        var userzipcode=$('#userzipcode').val();
+	var flag=0;
+        
+        if(useraddress === ''){
+            $('#useraddress').addClass('errorclass');  
+            flag=1;
+        }
+        if(addresscountry === ''){
+            $('#addresscountry').addClass('errorclass');  
+            flag=1;
+        }
+        if(addressstate === ''){
+            $('#addressstate').addClass('errorclass');  
+            flag=1;
+        }
+        if(addresscity === ''){
+            $('#addresscity').addClass('errorclass');  
+            flag=1;
+        }
+        if(userzipcode === ''){
+            $('#userzipcode').addClass('errorclass');  
+            flag=1;
+        }
+
+        
+        if(flag!=0)
+        {
+            return false;
+        }
+
+        $.ajaxSetup ({cache: false});
+        var loadUrl = "{{ base_url('front/updateuseraddress') }}";
+        var formdata = $("#useraddressfrm").serialize();
+
+        $.ajax({
+                type: "POST",
+                url: loadUrl,
+                dataType:"html",
+                data:formdata,
+                success:function(responseText)
+                {
+                    //alert(responseText);
+                    if(responseText==1)
+                        window.location.reload(true); 
+                    else
+                        window.location.reload(true); 
+                },
+                error: function(jqXHR, exception) {
+                    return false;
+                }
+        });
+        return false;
+    }
+</script>
+
+{% endblock %}

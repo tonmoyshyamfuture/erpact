@@ -1,0 +1,65 @@
+ 
+<div class="product-header clearfix">
+	<h3 class="margin-t-0">{{product.name}}</h3>
+</div>
+ 
+<div class="row">
+	
+	<div class="price-desc clearfix ">
+
+            {# % if ary_product_details.discount_amount >0 %}
+            <div class="inline-block pprice">
+                <i class="fa fa-inr"></i> {{ ary_product_details.subtotal|number_format(2) }}
+            </div>
+            <div class="inline-block pprice">
+                <del><i class="fa fa-inr"></i> {{ ary_product_details.price|number_format(2) }}</del>
+            </div>
+            {% else %}
+            <div class="inline-block pprice">
+                <i class="fa fa-inr"></i> {{ ary_product_details.price|number_format(2) }}
+            </div>
+            {% endif % #} 
+
+	</div>
+
+  <div class="margin-t-20">
+	<div class="product-desc-wrap clearfix">
+		{{ html_entity_decode(product.short_description,ENT_QUOTES,'utf-8') }}
+	</div>
+        {% if session.userdata.front_uid %}
+        <div class="product-desc-wrap clearfix">
+		<a href="javascript:void(0)" onclick="addtowishlist('{{product.id}}')">Add to wishlist</a>
+	</div>
+        {% endif %}
+</div>
+
+	
+</div>
+
+<script>
+function addtowishlist(id)
+{
+    $.ajaxSetup ({cache: false});
+    var loadUrl = "{{ base_url('front/addtowishlist') }}/"+id;
+    //var formdata = $("#productfrm").serialize();
+    
+    $.ajax({
+            type: "POST",
+            url: loadUrl,
+            dataType:"html",
+            //data:formdata,
+            success:function(responseText)
+            {
+                if(responseText=="1")
+                    alert('Product added to your wishlist.');
+                else
+                    alert("Something went wrong");
+            },
+            error: function(jqXHR, exception) {
+                return false;
+            }
+    });
+    return false;
+}
+</script>
+

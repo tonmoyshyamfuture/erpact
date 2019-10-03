@@ -1,0 +1,20 @@
+{% if attributestring %}
+<div id="addtocartcontainer" class="divDisabled">
+{% endif %}
+
+<div class="form-inline">
+	<div class="form-group">
+		<input name="quantity" type="number" min="1" max="100" step="1" value="1" size="1" class="form-control _q">
+		<input type="hidden" id="productid" name="productid" value="{{productid}}">
+	</div>
+
+	<button onclick="addtocart()" type="submit" class="btn btn-primary" name="" id=""><span class="glyphicon glyphicon-shopping-cart"></span> Add to Cart</button>
+</div>
+
+
+
+
+
+{% if attributestring %}
+</div>
+{% endif %}

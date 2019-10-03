@@ -1,0 +1,45 @@
+{
+  "name": "act-react",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "axios": "^0.18.0",
+    "chroma-js": "^2.0.2",
+    "icheck": "^1.0.2",
+    "jquery": "^3.4.1",
+    "lodash.random": "^3.2.0",
+    "moment": "^2.23.0",
+    "history": "^4.9.0",
+    "react": "^16.7.0",
+    "react-autocomplete": "^1.8.1",
+    "react-bootstrap": "^0.32.4",
+    "react-bootstrap-table": "^4.3.1",
+    "react-dom": "^16.7.0",
+    "react-hotkeys": "^1.1.4",
+    "react-icheck": "^0.3.8",
+    "react-load-script": "0.0.6",
+    "react-loadable": "^5.5.0",
+    "react-redux": "^7.0.3",
+    "react-router-dom": "^4.3.1",
+    "react-scripts": "2.1.2",
+    "react-select": "^2.3.0",
+    "react-toastify": "^4.5.2",
+    "redux": "^4.0.1"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "homepage": "http://166.62.54.122/act_react/"
+}

@@ -1,0 +1,57 @@
+
+
+        <div class="row">
+            <div class="margin-b-20 clearfix">                
+            <!--- Loop item 1 -->  
+           
+            {% for row in products %}
+            <div class="col-sm-6 col-md-3">                
+                <div class="item-wrapper ecom-products">
+                    {% if row.special_price > 0 %}
+                    <div class="sale-opt">
+                       <span>Sale</span>
+                    </div> 
+                    {% endif %}
+                    <div class="item-image thumbnail"> 
+                      
+                        <a href="{{ site_url('product-details') }}/{{row.sku|replace(' ', '-')|lower}}">
+                            <img class="" src="{{base_url()}}application/modules/products/uploads/{{row.imagename}}" alt="">
+                        </a>
+                        <div class="item-image-hover">
+                         
+                         <div class="item-btns">
+                          <a class="btn btn-info btn-xs" href="{{ site_url('product-details') }}/{{row.sku|replace(' ', '-')|lower}}"><i class="fa fa-eye"></i></a> <a class="btn btn-success btn-xs add-to-cart" href="#"><i class="fa fa-shopping-cart"></i></a>
+                          </div>
+                        </div>
+                    </div>
+                    <div class="item-caption text-center">
+                        <h4><a href="{{ site_url('product-details') }}/{{row.sku|replace(' ', '-')|lower}}">{{ substr(row.name,0,20) }}</a> </h4>
+                        <p class="desc">
+                        {{ substr(row.short_description,0,20) }}</p>
+
+                        <div class="product-amt">
+                            {% if row.special_price >0 %}
+                            <div class="inline-block pprice">
+                                <i class="fa fa-inr"></i> {{ row.special_price|number_format(2) }}
+                            </div>
+                            <div class="inline-block pprice">
+                                <del><i class="fa fa-inr"></i> {{ row.price|number_format(2) }}</del>
+                            </div>
+                            {% else %}
+                            <div class="inline-block pprice">
+                                <i class="fa fa-inr"></i> {{ row.price|number_format(2) }}
+                            </div>
+                            {% endif %}
+                            
+                        </div>
+                    </div>                    
+                </div>                
+            </div>
+            {% endfor %}
+           
+            <!--- /Loop item 1 -->  
+            
+                
+                
+            </div> <!-- /row-margin-bottom -->
+        </div><!-- /.row -->  

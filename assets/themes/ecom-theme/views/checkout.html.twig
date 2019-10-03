@@ -1,0 +1,1043 @@
+{% extends "index.html.twig" %}
+
+{% block content %}
+    <div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h2><span>Checkout</span> </h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="row margin-b-20">
+        <div class="col-md-12">
+            <div class="row">
+                <form name="checkoutfrm" id="checkoutfrm" method="post" class="form-horizontal">
+                    <!-- customer info - Shipping Address -->
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="customer-info bg-checkout">
+                            <h3><i class="fa fa-user"></i> Customer Information </h3>
+                            <div class="form-group">
+                            
+                            <div id="logedcustomerinfo" {% if not userdata %} style="display:none;" {% endif %} class="col-md-12">
+                                <h4>{{userdata.email}}</h4>
+                                <button class="btn btn-primary btn-submit-fix" type="button" onclick="changecustomer()">Change account</button>
+                            </div>
+                            
+                            <div id="customerinfo" {% if userdata %} style="display:none;" {% endif %} class="col-md-12">
+                            <div class="col-md-6" {% if checkout_opt=='guest' %} style="display:none;" {% endif %}>
+                            <h4>Registered Customer</h4>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Email Address</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <input onfocus="removeerrorclass()" type="email" name="email" id="email" class="form-control"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Password</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <input onfocus="removeerrorclass()" type="password" name="password" id="password" class="form-control"/>
+                                </div>
+                            </div>
+                            <button onclick="checkoutlogin()" class="btn btn-primary btn-submit-fix" type="button">Sign in</button>
+                            <div id="login-error" class="form-group text-danger hidden">
+                                <span>Email id or password is wrong</span>
+                            </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h4>New Customer</h4>
+                                <div class="form-group" {% if checkout_opt=='guest' %} style="display:none;" {% endif %}>
+                                <div class="col-md-12">
+                                    <label><input onclick="getcustomerapproch(this.value)" type="radio" checked="true" name="customercheck" value="register">&nbsp;&nbsp;<strong>Register</strong></label>
+                                </div>
+                                <div class="col-md-12">
+                                    Create an account and use it for checkout
+                                </div>
+                                </div>
+
+                                <div class="form-group" {% if checkout_opt=='user' %} style="display:none;" {% endif %}>
+                                <div class="col-md-12">
+                                    <label><input onclick="getcustomerapproch(this.value)" {% if checkout_opt=='guest' %} checked="true" {% endif %} type="radio" name="customercheck" value="guest">&nbsp;&nbsp;<strong>Checkout as guest</strong></label>
+                                </div>
+                                <div class="col-md-12">
+                                    Quick checkout with no account creating required
+                                </div>
+                                </div>
+                                <input type="hidden" name="hidapproch" id="hidapproch" value="register">
+                                <button onclick="doaction()" id="customerapprochbtn" class="btn btn-primary btn-submit-fix" type="button">Register</button>
+                            </div>
+
+                                </div>
+                            
+                            </div>
+                           
+                        </div>
+
+                        <!-- Shipping & Billing Container start-->
+                            <div class="customer-info bg-checkout" id="shippbillcontainer" {% if not userdata %} style="display:none;" {% endif %}>
+                            <!-- Shipping address -->
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <h4><i class="fa fa-map-marker"></i> Shipping Address</h4>
+                                </div>
+                            </div>
+
+{% if userdata %} 
+<ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" onclick="AllAddress()" href="#ShippingAdd">All Address</a></li>
+    <li><a data-toggle="tab" onclick="NewAddress()" href="#ShippingAddNew">New Address</a></li>    
+    <input type="hidden" name="is_new_shiping_address" id="is_new_shiping_address" >
+  </ul>
+{% endif %} 
+<div class="tab-content">
+    <div id="ShippingAdd" class="tab-pane fade in {% if userdata %} active {% endif %}">
+      {% if userdata %} 
+        <div role="tabpanel" class="tab-pane active hidden" id="shipaddress">
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                  <th>Default</th>
+                  <th>Address</th>
+                  <th>City</th>
+                  <th>State</th>
+                  <th>Country</th>
+                  <th>Zip</th>
+                </tr>
+            </thead>
+            <tbody>
+            
+            </tbody>
+        </table>
+
+        </div>
+        {% endif %}
+    </div>
+    
+    <div id="ShippingAddNew" class="tab-pane {% if not userdata %} active {% else %} fade {% endif %}"> 
+      <div class="form-group">
+        <div class="col-md-6 col-xs-12">
+            <label>{% if cust_lat_name_settings=='D' %} Full Name {% else %} First Name {% endif %}</label>
+            <input onfocus="removeerrorclass()" {% if userdata.fname %} value="{{ userdata.fname }}" {% endif %} type="text" name="shippingfirstname" id="shippingfirstname" class="form-control"/>
+        </div>
+        <div class="span1"></div>
+        <div class="col-md-6 col-xs-12 {% if cust_lat_name_settings=='D' %} hidden {% endif %}">
+            <label>Last Name</label>
+            <input onfocus="removeerrorclass()" {% if userdata.lname %} value="{{ userdata.lname }}" {% endif %} type="text" name="shippinglastname" id="shippinglastname" class="form-control"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-12">
+            <label>Address</label>
+        </div>
+        <div class="col-sm-12">
+            <input onfocus="removeerrorclass()" {% if shippingaddress.address %} value="{{ shippingaddress.address }}" {% endif %} type="text" name="shippingaddress" id="shippingaddress" class="form-control"/>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-sm-12">
+                    <label>Country</label>
+                </div>
+                <div class="col-sm-12">
+                    <select onfocus="removeerrorclass()" onchange="fetchstate(this.value,'shipping','','')" name="shippingcountry" id="shippingcountry" class="form-control">
+                        <option value="">Select</option>
+                        {% if countries %}
+                        {% for country in countries %}
+                            <option {% if shippingaddress.country == country.id %} selected {% endif %} value="{{country.id}}">{{country.name}}</option>
+                        {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
+            </div>
+            
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-sm-12">
+                    <label>State</label>
+                </div>
+                <div id="shippingstatecontainer" class="col-sm-12">
+                    <select onfocus="removeerrorclass()" onchange="fetchcities(this.value,'shipping','')" name="shippingstate" id="shippingstate" class="form-control">
+                        <option value="">Select</option>
+                        {% if shippinstate %}
+                            {% for staterow in shippinstate %}
+                                <option {% if shippingaddress.state == staterow.id %} selected {% endif %} value="{{staterow.id}}">{{staterow.name}}</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
+            </div>
+            
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-sm-12">
+                    <label>City</label>
+                </div>
+                <div id="shippingcitycontainer" class="col-sm-12">
+                    <select onfocus="removeerrorclass()" name="shippingcity" id="shippingcity" class="form-control">
+                        <option value="">Select</option>
+                        {% if shippincities %}
+                            {% for cityrow in shippincities %}
+                                <option {% if shippingaddress.city == cityrow.id %} selected {% endif %} value="{{cityrow.id}}">{{cityrow.name}}</option>
+                            {% endfor %}
+                        {% endif %}
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="row">
+                <div class="col-sm-12">
+                    <label>Zip / Postal Code</label>
+                </div>
+                <div class="col-sm-12">
+                    <input onfocus="removeerrorclass()" {% if shippingaddress.zip %} value="{{shippingaddress.zip}}" {% endif %} type="text" name="shippingzipcode" id="shippingzipcode" class="form-control"/>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-group {% if cust_ph_number_settings=='D' %} hidden {% endif %}">
+        <div class="col-md-12">
+            <label>Phone Number</label>
+        </div>
+        <div class="col-md-12">
+            <input onfocus="removeerrorclass()" type="text" {% if userdata.phone %} value="{{userdata.phone}}" {% endif %}  name="shippingphonenumber" id="shippingphonenumber" class="form-control"/>
+        </div>
+    </div>
+    </div>
+</div>
+
+
+                            
+
+                            
+                            <div class="form-group">
+                            <div class="checkbox">
+                                <label>
+                                    <input class="toggleBilling" id="checkbillingaddress" name="checkbillingaddress" type="checkbox" checked="checked"> Uncheck if you have a different Billing Address
+                                </label>
+                            </div>
+                            </div>
+                               <!-- Billing Address  default: hidden, opening when click on Checkbox-->  
+                            <div class="billing-address hidden">
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <h4><i class="fa fa-map-marker"></i> Billing Address</h4>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-6 col-xs-12">
+                                        <label>{% if cust_lat_name_settings=='D' %} Full Name {% else %} First Name {% endif %}</label>
+                                        <input onfocus="removeerrorclass()" type="text" name="billingfirstname" id="billingfirstname" class="form-control"/>
+                                    </div>
+                                    <div class="span1"></div>
+                                    <div class="col-md-6 col-xs-12 {% if cust_lat_name_settings=='D' %} hidden {% endif %}">
+                                        <label>Last Name</label>
+                                        <input onfocus="removeerrorclass()" type="text" name="billinglastname" id="billinglastname" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <label>Address</label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <input onfocus="removeerrorclass()" type="text" name="billingaddress" id="billingaddress" class="form-control"/>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label>Country</label>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <select onfocus="removeerrorclass()" onchange="fetchstate(this.value,'billing','','')" id="billingcountry" name="billingcountry" class="form-control">
+                                                    <option value="">Select</option>
+                                                    {% if countries %}
+                                                    {% for country in countries %}
+                                                        <option value="{{country.id}}">{{country.name}}</option>
+                                                    {% endfor %}
+                                                    {% endif %}
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label>State</label>
+                                            </div>
+                                            <div id="billingstatecontainer" class="col-sm-12">
+                                                <select onfocus="removeerrorclass()" onchange="fetchcities(this.value,'billing','')" name="billingstate" id="billingstate" class="form-control">
+                                                    <option value="">Select</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label>City</label>
+                                            </div>
+                                            <div id="billingcitycontainer" class="col-sm-12">
+                                                <select onfocus="removeerrorclass()" name="billingcity" id="billingcity" class="form-control">
+                                                    <option value="">Select</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label>Zip / Postal Code</label>
+                                            </div>
+                                            <div class="col-sm-12">
+                                                <input onfocus="removeerrorclass()" type="text" name="billingzipcode" id="billingzipcode" class="form-control"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group {% if cust_ph_number_settings=='D' %} hidden {% endif %}">
+                                    <div class="col-md-12">
+                                        <label>Phone Number</label>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <input onfocus="removeerrorclass()" type="text" name="billingphonenumber" id="billingphonenumber" class="form-control"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /billing addr -->
+                            <div class="form-group payment-option">
+                                <div class="col-md-12">
+                                    <button onclick="proceedtopayment()" type="button" class="btn btn-primary btn-submit-fix">Continue</button>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Shipping & Billing Container end-->
+                        <!-- Payment Options -->
+                        <div id="paymentcontainer" style="display:none;" class="payment-option bg-checkout">
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <h3><i class="fa fa-lock"></i></span> Payment Options </h3>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Card Type</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <select id="CreditCardType" name="CreditCardType" class="form-control">
+                                        <option value="5">Visa</option>
+                                        <option value="6">MasterCard</option>
+                                        <option value="7">American Express</option>
+                                        <option value="8">Discover</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Credit Card Number</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" name="car_number" value="" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Card CVV</label>
+                                </div>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" name="car_code" value="" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <label>Expiration Date</label>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <select class="form-control" name="">
+                                        <option value="">Month</option>
+                                        <option value="01">01</option>
+                                        <option value="02">02</option>
+                                        <option value="03">03</option>
+                                        <option value="04">04</option>
+                                        <option value="05">05</option>
+                                        <option value="06">06</option>
+                                        <option value="07">07</option>
+                                        <option value="08">08</option>
+                                        <option value="09">09</option>
+                                        <option value="10">10</option>
+                                        <option value="11">11</option>
+                                        <option value="12">12</option>
+                                    </select>
+                                </div>
+                                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                    <select class="form-control" name="">
+                                        <option value="">Year</option>
+                                        <option value="2015">2015</option>
+                                        <option value="2016">2016</option>
+                                        <option value="2017">2017</option>
+                                        <option value="2018">2018</option>
+                                        <option value="2019">2019</option>
+                                        <option value="2020">2020</option>
+                                        <option value="2021">2021</option>
+                                        <option value="2022">2022</option>
+                                        <option value="2023">2023</option>
+                                        <option value="2024">2024</option>
+                                        <option value="2025">2025</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <p>Pay secure using your credit card.</p>
+                                </div>
+                                <div class="col-md-12">
+                                    <ul class="cards">
+                                        <li class="visa hand">Visa</li>
+                                        <li class="mastercard hand">MasterCard</li>
+                                        <li class="amex hand">Amex</li>
+                                    </ul>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                            {% if checkout_privacy!="" %}
+                            <br><br><span><b>Privacy Policy :</b> {{checkout_privacy}}</span>
+                            {% endif %}
+
+                            {% if checkout_tos!="" %}
+                            <br><br><span><b>Terms of Services :</b> {{checkout_tos}}</span>
+                            {% endif %}
+                            </div>
+
+                        </div>
+                        <div id="placeorderbtn" style="display:none;" class="form-group">
+                            <div class="col-md-6 col-sm-6 col-xs-12">
+                                <input type="hidden" name="customerid" id="customerid" {% if userdata.id %} value="{{userdata.id}}" {% endif %}>
+                                <button onclick="placeorder()" type="button" class="btn btn-primary btn-submit-fix">Place Order</button>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <!-- Order Summary -->
+                        <div class="form-group">
+                            <div class="col-md-12">
+                                <h3 class="pull-left nomargin"><i class="fa fa-shopping-cart"></i> Review Order</h3>
+                                <div class="pull-right"><small><a class="afix-1" href="{{site_url('cart')}}">Edit Cart</a></small>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        {% if cart %}
+                        {% for row in cart %}
+                        <div class="form-group">
+                            <div class="col-sm-3 col-xs-3">
+                                <img src="{{base_url()}}application/modules/products/uploads/thumb/{{row.image}}" alt="{{row.name}}" class="img-responsive" />
+                            </div>
+                            <div class="col-sm-6 col-xs-6">
+                                <div class="col-xs-12">{{row.name}}</div>
+                                <div class="col-xs-12"><small>Quantity:<span>{{row.qty}}</span></small></div>
+                                {% if row.options %}
+                                {% for key, row1 in row.options %}
+                                    <div class="col-xs-12"><span>{{key}}: </span><span class="text-success"><strong>{{row1}}</strong></span></div>
+                                {% endfor %}
+                                {% endif %}
+                            </div>
+                            <div class="col-sm-3 col-xs-3 text-right">
+                                <h6>{{row.line_subtotal}}</h6>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <hr />
+                        </div>
+                        {% endfor %}
+                        
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <strong>Subtotal</strong>
+                                <div class="pull-right"><span>{{subtotal}}</span>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 hidden">
+                                <small>Service tax ({{servicetax}}%)</small>
+                                <div class="pull-right"><span>{{servicetax_charge}}</span>
+                                <input type="hidden" name="servicetax" value="{{servicetax_charge}}">
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <small>Shipping Cost</small>
+                                <div class="pull-right"><span>{{shipcost}}</span>
+                                <input type="hidden" name="vat" value="{{shipcost}}">
+                                </div>
+                            </div>
+                            <div class="col-xs-12">
+                                <small>VAT ({{vat_display}})</small>
+                                <div class="pull-right"><span>{{vat_charge}}</span>
+                                <input type="hidden" name="vat" value="{{vat_charge}}">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <hr />
+                        </div>
+                        <div class="form-group">
+                            <div class="col-xs-12">
+                                <div class="pull-left">
+                                    <h4>Order Total</h4>
+                                </div>
+                                <div class="pull-right">
+                                    <h4>{{grandtotal}}</h4>
+                                    <input type="hidden" name="grandtotal" value="{{grandtotal}}">
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                    </div>
+
+
+
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+
+</div>
+<!-- /container-fluid-->
+
+<script type="text/javascript">
+
+    function getcustomerapproch(val)
+    {
+        if(val=="guest")
+        {
+            $("#customerapprochbtn").html("Checkout as guest");
+            $("#hidapproch").val("guest");
+        }
+        else
+        {
+            $("#customerapprochbtn").html("Register");
+            $("#hidapproch").val("register");
+        }
+    }
+
+    function doaction()
+    {
+        var hidapproch =$("#hidapproch").val();
+        
+        //alert(hidapproch);
+        if(hidapproch=="guest")
+        {
+            $("#shippingfirstname").val("");
+            $("#shippinglastname").val("");
+            $("#shippingaddress").val("");
+            $("#shippingcountry").val("");
+            $("#shippingstate").val("");
+            $("#shippingcity").val("");
+            $("#shippingzipcode").val("");
+            $("#shippingphonenumber").val("");
+            $("#shippbillcontainer").show();
+        }
+        else
+        {
+            window.location.href="{{ site_url('register') }}/{{returnurl}}";
+            $("#shippbillcontainer").hide();
+        }
+    }
+
+    function proceedtopayment()
+    {
+        //shipping inputs
+        var shippingfirstname = $('#shippingfirstname').val();
+        var shippinglastname = $('#shippinglastname').val();
+        var shippingaddress=$('#shippingaddress').val();
+        var shippingcountry=$('#shippingcountry').val();
+        var shippingstate=$('#shippingstate').val();
+        var shippingcity=$('#shippingcity').val();
+        var shippingzipcode=$('#shippingzipcode').val();
+        var shippingphonenumber=$('#shippingphonenumber').val();
+
+        //Billing inputs
+        var billingfirstname = $('#billingfirstname').val();
+        var billinglastname = $('#billinglastname').val();
+        var billingaddress=$('#billingaddress').val();
+        var billingcountry=$('#billingcountry').val();
+        var billingstate=$('#billingstate').val();
+        var billingcity=$('#billingcity').val();
+        var billingzipcode=$('#billingzipcode').val();
+        var billingphonenumber=$('#billingphonenumber').val();
+	var flag=0;
+        
+        if(shippingfirstname === ''){
+            $('#shippingfirstname').addClass('errorclass');  
+            flag=1;
+        }
+
+        {% if cust_lat_name_settings=='R' %}
+        if(shippinglastname === ''){
+            $('#shippinglastname').addClass('errorclass');  
+            flag=1;
+        }
+        {% endif %}
+
+        if(shippingaddress === ''){
+            $('#shippingaddress').addClass('errorclass');  
+            flag=1;
+        }
+        if(shippingcountry === ''){
+            $('#shippingcountry').addClass('errorclass');  
+            flag=1;
+        }
+        if(shippingstate === ''){
+            $('#shippingstate').addClass('errorclass');  
+            flag=1;
+        }
+        if(shippingcity === ''){
+            $('#shippingcity').addClass('errorclass');  
+            flag=1;
+        }
+        if(shippingzipcode === ''){
+            $('#shippingzipcode').addClass('errorclass');  
+            flag=1;
+        }
+
+        {% if cust_ph_number_settings=='R' %}
+        if(shippingphonenumber === ''){
+            $('#shippingphonenumber').addClass('errorclass');  
+            flag=1;
+        }
+        {% endif %}
+
+        if(!$("#checkbillingaddress").is(":checked"))
+        {
+            if(billingfirstname === ''){
+                $('#billingfirstname').addClass('errorclass');  
+                flag=1;
+            }
+
+            {% if cust_lat_name_settings=='R' %}
+            if(billinglastname === ''){
+                $('#billinglastname').addClass('errorclass');  
+                flag=1;
+            }
+            {% endif %}
+
+            if(billingaddress === ''){
+                $('#billingaddress').addClass('errorclass');  
+                flag=1;
+            }
+            if(billingcountry === ''){
+                $('#billingcountry').addClass('errorclass');  
+                flag=1;
+            }
+            if(billingstate === ''){
+                $('#billingstate').addClass('errorclass');  
+                flag=1;
+            }
+            if(billingcity === ''){
+                $('#billingcity').addClass('errorclass');  
+                flag=1;
+            }
+            if(billingzipcode === ''){
+                $('#billingzipcode').addClass('errorclass');  
+                flag=1;
+            }
+
+            {% if cust_ph_number_settings=='R' %}
+            if(billingphonenumber === ''){
+                $('#billingphonenumber').addClass('errorclass');  
+                flag=1;
+            }
+            {% endif %}
+        }
+
+        if(flag!=0)
+        {
+            return false;
+        }
+        else
+        {
+            $("#paymentcontainer").show();
+            $("#placeorderbtn").show();
+        }
+    }
+
+    function placeorder()
+    {
+        //shipping inputs
+        var shippingfirstname = $('#shippingfirstname').val();
+        var shippinglastname = $('#shippinglastname').val();
+        var shippingaddress=$('#shippingaddress').val();
+        var shippingcountry=$('#shippingcountry').val();
+        var shippingstate=$('#shippingstate').val();
+        var shippingcity=$('#shippingcity').val();
+        var shippingzipcode=$('#shippingzipcode').val();
+        var shippingphonenumber=$('#shippingphonenumber').val();
+
+        //Billing inputs
+        var billingfirstname = $('#billingfirstname').val();
+        var billinglastname = $('#billinglastname').val();
+        var billingaddress=$('#billingaddress').val();
+        var billingcountry=$('#billingcountry').val();
+        var billingstate=$('#billingstate').val();
+        var billingcity=$('#billingcity').val();
+        var billingzipcode=$('#billingzipcode').val();
+        var billingphonenumber=$('#billingphonenumber').val();
+	var flag=0;
+        
+        if(shippingfirstname === ''){
+            $('#shippingfirstname').addClass('errorclass');  
+            flag=1;
+        }
+
+        {% if cust_lat_name_settings=='R' %}
+        if(shippinglastname === ''){
+            $('#shippinglastname').addClass('errorclass');  
+            flag=1;
+        }
+        {% endif %}
+
+
+        if(shippingaddress === ''){
+            $('#shippingaddress').addClass('errorclass');  
+            flag=1;
+        }
+        if(shippingcountry === ''){
+            $('#shippingcountry').addClass('errorclass');  
+            flag=1;
+        }
+        if(shippingstate === ''){
+            $('#shippingstate').addClass('errorclass');  
+            flag=1;
+        }
+        if(shippingcity === ''){
+            $('#shippingcity').addClass('errorclass');  
+            flag=1;
+        }
+        if(shippingzipcode === ''){
+            $('#shippingzipcode').addClass('errorclass');  
+            flag=1;
+        }
+
+        {% if cust_ph_number_settings=='R' %}
+        if(shippingphonenumber === ''){
+            $('#shippingphonenumber').addClass('errorclass');  
+            flag=1;
+        }
+        {% endif %}
+
+        if(!$("#checkbillingaddress").is(":checked"))
+        {
+            if(billingfirstname === ''){
+                $('#billingfirstname').addClass('errorclass');  
+                flag=1;
+            }
+            
+            {% if cust_lat_name_settings=='R' %}
+            
+            if(billinglastname === ''){
+                $('#billinglastname').addClass('errorclass');  
+                flag=1;
+            }
+
+            {% endif %}
+
+            if(billingaddress === ''){
+                $('#billingaddress').addClass('errorclass');  
+                flag=1;
+            }
+            if(billingcountry === ''){
+                $('#billingcountry').addClass('errorclass');  
+                flag=1;
+            }
+            if(billingstate === ''){
+                $('#billingstate').addClass('errorclass');  
+                flag=1;
+            }
+            if(billingcity === ''){
+                $('#billingcity').addClass('errorclass');  
+                flag=1;
+            }
+            if(billingzipcode === ''){
+                $('#billingzipcode').addClass('errorclass');  
+                flag=1;
+            }
+
+            {% if cust_ph_number_settings=='R' %}
+            if(billingphonenumber === ''){
+                $('#billingphonenumber').addClass('errorclass');  
+                flag=1;
+            }
+            {% endif %}
+        }
+        
+        if(flag!=0)
+        {
+            return false;
+        }
+
+        $.ajaxSetup ({cache: false});
+        var loadUrl = "{{ site_url('front/placeorder') }}";
+        var formdata = $("#checkoutfrm").serialize();
+
+        $.ajax({
+                type: "POST",
+                url: loadUrl,
+                dataType:"html",
+                data:formdata,
+                success:function(responseText)
+                {
+                    //alert(responseText);
+                    window.location.href="{{ site_url('confirm') }}";
+                },
+                error: function(jqXHR, exception) {
+                    return false;
+                }
+        });
+        return false;
+    }
+
+    function removeerrorclass()
+    {
+        $("#email").removeClass('errorclass');
+        $("#password").removeClass('errorclass');
+        $("#shippingfirstname").removeClass('errorclass');
+        $("#shippinglastname").removeClass('errorclass');
+        $("#shippingaddress").removeClass('errorclass');
+        $("#shippingcountry").removeClass('errorclass');
+        $("#shippingstate").removeClass('errorclass');
+        $("#shippingcity").removeClass('errorclass');
+        $("#shippingzipcode").removeClass('errorclass');
+        $("#shippingphonenumber").removeClass('errorclass');   
+        
+        $("#billingfirstname").removeClass('errorclass');
+        $("#billinglastname").removeClass('errorclass');
+        $("#billingaddress").removeClass('errorclass');
+        $("#billingcountry").removeClass('errorclass');
+        $("#billingstate").removeClass('errorclass');
+        $("#billingcity").removeClass('errorclass');
+        $("#billingzipcode").removeClass('errorclass');
+        $("#billingphonenumber").removeClass('errorclass');  
+    }
+
+    function checkoutlogin()
+    {
+
+        var email = $('#email').val();
+        var password = $('#password').val();
+	var flag=0;
+        
+        if(email === ''){
+            $('#email').addClass('errorclass');  
+            flag=1;
+        }
+        if(password === ''){
+            $('#password').addClass('errorclass');  
+            flag=1;
+        }
+        
+        if(flag!=0)
+        {
+            return false;
+        }
+
+        $.ajaxSetup ({cache: false});
+        var loadUrl = "{{ site_url('front/checkoutlogin') }}";
+        var formdata = $("#checkoutfrm").serialize();
+
+        $.ajax({
+                type: "POST",
+                url: loadUrl,
+                dataType:"html",
+                data:formdata,
+                success:function(responseText)
+                {
+                    //alert(responseText);
+                    if(responseText==1)
+                        window.location.href="{{ site_url('checkout') }}";
+                    else
+                        $("#login-error").removeClass('hidden');
+                },
+                error: function(jqXHR, exception) {
+                    return false;
+                }
+        });
+        return false;
+    }
+
+    function changecustomer()
+    {
+        $("#logedcustomerinfo").hide();
+        $("#shippbillcontainer").hide();
+        $("#customerinfo").show();
+    }
+
+    function fetchstate(countryid,containerid,selected_stateid,selected_cityid)
+    {
+        $.ajaxSetup ({cache: false});
+
+        var loadUrl = "{{ base_url('front/fetchstate') }}/"+countryid+"/"+containerid;
+        //var formdata = $("#categoryListfrm").serialize();
+        //var del_id= $(this).attr('id');
+        $.ajax({
+                    type: "POST",
+                    url: loadUrl,
+                    dataType:"html",
+                    //data:formdata,
+                    success:function(responseText)
+                    {
+                        $("#"+containerid+"statecontainer").html(responseText);
+
+                        if(selected_stateid>0)
+                        {
+                             $('#'+containerid+'state').val(selected_stateid);
+
+                             fetchcities(selected_stateid,containerid,selected_cityid)
+
+                        }
+                        $("#"+containerid+"city").val('');
+                    },
+                    error: function(jqXHR, exception) {
+                          return false;
+                    }
+        });
+        return false;
+    }
+
+    function AllAddress()
+    {
+        $(".currentshippingaddress").first().change();
+        $(".currentshippingaddress")[0].checked = true;
+    }
+
+    function NewAddress()
+    {
+        $('#shippingaddress').val('');
+        $('#shippingcountry').val('');
+        $('#shippingstate').val('');
+        $('#shippingcity').val('');
+        $('#shippingzipcode').val('');
+        $('#shippingphonenumber').val('');
+        $('#is_new_shiping_address').val('1');
+    }
+
+    $(function(){
+            var uid = '{{userdata.id}}';
+            $.getJSON('{{ base_url('front/getallshipping') }}'+"/"+uid,function(data){
+                var data = JSON.stringify(data);
+                var addresses = $.parseJSON(data);
+                var html = '';
+                
+                //alert(addresses.length);
+                if(addresses.length>0)
+                {
+                    //alert("hi")
+                    //$("#shipaddress").removeClass('hidden');
+                    for(var i=0;i<addresses.length;i++)
+                    {
+                        var sel = i === 0 ? 'checked' : '';
+                        var fulladdress = addresses[i].address+','+addresses[i].countryname+','+addresses[i].statename+','+addresses[i].cityname+',pin-'+addresses[i].zip;
+                        html += '<tr>';
+                        html += '<td><input '+ sel +' type="radio" data-full-address="'+fulladdress+'" data-zip="'+addresses[i].zip+'" data-country="'+addresses[i].country+'"  data-state="'+addresses[i].state+'" data-city="'+addresses[i].city+'" data-address="'+addresses[i].address+'" data-phone="{{userdata.phone}}" class="currentshippingaddress" name="currentshippingaddress" /></td>';
+                        html += '<td>'+addresses[i].address+'</td>';
+                        html += '<td>'+addresses[i].cityname+'</td>';
+                        html += '<td>'+addresses[i].statename+'</td>';
+                        html += '<td>'+addresses[i].countryname+'</td>';
+                        html += '<td>'+addresses[i].zip+'</td>';
+                        html += '</tr>';
+                        console.log(addresses[i]);
+                    }
+                    $("#shipaddress").find('table tbody').html(html);
+                    $("#shipaddress").removeClass('hidden');
+                
+                }
+                else
+                {
+                    $("#shipaddress").addClass('hidden');
+                    NewAddress();
+                }
+
+
+            });
+
+            $(".currentshippingaddress").change();
+
+        });
+
+        $(document).on('change','#shipaddress .currentshippingaddress',function(){
+
+            $('#is_new_shiping_address').val('');
+            var self = $(this);
+            //alert(self.data('phone'));
+            $('#shippingaddress').val(self.data('address'));
+            $('#shippingcountry').val(self.data('country'));
+            $('#shippingphonenumber').val(self.data('phone'));
+            
+            fetchstate(self.data('country'),'shipping',self.data('state'),self.data('city'))
+
+            $('#shippingzipcode').val(self.data('zip'));
+           
+            $("#customershippingaddress span.fulladdress").html(self.data('full-address'));
+        });
+
+
+
+
+    function fetchcities(stateid,containerid,selected_cityid)
+    {
+        //alert(selected_cityid)
+        $.ajaxSetup ({cache: false});
+        var loadUrl = "{{ base_url('front/fetchcities') }}/"+stateid+"/"+containerid;
+        //var formdata = $("#categoryListfrm").serialize();
+        //var del_id= $(this).attr('id');
+        $.ajax({
+                type: "POST",
+                url: loadUrl,
+                dataType:"html",
+                //data:formdata,
+                success:function(responseText)
+                {
+                    $("#"+containerid+"citycontainer").html(responseText);
+                    if(selected_cityid>0)
+                    {  
+                         //alert(selected_cityid)
+                         $('#'+containerid+'city').val(selected_cityid);
+                    }
+                },
+           error: function(jqXHR, exception) {
+                        return false;
+         }
+        });
+        return false;
+    }
+
+     $("document").ready(function(){
+        {% if checkout_opt=='guest' %} 
+            getcustomerapproch('{{checkout_opt}}')
+        {% endif %}
+    });
+
+</script>
+
+{% endblock %}

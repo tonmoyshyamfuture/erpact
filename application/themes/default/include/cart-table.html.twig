@@ -1,0 +1,132 @@
+<form name="carttblfrm" id="carttblfrm" method="post">
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th></th>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th class="text-right">Price</th>
+            <th class="text-right">Total</th>
+            <th>&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        {% if cart %}
+        {% for row in cart %}
+        <tr>
+            <td class="col-sm-1 col-md-1">
+                <a href="#"> <img class="img-responsive thumbnail" src="{{base_url()}}application/modules/products/uploads/thumb/{{row.image}}" alt="{{row.name}}"></a>
+            </td>
+            <td class="col-sm-7 col-md-5">
+                <div class="media">
+                    <div class="media-body">
+                        <h4 class="media-heading"><a href="#">{{row.name}}</a></h4>
+                        <h5 class="media-heading"> by <a href="#">Brand name</a></h5>
+                        <span>Status: </span><span class="text-success"><strong>In Stock</strong></span><br>
+                        {% if row.options %}
+                        {% for key, row1 in row.options %}
+                            <span>{{key}}: </span><span class="text-success"><strong>{{row1}}</strong></span>
+                        {% endfor %}
+                        {% endif %}
+                    </div>
+                </div>
+            </td>
+            <td class="col-sm-3 col-md-3 update-wrap" style="text-align: center">
+
+                <div class="inline-block">
+                    <input onchange="updatecartitem('{{row.rowid}}');" name="quantity{{row.rowid}}" type="number" min="1" max="100" step="1" value="{{row.qty}}" size="1" class="form-control update-qty">
+                </div>
+                
+                <div class="inline-block">
+                    <a role="button" class="btn btn-success" href="">
+                        <span class="fa fa-refresh"></span> Update 
+                    </a>
+                </div>
+                
+            </td>
+            <td class="col-sm-1 col-md-1 text-right"><strong>{{row.price}}</strong></td>
+            <td class="col-sm-1 col-md-1 text-right"><strong>{{row.subtotal}}</strong></td>
+            <td class="col-sm-1 col-md-1 text-right">
+                <button onclick="removecartitem('{{row.rowid}}');" type="button" class="btn btn-danger btn-xs">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+            </td>
+        </tr>
+        {% endfor %}
+
+        <tr class="table-hover-none">
+            <td> &nbsp; </td>
+            <td> &nbsp; </td>
+            <td> &nbsp; </td>                        
+            <td class="text-right">
+                <h5>Subtotal</h5>
+            </td>
+            <td class="text-right">
+                <h5><strong>{{subtotal}}</strong></h5>
+            </td>
+            <td class="text-right col-sm-offset-1 col-md-offset-1">
+        </tr>
+        <tr class="table-hover-none">
+            <td class="border-top-0"> &nbsp; </td>
+            <td class="border-top-0"> &nbsp; </td>
+            <td class="border-top-0"> &nbsp; </td>
+
+            <td class="text-right border-top-0">
+                <h5>Service tax ({{servicetax}}%)</h5>
+            </td>
+            <td class="text-right border-top-0">
+                <h5><strong>{{servicetax_charge}}</strong></h5>
+            </td>
+            <td class="text-right col-sm-offset-1 col-md-offset-1 border-top-0"></td>
+        </tr>
+        <tr class="table-hover-none">
+            <td class="border-top-0"> &nbsp; </td>
+            <td class="border-top-0"> &nbsp; </td>
+            <td class="border-top-0"> &nbsp; </td>
+
+            <td class="text-right border-top-0">
+                <h5>VAT ({{vat}}%)</h5>
+            </td>
+            <td class="text-right border-top-0">
+                <h5><strong>{{vat_charge}}</strong></h5>
+            </td>
+            <td class="text-right col-sm-offset-1 col-md-offset-1 border-top-0"></td>
+        </tr>
+        <tr class="table-hover-none">
+            <td class="border-top-0"> &nbsp; </td>
+            <td class="border-top-0"> &nbsp; </td>
+            <td class="border-top-0"> &nbsp; </td>                                                
+            <td class="text-right border-top-0">
+                <h4>Total</h4>
+            </td>
+            <td class="text-right col-sm-offset-1 col-md-offset-1 border-top-0">
+                <h4><strong>{{grandtotal}}</strong></h4>
+            </td>                        
+            <td class="text-right col-sm-offset-1 col-md-offset-1 border-top-0"></td>
+        </tr>
+        <tr class="table-hover-none">
+            <td class="border-top-0"> &nbsp; </td>
+            <td class="border-top-0"> &nbsp; </td>
+            <td class="border-top-0"> &nbsp; </td>                        
+            <td class="text-right">
+                <button onclick="window.location.href='{{base_url()}}'" type="button" class="btn btn-default">
+                    <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
+                </button>
+            </td>
+            <td class="text-right">
+                <a role="button" class="btn btn-success" href="{{site_url('front/checkout')}}">
+                        Checkout <span class="glyphicon glyphicon-play"></span>
+                    </a>
+            </td>
+            <td class="text-right col-sm-offset-1 col-md-offset-1"></td>
+        </tr>
+        {% else %}
+        <tr>
+            <th colspan="6" class="text-center">Your cart is empty.</th>
+        </tr>
+        {% endif %}
+
+    </tbody>
+</table>
+</form>

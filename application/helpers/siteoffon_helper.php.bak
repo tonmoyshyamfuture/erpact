@@ -1,0 +1,177 @@
+<?php
+/**
+ *
+ * This helper is used 
+ * for retrieving the sitename 
+ * defined in the sitesettings
+ *
+ * <p>
+ *  @author : Suvra Bhattacharyya
+ *  @param : Without paramater for retrieving sitename. and name of the logo can be passed for retrieval of the full logo path
+ * </p>
+ *
+ */
+
+function getsitename($LOGO=NULL)
+{
+    $CI = & get_instance();
+    $CI->load->model('admin/sitesettingsmodel');
+    $detail=$CI->sitesettingsmodel->loadsitesettings();
+    if(!empty($detail))
+    {
+        $result=$detail->sitename;
+        if($LOGO)
+        {
+            $result=$detail->sitelogo;
+        }
+        return $result;
+    }
+    else
+    {
+      return "";
+    }
+    
+}
+
+
+function generate_directory_list()
+{
+    $CI = & get_instance();
+    $CI->load->helper('directory');   
+    
+    $theme=directory_map($_SERVER['DOCUMENT_ROOT'].'/P-007-projectbuilder/application/themes/');
+    echo '<ul>';
+    if(!empty($theme))
+    {
+        foreach($theme as $key => $val)
+        {
+            echo '<li><a href="">'.$key.'</a>';
+            if(is_array($val))
+            {
+                echo '<ul>';
+                foreach($val as $inkey => $inval)
+                {
+                    echo '<li>';
+                    if(is_array($inval))
+                    {
+                        //$parm="'".$_SERVER['DOCUMENT_ROOT'].'/P-007-projectbuilder/application/themes/'.$key.'/'.$inkey."'";
+                        $sndparam=urlencode(base64_encode($_SERVER['DOCUMENT_ROOT'].'/P-007-projectbuilder/application/themes/'.$key.'/'.$inkey));
+                        $param="'".$sndparam."'";
+                        echo '<a onclick="showcontent('.$param.')" href="javascript:void(0)">'.$inkey.'</a><ul>';
+                        foreach($inval as $k=>$v)
+                        {
+                            if(!is_array($v))
+                            {
+                                //$parm="'".$_SERVER['DOCUMENT_ROOT'].'/P-007-projectbuilder/application/themes/'.$key.'/'.$inkey.'/'.$v."'";
+                                $sndparam=urlencode(base64_encode($_SERVER['DOCUMENT_ROOT'].'/P-007-projectbuilder/application/themes/'.$key.'/'.$inkey.'/'.$v));
+                                $param="'".$sndparam."'";
+                                echo '<li><a onclick="showcontent('.$param.')" href="javascript:void(0)">'.$v.'</a></li>';
+                            }
+                        }
+                        echo '</ul>';
+                    }
+                    else 
+                    {
+                        //$parm="'".$_SERVER['DOCUMENT_ROOT'].'/P-007-projectbuilder/application/themes/'.$key.'/'.$inval."'";
+                        $sndparam=urlencode(base64_encode($_SERVER['DOCUMENT_ROOT'].'/P-007-projectbuilder/application/themes/'.$key.'/'.$inval));
+                        $param="'".$sndparam."'";
+                        echo '<a onclick="showcontent('.$param.')" href="javascript:void(0)">'.$inval.'</a>';
+                    }
+                    echo '</li>';
+                        
+                }
+                echo '</ul>';
+            }
+            echo '</li>';
+        }
+    }
+    
+    $assetscheck=array('css','js');
+    $asstes=directory_map($_SERVER['DOCUMENT_ROOT'].'/P-007-projectbuilder/assets/');
+    if(!empty($asstes))
+    {
+        foreach($asstes as $key => $val)
+        {
+            if(!in_array($key,$assetscheck))    continue;
+            echo '<li><a href="">'.$key.'</a>';
+            if(is_array($val))
+            {
+                echo '<ul>';
+                foreach($val as $inkey => $inval)
+                {
+                    echo '<li>';
+                    if(is_array($inval))
+                    {
+                        //$parm="'".$_SERVER['DOCUMENT_ROOT'].'/P-007-projectbuilder/assets/'.$key.'/'.$inkey."'";
+                        $sndparam=urlencode(base64_encode($_SERVER['DOCUMENT_ROOT'].'/P-007-projectbuilder/assets/'.$key.'/'.$inkey));
+                        $param="'".$sndparam."'";
+                        echo '<a onclick="showcontent('.$param.')" href="javascript:void(0)">'.$inkey.'</a><ul>';
+                        foreach($inval as $k=>$v)
+                        {
+                            if(!is_array($v))
+                            {
+                                //$parm="'".$_SERVER['DOCUMENT_ROOT'].'/P-007-projectbuilder/assets/'.$key.'/'.$inkey.'/'.$v."'";
+                                $sndparam=urlencode(base64_encode($_SERVER['DOCUMENT_ROOT'].'/P-007-projectbuilder/assets/'.$key.'/'.$inkey.'/'.$v));
+                                $param="'".$sndparam."'";
+                                echo '<li><a onclick="showcontent('.$param.')" href="javascript:void(0)">'.$v.'</a></li>';
+                            }
+                        }
+                        echo '</ul>';
+                    }
+                    else 
+                    {
+                        //$parm="'".$_SERVER['DOCUMENT_ROOT'].'/P-007-projectbuilder/assets/'.$key.'/'.$inval."'";
+                        $sndparam=urlencode(base64_encode($_SERVER['DOCUMENT_ROOT'].'/P-007-projectbuilder/assets/'.$key.'/'.$inval));
+                        $param="'".$sndparam."'";
+                        echo '<a onclick="showcontent('.$param.')" href="javascript:void(0)">'.$inval.'</a>';
+                    }
+                    echo '</li>';
+                        
+                }
+                echo '</ul>';
+            }
+            echo '</li>';
+        }
+    }
+    
+    echo '</ul>';
+}
+
+
+
+
+/*
+ * Previous version
+function generate_directory_list($dirlist,$path)
+{
+    $showdir = array('application','themes','default','include','css');
+    $showfile=array('index.php','index.html','developer.js','developer.css');
+      echo '<ul>';
+	if(!empty($dirlist))
+	{
+         $cnt=1;
+	 foreach($dirlist as $key => $list)
+	 {
+             
+            if(is_array($list))
+            {
+               if(in_array($key,$showdir)) 
+               {
+                   
+                   $path=$path.'/'.$key;
+                   echo '<li><a href="'.$path.'">'.$key.'</a>';
+                   generate_directory_list($list,$path);
+                   echo '</li>';
+               }
+            }
+            else
+            {
+                if(in_array($list,$showfile))    continue;
+                echo '<li><a href="'.$path.'/'.$list.'">'.$list.'</a></li>';
+                //echo $path."***";
+            }
+         }
+	}
+      echo '</ul>';      
+}*/
+    

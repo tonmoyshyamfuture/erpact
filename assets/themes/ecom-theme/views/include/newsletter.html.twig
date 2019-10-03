@@ -1,0 +1,95 @@
+<div class="row newsletter-wrap">
+    <div class="margin-t-40 padding-t-20 padding-b-10 bg-info clearfix">
+    <div class="container">
+  <div class="col-sm-6">
+  <div class="footer-header">
+  <h4>Newsletter</h4>
+  </div>
+    
+    <p>Subscribe to our weekly Newsletter and stay tuned.</p>
+    </div>
+  <div class="col-sm-6">
+        <div class=" margin-t-10">
+        <form action="{{site_url('front/subscribeNewsletter')}}" method="post" id="newsletteremail" name="newsletteremail">
+            <div class="form-group ">
+            <div class="col-sm-8">
+              <div class="input-group" id="errornewsletter">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-envelope"></span></span>
+                    <span><input class="form-control" type="email" id="emailnewsletter" name="emailnewsletter" placeholder="your@email.com"></span>                    
+                </div>
+                <label id="newsletter-res-msg" style="display: none;"></label>
+            </div>
+                  
+
+                <div class="col-sm-4"><input type="submit" onclick="subscribe()" value="Subscribe" class="btn btn-success news-btn" /></div>
+            </div>
+            
+   </form>  
+    </div>
+    
+    
+          
+    </div>
+    </div>
+    </div>
+</div>
+<script>
+    function subscribe()
+    {
+        //alert('hello');
+	var emailnewsletter=$('#emailnewsletter').val();
+	var validRegex=/^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+	var flag=0;
+        
+        if(emailnewsletter === ''){
+            //$('#emailnewsletter').addClass('errorclass');  
+            flag=1;
+        }
+	else if(emailnewsletter.search(validRegex) == -1){
+	   //$('#emailnewsletter').addClass('errorclass');  
+            flag=1;
+	}
+        
+
+	if(flag!=0)
+        {
+            return false;
+        }
+
+        $.ajaxSetup ({cache: false});
+        var loadUrl = "{{base_url('front/subscribeNewsletter')}}";
+        var formdata = $("#newsletteremail").serialize();
+
+        $.ajax({
+                type: "POST",
+                url: loadUrl,
+                dataType:"html",
+                data:formdata,
+                success:function(responseText)
+                {
+                    if(responseText==1)
+                    {
+                        $('#emailnewsletter').val('');
+                        $("#newsletter-res-msg").addClass('text-success');
+                        $("#newsletter-res-msg").html("Successfully subscribed");
+                        $("#newsletter-res-msg").show();
+                    }
+                    else
+                    {
+                        $('#emailnewsletter').val('');
+                        $("#newsletter-res-msg").addClass('error');
+                        $("#newsletter-res-msg").html("Subscription failed");
+                        $("#newsletter-res-msg").show();
+                    }
+                    //alert(responseText);
+                    //window.location.reload(true); 
+                    //alert(responseText);
+                    //window.location.href="{{ site_url('cart') }}";
+                },
+                error: function(jqXHR, exception) {
+                    return false;
+                }
+        });
+        return false;
+    }
+</script>

@@ -1,0 +1,267 @@
+@import '//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css';
+@page{size:A4 !important; margin:4mm 5mm !important}
+html,*,body{font-family: Trebuchet, Arial, sans-serif !important; color: #000 !important}
+.table{cellpadding:0; cellspacing:0; width:100%; border-collapse: collapse; font-size: 9px !important;}
+.table>tbody>tr>td{padding:4px; font-family: Arial; border: 1px solid #000000;}
+.table>thead>tr>th{padding:4px; font-family: Arial; border: 1px solid #000000}
+.table>tfoot>tr>th,.table>tfoot>tr>td{padding:4px; font-family: Arial; border: 1px solid #000000}
+a{text-decoration: none !important}
+.text-left{text-align: left !important}
+.text-right{text-align: right !important}
+.text-center{text-align: center !important}
+.table > thead > tr > th{vertical-align: middle; border-bottom: 1px solid #000000}
+.table > tfoot > tr > td{vertical-align: middle}
+.indent-1 td:first-child{ padding-left: 20px;}
+.indent-2 td:first-child{ padding-left: 40px;}
+.indent-3 td:first-child{ padding-left: 60px;}
+.indent-4 td:first-child{ padding-left: 80px;}
+.indent-1.bold,.indent-2.bold,.indent-3.bold,.indent-4.bold{background: #f5f5f5;  color: #000;}
+
+/* report header */
+.report-header,.report-header-company-info{margin-bottom: 0;}
+.report-header-company-info h3{ font-size: 15px !important; margin: 0 0 5px 0 !important; text-align: center; font-family: 'Arial', Arial, sans-serif;  text-transform: uppercase}
+.report-header h3{ font-size: 13px !important; margin: 0 0 5px 0 !important; text-align: center; font-family: 'Arial', Arial, sans-serif;  text-transform: uppercase}
+.report-header p,.report-header-company-info p{ font-size: 10px !important; text-align: center; margin-top: 0;  text-transform:none !important}
+
+/* table report head */
+.table-report thead tr th{border: 1px solid #000000 !important; text-transform: uppercase}
+.table-report thead tr:first-child th{border: 0 !important;}
+
+/* table report foot */
+.table-report tfoot tr td,.table-report tfoot tr th{border: 1px solid #000000 !important; text-align: right !important; font-weight: bold; text-transform: uppercase}
+.table-report tfoot tr:first td,.table-report tfoot tr:first th{border-top: 0px solid #000000 !important; }
+.table-report tfoot tr td:first-child,.table-report tfoot tr th:first-child{border-left: 0 !important; text-align: left !important}
+.table-report tfoot tr td:last-child,.table-report tfoot tr th:last-child{border-right: 0 !important; }
+.table-report h5{font-size: 12px !important}
+.breadcrumb{display: none !important}
+/* table report body */
+.table-report tbody tr td{text-align: right;}
+.table-report tbody tr  td.noborder{border:0 !important}
+.table-report tbody tr  td:last-child{padding-right: 2px;}
+.table-report tbody tr  td:first-child{text-align: left;}
+.table-report tbody tr  td.text-left{text-align: left;}
+.table-report tbody tr  td.text-center{text-align: center;}
+.table-report tbody tr  tr.text-right th{text-align: right}
+
+/* left & right border 0 */
+/* left & right border 0 */
+.table-report thead tr th:first-child{border-left: 0 !important;}
+.table-report thead tr th:last-child{border-right: 0 !important}
+.table-report tfoot tr th:first-child,.table-report tfoot tr td:first-child{border-left: 0 !important;}
+.table-report tfoot tr th:last-child,.table-report tfoot tr td:last-child{border-right: 0 !important}
+.table-report tbody tr td{border-left: 0 !important; border-right: 0 !important}
+
+/* table > table */
+.table-report{border: 0; margin: 0}
+.table-report .table,.table-report .table .table{border:0; margin: 0;}
+
+/* SET 2 for 2 COL report */
+.table-report a, .table-report2 a{transition: all o.5s;}
+.table-report a:hover, .table-report2 a:hover{text-decoration: underline; color: #000!important}
+
+.table-report2 {margin: 0}
+.table-report2 > tbody > tr > td {white-space: nowrap}
+.table-report2 > thead > tr > th{border: 1px solid #ccc !important; text-align: center !important; text-transform: uppercase; background: #f5f5f5;}
+.table-report2 > thead > tr > th:first-child{border-left: 0 !important; text-align: left !important}
+.table-report2 > thead > tr > th:last-child{border-right: 0 !important; }
+.table-report2 > tfoot > tr > td,.table-report2 > tfoot > tr > th{border: 1px solid #ccc !important; text-align: right !important; font-weight: bold; text-transform: uppercase;  background: #f5f5f5;}
+.table-report2 > tfoot > tr:first > td,.table-report2 > tfoot > tr:first > th{border-top: 0px solid #ccc !important; }
+.table-report2 > tfoot > tr > td:first-child,.table-report2 > tfoot > tr > th:first-child{border-left: 0 !important; text-align: left !important}
+.table-report2 > tfoot > tr > td:last-child,.table-report2 > tfoot > tr > th:last-child{border-right: 0 !important; }
+.table-report2 .subTable1{width:98%; float: left}
+.table-report2 .subTable2{width:98%; float: right;}
+
+.table-report2.table-voucher-body > tbody > tr > td{border: 0 !important; font-size: 8pt !important}
+
+.table-balancesheet.table > tbody > tr > th{border: 0 !important}
+.table-balancesheet .table-report2{border: 0 !important}
+.table-balancesheet .table-report2 tr td {border-left: 0 !important; border-right: 0 !important}
+ 
+.border-r{border-right: 1px solid #ccc !important}
+.border-b{border-bottom: 1px solid #ccc !important}
+.border-t{border-top: 1px solid #ccc !important}
+.border-t-ddd{border-top: 1px solid #ddd !important}
+.indent-1 td:first-child{ padding-left: 10px !important; text-align: left}
+.indent-2 td:first-child{ padding-left: 20px !important; text-align: left}
+.indent-3 td:first-child{ padding-left: 30px !important; text-align: left}
+.indent-4 td:first-child{ padding-left: 40px !important; text-align: left}
+.indent-1.bold,.indent-2.bold,.indent-3.bold,.indent-4.bold{background: #fff; text-align: left}
+.border-r{border-right: 1px solid #ccc !important}
+.border-b{border-bottom: 1px solid #ccc !important}
+.border-t{border-top: 1px solid #ccc !important}
+.border-t-ddd{border-top: 1px solid #ddd !important}
+
+.table>tbody>tr>td:first-child{text-align: left!important}
+
+.width-260,.width-200,.width-180,.width-190,.width-180,.width-170,.width-160,.width-150,.width-140,.width-130,.width-120,.width-110,.width-100,.width-90,.width-80,.width-70,.width-60,.width-50p,.width-date,.width-voucher-dr-cr{width:auto !important}
+.width-date{width: 50px !important;}
+.width-70{width:40px !important}
+.width-80{width:50px !important}
+.width-90{width:60px !important}
+.width-100{width:70px !important}
+.width-110{width:75px !important}
+.width-120{width:80px !important}
+.width-130{width:90px !important}
+.width-140{width:100px !important}
+.base_currency{margin: 10px 0 0; font-size: 7pt;}
+
+.table-agingsummary tr td,.table-agingsummary tr th{width: 60px !important; text-align: right !important}
+.table-agingsummary tr td:first-child,.table-agingsummary tr th:first-child{width: auto !important; text-align: left !important}
+.table.table-agingDetails > thead > tr > th{width: 70px!important; text-align: right !important}
+.table.table-agingDetails > thead > tr > th:first-child{width: auto !important; text-align: left !important}
+
+.do-not-print{display: none !important}
+.invoice-terms>td{border-bottom: 1px solid #ddd !important; height:70px;}
+.invoice-terms>td:first-child{border-right: 1px solid #ddd !important}
+.invoice-terms>td:last-child{width:200px;}
+.invoice-narations>td{height:50px;}
+#fitThisText{font-size: 7pt !important;}
+
+table.table.table-gst-header {empty-cells: hide;}
+/* to hide excel export button */
+button.xlsx{display: none;}
+.table-balancesheet-vertical > tbody > tr:last-child > td{border-bottom: 1px solid #000000 !important;font-weight: bold}
+.table-balancesheet-vertical > tbody > tr:last-child > td:nth-child(2){border-left: 1px solid #000000 !important; border-right: 1px solid #000000 !important}
+.table-pl-vertical > tbody > tr:last-child > td{border-bottom: 1px solid #000000 !important;font-weight: bold}
+.table-pl-vertical > tbody > tr:last-child > td:nth-child(2){border-left: 1px solid #000000 !important; border-right: 1px solid #000000 !important}
+
+.table-ratio-analysis > tbody > tr > td:last-child{text-align: right;}
+.table-ratio-analysis > tbody > tr:last-child > td{border-bottom: 1px solid #000000 !important;}
+.table-ratio-analysis > tbody > tr:last-child > td{border-bottom: 1px solid #000000 !important;}
+.table-ratio-analysis > tbody > tr.ratio-title {font-weight: bold; text-transform: uppercase}
+.table-ratio-analysis > tbody > tr.ratio-title td:last-child{border-left: 1px solid #000000 !important}
+
+.table-stat-report > tbody > tr:last-child > td{border-bottom: 1px solid #000000 !important;font-weight: bold}
+.table-stat-report > tbody > tr > td:last-child{text-align: right;}
+.table-stat-report > tbody > tr:last-child > td{border-bottom: 1px solid #000000 !important;}
+.table-stat-report > tbody > tr.ratio-title {font-weight: bold; text-transform: uppercase}
+.table-stat-report > tbody > tr.ratio-title td:last-child{border-left: 1px solid #000000 !important}
+
+.table-rpt-daybook > tbody > tr > td{text-align: left}
+.table-rpt-daybook > tbody > tr > td:last-child{text-align: right !important}
+.table-rpt-daybook > tbody > tr:last-child > td{border-bottom: 1px solid #000000 !important;}
+
+.table-payment-receipt > tbody > tr:last-child > td{border-bottom: 1px solid #000000 !important;font-weight: bold;}
+.table-payment-receipt > tbody > tr > td:last-child{ text-align: right;}
+.table-payment-receipt > tbody > tr.ratio-title {font-weight: bold; text-transform: uppercase}
+.table-payment-receipt > tbody > tr.ratio-title > td{background: #f5f5f5!important;}
+.table-payment-receipt > tbody > tr.ratio-title td:last-child{border-left: 1px solid #000000 !important;}
+
+.report-norecord-found {display: block!important; width:100%!important; color: #000000!important; padding: 50px 0!important; text-align: center!important}
+
+.table-stock-summary {min-width: 595px;}
+.table-stock-summary>tbody>tr>td,.table-stock-summary>thead>tr>th,.table-stock-summary>tfoot>tr>th{padding:2px !important; font-size:6pt !important;}
+
+.table-summary-report {min-width: 595px;}
+.table-summary-report>tbody>tr>td,.table-summary-report>thead>tr>th,.table-summary-report>tfoot>tr>th{padding:2px !important; font-size:6pt !important;}
+
+.table-ledger-report-details>tbody>tr:first-child>td{border-top: 0 !important}
+.table-ledger-report-details>tbody>tr:last-child>td{border-bottom: 0 !important}
+
+/* voucher format 1*/
+.table > tbody > tr > td.wrap{white-space: normal !important}
+/* voucher no. date*/
+.table-voucher-header{margin-bottom: 5px;}
+.table-voucher-header>tbody>tr>td{border: 0 !important; text-align: left !important;width: 50%; font-size: 7.5pt !important}
+.table-voucher-header>tbody>tr>td span{font-weight: bold;}
+.table-voucher-header>tbody>tr>td:last-child{text-align: right !important;}
+.report-header-company-info.voucher h5{margin:0 0 5px!important; text-decoration: underline!important}
+.report-header-company-info.voucher h6{margin:0 0 5px!important; font-weight: normal!important}
+.table-voucher-body {margin: 0;}
+/* header & footer */
+.table-voucher-body > thead > tr > th,.table-voucher-body > tfoot > tr > th{text-transform: uppercase; border: 1px solid #000000 !important;font-size: 7.5pt !important}
+.table-voucher-body > thead > tr > th:first-child,.table-voucher-body > tfoot > tr > th:first-child{border-left: 0 !important}
+.table-voucher-body > thead > tr > th:last-child,.table-voucher-body > tfoot > tr > th:last-child{border-right: 0 !important}
+.table-voucher-body > tfoot > tr > th:first-child{text-transform: none !important}
+.table-voucher-body > tfoot > tr > th:first-child span{font-weight: normal !important}
+.particulars_name{padding-left: 15px;}
+/* body */
+.voucher-naration {white-space: normal !important; min-height: 100px !important; margin-top: 10px; font-size: 7pt !important; font-weight: normal}
+.table-voucher-body > tbody > tr > td{border: 0!important; font-size: 7.5pt !important}
+.table-voucher-body > tbody > tr > td:nth-child(2){border-left: 1px solid #000000 !important;border-right: 1px solid #000000 !important;}
+/* checked by, Verified by */
+.table-voucher-footer{width:90%;margin: 50px auto 0;}
+.table-voucher-footer>tbody>tr>td{border: 0 !important; text-align: center; font-weight: bold;width: 33.33%; font-size: 7pt !important}
+.table-voucher-footer>tbody>tr>td:first-child{text-align: left}
+.table-voucher-footer>tbody>tr>td:last-child{text-align: right}
+
+
+/* invoice new format 2018 */
+.table-invoice-main{border: 0!important; margin: 0;}
+.table-invoice-main>thead>tr>th,.table-invoice-main>tbody>tr>td,.table-invoice-main>tfoot>tr>th{padding: 0!important;border: 0!important;vertical-align: top;font-size: 8pt !important}
+#printreport p,.table-invoice-main *{font-size: 8pt;}
+
+.table-invoice-header>tbody>tr>td{padding: 0!important;border: 1px solid #000000!important;vertical-align: top; overflow: visible; text-overflow:initial; white-space: normal;font-size: 8pt !important}
+.table-invoice-header>tbody>tr:first-child>td{border-top: 1px solid transparent!important;border-left: 1px solid transparent!important;border-right: 1px solid transparent!important;}
+.table-invoice-header>tbody>tr>td:first-child,.table-invoice-header>tbody>tr>td:nth-child(2){width:150px !important}
+.invoice-title{text-align: center!important}
+.invoice-title h1{font-size: 13pt !important;margin: 0 0 5px;text-align: center!important}
+.invoice-title h3{font-size: 9pt!important;font-weight: normal !important;margin: 0 0 10px !important;text-align: center!important}
+.invoice-header-address{font-weight: normal; padding: 2px; width: 100%; display: block}
+.table-invoice-header-bill-dtls > .table {margin: 0!important; border: 0!important}
+.table-invoice-header-bill-dtls > .table>tbody>tr>td{padding:2px !important; border-color: #000000; font-weight: normal;overflow: visible; text-overflow:initial; white-space: normal; border-left: 0!important; border-right: 0!important;font-size: 6pt !important}
+.table .table-invoice-header-bill-dtls > .table>tbody>tr:first-child>td{border: 0!important;}
+.table .table-invoice-header-bill-dtls > .table>tbody>tr:last-child>td{border-bottom: 0!important;}
+.table .table-invoice-header-bill-dtls .table td {padding:2px !important;overflow: visible; text-overflow:initial; white-space: normal;font-size: 8pt !important}
+.invoice-address-indent{padding-left: 10px;}
+
+/* body */
+.table-invoice-body{margin: 0;}
+.table-invoice-body>thead>tr>th{background: #f5f5f5; border-left:1px solid #000000;font-size: 8pt !important}
+.table-invoice-body>thead>tr>th:last-child{border-right:1px solid #000000;}
+.table-invoice-body>tbody>tr>td{border:0; border-left: 1px solid #000000; font-size: 8pt !important; vertical-align: top !important}
+.table-invoice-body>tbody>tr>td:last-child{border-right: 1px solid #000000;}
+.table .table.table-invoice-body td,.table .table.table-invoice-body th {padding: 2px !important;font-size: 8pt !important}
+
+.inv-slno{width:10px}
+.inv-itemdtls{}
+.inv-hsn{width:40px}
+.inv-qty{width:42px }
+.inv-rate{width:65px }
+.inv-unit{width:35px }
+.inv-value{width:75px;}
+.inv-disc{width:30px }
+.inv-amount{width:75px;}
+
+.inv-tax-rate{width:7px !important}
+.inv-tax-value{width:52px!important;}
+.inv-tax-tot{width:73.5px!important}
+.border-right{border-right: 1px solid #f00 !important}
+.border-left{border-left: 1px solid #000000 !important}
+
+.table-invoice-total{margin: 0; border:0!important;}
+.table-invoice-total>thead>tr>th{background: #f5f5f5; border-top:1px solid #000000;border-bottom:1px solid #000000;border-left:1px solid #000000;font-size: 8pt !important}
+.table-invoice-total>thead>tr>th:last-child{border-right:1px solid #000000}
+.table .table.table-invoice-total th {padding: 2px !important;}
+
+
+.table-invoice-footer{border:0; margin: 0;}
+.table .table.table-invoice-footer td {padding: 2px !important;}
+.table-invoice-footer>tbody>tr>td{border:1px solid #000000 !important; vertical-align: top; font-weight: normal; overflow: visible; text-overflow:initial; white-space: normal;font-size: 8pt !important}
+.table-invoice-main .table-invoice-footer>tbody>tr.row-grand-total>td{border-top: 1px solid #000000!important; background: #f0f0f0; font-weight: bold; font-size: 8.5pt !important;}
+.table-invoice-footer>tbody>tr.row-grand-total>td:last-child{text-align: right;}
+
+.table-invoice-footer>tbody>tr.row-terms>td{font-size: 7pt !important}
+.table-invoice-footer>tbody>tr.row-terms>td:last-child{width:225px;}
+.table-invoice-footer>tbody>tr.row-discount>td{background: #f0f0f0}
+.table-invoice-footer>tbody>tr.row-naration>td{height:50px;font-size: 7pt !important}
+
+.invoice-declaration{margin:8px 0}
+.invoice-declaration span{font-weight:bold}
+
+.invoice-continued{width:100%; display:block; text-align: right; margin-top: 10px; font-size: 7pt; font-style: italic}
+/* end new invoice */
+
+.log_check, .log_check_all {display: none;}
+
+.product-description{ display: block; width: 100%; font-size: 11px;white-space: normal;overflow: visible;margin-left: 2px;word-break: break-all;display: block;}
+.row-height > td{height: 40px;}
+
+.multi-copy-text {
+	/*position: absolute;*/
+	margin-top: 22px;
+	display: block;
+	width: 100%;
+	text-align: right;
+	font-size: 9px;
+}

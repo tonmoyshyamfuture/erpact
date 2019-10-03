@@ -1,0 +1,71 @@
+ <!-- attribute start -->
+ 
+              {% if productattr %}
+                
+               {% for key, row in productattr %}
+                   <div class='prdtDesc'>
+                      <p>{{key}}:</p>
+
+                    <ul  {% if key != "Color" %} class="size" {% else %} class="color" {% endif %} >
+
+                       {% for rowattr in row %}
+                          {% if key == "Color" %} 
+                            <li data-value="{{key}}" value="{{rowattr[1]}}" style="background:{{rowattr[1]}}" class="attr" id="{{rowattr[0]}}"></li>
+                                      {% else %}        
+
+                             <li data-value="{{key}}" value="{{rowattr[1]}}" class="attr" id="{{rowattr[0]}}">{{rowattr[1]}}</li>
+
+                           {% endif %}        
+
+                        {% endfor %}
+                     <input type="hidden" name="{{key}}" id="{{key}}" value="">  
+                     </ul> 
+                     </div>
+                     <div class="clearfix"></div>
+                     
+                  
+
+           {% endfor %}
+
+           <p id="{{ productattr|length }}" class="attrcount">&nbsp;</p>
+
+          {% endif %} 
+<style>
+    .divDisabled{
+        pointer-events: none;
+        opacity: 0.5;
+        background: #CCC;
+    }
+    .attr.selected {
+        border: 2px solid #0093DF;
+        box-shadow: 0 0 8px 2px #888;
+    }
+</style>
+{% if attributestring %}
+    <script>
+        var attributepusharr=[];
+        var attributestring="{{attributestring}}";
+        var attributearr=attributestring.split(",");
+    </script>
+{% endif %}
+<script>
+    
+    $('ul li').click(function(){
+        var dataval=$(this).attr('data-value');
+        var value=$(this).attr('value');
+        $("#"+dataval).val(value);
+        var productattricheck=$.inArray(dataval, attributepusharr);
+
+        if(productattricheck==-1)
+        {
+            attributepusharr.push(dataval); 
+        }
+
+        if($(attributearr).not(attributepusharr).length === 0 && $(attributepusharr).not(attributearr).length === 0)
+        {
+            $("#addtocartcontainer").removeClass('divDisabled');
+        }
+        $(this).addClass('selected').siblings().removeClass('selected');
+    });
+</script>       
+<!-- /attribute end-->

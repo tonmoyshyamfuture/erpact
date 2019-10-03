@@ -1,0 +1,49 @@
+
+   
+
+<div id="carousel-example-generic" class="carousel slide testimonial" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+                  {% for row in testimonials %}
+
+            <li data-target="#carousel-example-generic" data-slide-to="{{ loop.index0 }}" class="{% if loop.first  %} active {% endif %}"></li>
+
+
+                  {% endfor %}  
+        </ol>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner">
+            <!-- item 1 -->
+            {% for row in testimonials %}
+
+            <div class="item {% if loop.first  %} active {% endif %}">
+                <div class="row">
+                    <div class="container">
+                        <div class="thumbnail adjust1">
+                            <div class="col-xs-3 ">
+                               <div class="test-featured-image">
+                               <div class="test-imgs" style="background:url('{{ base_url()}}application/modules/testimonial/testimonial_images/{{ row.image_upload }}');"></div>
+                                   
+                               </div>
+                             </div>
+                            <div class="col-xs-9">
+                                <div class="caption">
+                                    <p class="text-info lead adjust2 testi-info">{{ row.extrainfo }}</p>
+                                    <p><span class="glyphicon glyphicon-thumbs-up"></span> {{ row.content }}</p>
+                                    <div class="adjust2 pull-right test-name"><p>{{ row.name }}</p>  </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+                  {% endfor %}  
+            </div>
+          
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev"> <span class="glyphicon glyphicon-chevron-left"></span> </a>
+        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next"> <span class="glyphicon glyphicon-chevron-right"></span> </a>
+
+    </div>
+
+

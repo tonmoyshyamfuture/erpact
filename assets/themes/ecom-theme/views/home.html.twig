@@ -1,0 +1,49 @@
+{% extends "index.html.twig" %}
+
+{% block content %}
+
+  
+
+<div class="container-fluid">
+
+        <!--Banner -->
+        {% if banners %}
+                  {% include 'include/banner.html.twig' %}
+        {% endif %}
+
+         <!--Banner -->
+         <!--Product -->
+         {% if products %}
+
+         <div class="row">
+            <div class="col-sm-12">
+                <div class="page-header">
+                    <h2> <span>Products Grid</span>  </h2>
+                </div>
+            </div>
+        </div>
+        <!-- /.row -->
+        
+        
+          {% include 'include/product.html.twig' %}
+
+         {% endif %}  
+         <!--Product -->
+    
+    	<!--testimonials -->
+    	{% if testimonials %}
+              {% include 'include/testimonial.html.twig' %}
+    	{% endif %}
+    	<!--testimonials -->
+
+    	{#<!--newsletter -->
+    	{% if newsletter %}
+             {% include 'include/newsletter.html.twig' %}
+            {% endif %}
+    	<!--newsletter -->#}
+      
+        
+    </div><!-- /container-fluid-->
+
+
+{% endblock %}

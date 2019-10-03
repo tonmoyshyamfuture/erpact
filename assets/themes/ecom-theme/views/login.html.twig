@@ -1,0 +1,95 @@
+{% extends "index.html.twig" %}
+
+{% block content %}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-header text-center">
+                <h2>Login</h2>
+            </div>
+        </div>
+    </div>
+
+    <div class="row margin-b-20">
+        <div class="col-md-4 col-md-offset-4">
+            <form name="loginfrm" id="loginfrm" method="post">
+            <div class="form-group">
+                <label>Email Address</label>
+                <input onfocus="removeerrorclass()" type="email" name="email" id="email" class="form-control" placeholder="Email" />
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input onfocus="removeerrorclass()" type="password" name="password" id="password" class="form-control" placeholder="Password"/>
+            </div>
+            <div class="form-group">
+                <a href="{{ site_url('forget-password') }}">Forgot Password?</a>
+            </div>
+            <div class="form-group">
+                <a href="javascript:void(0)" onclick="login()" role="button" class="btn btn-primary">Login</a>
+            </div>
+            <div id="login-error" class="form-group text-danger hidden">
+                <span>Email id or password is wrong</span>
+            </div>
+            <hr>
+            <h4 class="text-muted">Don't have an account? </h4>
+            <p>By creating an account on our website you will be able to shop faster, be up to date on an orders status, and keep track of the orders you have previously made.</p>
+            <div class="form-group">
+                <a href="{{ site_url('register') }}/{{returnurl}}" role="button" class="btn btn-default">Register here...</a>
+            </div>
+            </form>
+        </div>
+    </div>  <!-- /.row -->
+
+</div><!-- /container-fluid-->
+<script type="text/javascript">
+    function removeerrorclass()
+    {
+        $("#email").removeClass('errorclass');
+        $("#password").removeClass('errorclass');
+    }
+    
+    function login()
+    {
+        var email = $('#email').val();
+        var password = $('#password').val();
+	var flag=0;
+        
+        if(email === ''){
+            $('#email').addClass('errorclass');  
+            flag=1;
+        }
+        if(password === ''){
+            $('#password').addClass('errorclass');  
+            flag=1;
+        }
+        
+        if(flag!=0)
+        {
+            return false;
+        }
+        
+        $.ajaxSetup ({cache: false});
+        var loadUrl = "{{ site_url('front/checkoutlogin') }}";
+        var formdata = $("#loginfrm").serialize();
+
+        $.ajax({
+                type: "POST",
+                url: loadUrl,
+                dataType:"html",
+                data:formdata,
+                success:function(responseText)
+                {
+                    //alert(responseText);
+                    if(responseText==1)
+                        window.location.href="{{ site_url('profile') }}";
+                    else
+                        $("#login-error").removeClass('hidden');
+                },
+                error: function(jqXHR, exception) {
+                    return false;
+                }
+        });
+        return false;
+    }
+</script>
+{% endblock %}

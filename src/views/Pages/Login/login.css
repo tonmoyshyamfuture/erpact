@@ -1,0 +1,8 @@
+.login-page, .register-page{
+    height: 100vh;
+    overflow-y: auto;
+}
+.form-group{position: relative}
+.form-group .fa{position: absolute; top: 14px; left: 15px;}
+.form-group .forgotpass{left: auto; right: 10px; top: 12px; font-size: 18px;}
+.form-group .form-control{padding-left: 40px;}

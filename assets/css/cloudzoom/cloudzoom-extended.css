@@ -1,0 +1,108 @@
+*{margin:0px;padding:0;list-style-type:none;}
+body{background:#E9F0F5;font-family:Arial, Helvetica, sans-serif;font-size:13px;margin:0px;padding:0px;}
+html{background-color:#E9F0F5;}
+img{border:none;}
+h3{font-family:Tahoma, Geneva, sans-serif;font-size:14px;color:#333;letter-spacing:1px;margin-top:10px;margin-bottom:10px;}
+p{margin-bottom:10px;margin-top:10px;line-height:22px;}
+.demo{margin:0 auto;width:600px;}
+.tickul li{line-height:24px;}
+/* zoom-section */
+.zoom-section{clear:both;margin-top:20px;}
+*html .zoom-section{display:inline;clear:both;}
+.zoom-desc{float:left;margin-left:10px;width:310px;margin-bottom:20px;}
+.zoom-small-image{border:4px solid #CCC;float:left;margin-bottom:20px;}
+.zoom-tiny-image{border:1px solid #CCC;margin:0px;}
+.zoom-tiny-image:hover{border:1px solid #C00;}
+
+/*  Vertical */
+.zoom-desc p:after, .zoom-desc:before{
+    content:'';
+    clear:both;
+    display: table;
+}
+.is-left-vertical.zoom-desc{
+    clear:both;
+    margin-left:10px;
+    width:53px;
+    margin-bottom:20px;
+    
+}
+.is-left-vertical p{
+    margin-top:0;
+    margin-bottom:0;
+}
+.is-left-vertical .cloud-zoom-gallery {
+    display: block;
+    height: 64px;
+    margin-bottom: 5px;
+    overflow: hidden;
+    width: 48px;
+    border:1px solid #ccc;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+        
+}
+.is-left-vertical .cloud-zoom-gallery:hover{
+    border:1px solid #000;
+}
+
+.is-left-vertical .cloud-zoom-gallery > img.zoom-tiny-image{
+    display: block;
+    margin-left:auto;
+    margin-right:auto;
+    border:1px solid transparent !important;
+}
+
+.is-left-vertical .cloud-zoom-gallery > img.zoom-tiny-image:hover{
+    border:1px solid transparent !important;
+}
+
+.is-left-vertical .cloud-zoom-title{
+    display: none !important;
+}
+
+.cloud-zoom-big{
+    width:300px;
+    height:500px;
+}
+@media (max-width:767px){
+    .cloud-zoom-big{
+        top:-4px !important;
+        left:-4px !important;
+    }
+    
+    .zoom-small-image {
+    border: 4px solid #ccc;
+    clear: left;
+    float: none;
+    margin-bottom: 20px;
+    width: 240px;
+}
+
+.is-left-vertical.zoom-desc {
+    
+    float: left;
+    margin-bottom: 5px;
+    margin-left: 0;
+    position: relative;
+    width: 100%;
+}
+
+.is-left-vertical p {
+    margin-top: 0;
+}
+
+
+.is-left-vertical .cloud-zoom-gallery {
+   
+    display: inline;
+    float: left;
+    
+    margin-right: 5px;
+    margin-bottom:0;
+    
+    
+    
+}
+}  

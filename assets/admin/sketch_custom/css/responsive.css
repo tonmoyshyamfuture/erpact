@@ -1,0 +1,144 @@
+@media screen and (max-device-width: 1260px) and (min-device-width:1200px){ 
+    .bank_card .bank_links a{padding:5px 8px;}
+}
+
+@media screen and (max-device-width: 1100px){ 
+    .themethumb-wrapper{height:330px}
+    .theme-img{height: 200px}
+    #number_formating .form-control{margin-bottom: 5px}
+    #add-bill-of-material .form-inline .form-group{display: block; text-align: left; margin-bottom: 15px;}
+    #add-bill-of-material .form-inline .form-group label{width:35%}
+    #add-bill-of-material .form-inline .form-group .form-control {width:60%}
+    #module-access-form .form-inline .form-group,#module-access-form .form-inline .form-group label,#module-access-form .form-inline .form-group .form-control{width:100%; display: block; text-align: left}
+    
+}
+
+@media screen and (max-device-width: 992px){ 
+    #fixed,#hourly{margin-bottom: 10px;}
+    .content-small-width,.home-activities{width:96%}
+    .slick .navbar-custom-menu .navbar-nav > li > a {padding-top: 0; padding-bottom: 0;}
+    .slick .navbar-custom-menu > .navbar-nav{float:left  }
+    #newinvoice .table-responsive > .table {margin-bottom: 12px !important;}
+    .managerole .chkbox{width:18px; margin-left: 10px; margin-right: 2px}
+    .managerole .text-right{text-align: left};    
+    /*div.dataTables_filter label {width:auto; }        */
+} 
+@media screen and (max-device-width: 991px){ 
+.remove_notes,.remove_field,.remove_ship{margin-bottom: 15px;}
+.default_ship_margin-top,.remove_ship{margin-top:15px;}
+#module-access-form .form-inline .form-group{margin-bottom: 15px}
+.content-header .col-xs-6:first-child{width:40%}
+.content-header .col-xs-6:last-child{width:60%}
+.table-responsive {overflow-x: auto}
+.form-inline-edit-stock-journal .col-md-6 {text-align: left !important}
+.form-inline-edit-stock-journal .form-group,.form-inline-edit-stock-journal label,.form-inline-edit-stock-journal .form-control{display: block; width: 100%}
+.form-inline-edit-stock-journal .form-group{margin-bottom: 15px;}
+}
+
+@media screen and (max-device-width: 800px){         
+    .themethumb-wrapper{height:330px}
+    .theme-img{height: 200px}
+}
+
+@media screen and (max-width: 768px){ 
+    .wrapper-sidebar-right{ margin-top: -50px;}        
+    .theme-left{float: none; width: 100%;}
+    .theme-right {width: 100%; margin-left: 0; height: 100%; float:none; display: block; padding: 15px; border-left: 0px solid #ddd; border-top: 1px solid #ddd; }
+    .theme-wrapper {height: 500px; width: 400px; margin: 0 auto; float: none; margin-bottom: 20px}    
+    .dataTables_wrapper .row:first-child {margin-bottom: 15px; background: #fff}
+    /*.dataTables_wrapper .row:first-child .col-xs-6:first-child{display:none;}*/
+    .dataTables_wrapper .row:first-child .col-xs-6:last-child{width:100%; padding:0 15px; margin-bottom: 0; background: transparent}
+    div.dataTables_filter label{margin:0; width:100%}
+    div.dataTables_filter input {margin-top: 0; }
+    .dataTables_wrapper .dataTables_info{float: none; text-align: center}
+    .dataTables_wrapper .row:last-child .col-xs-6{width:100%;}
+    .dataTables_info{margin: 10px 0 0 0;padding-bottom: 20px;line-height: 1;}
+    .dataTables_paginate{margin-bottom: 8px; padding-bottom: 8px;}
+    .content-header .col-xs-6:first-child{width:50%; padding-right: 0;}
+    .content-header .col-xs-6:last-child{width:50%; padding-left: 0}
+    .dataTables_wrapper .row:last-child .col-xs-6:first-child{border-top: 1px solid #e5e5e5}
+    .navbar-custom-menu-search .navbar-nav{margin: 0}    
+    .navbar-custom-menu-search .navbar-nav .dropdown-menu{position: absolute}    
+    .clientimg{margin: 0 auto};    
+    li.token-input-token{width: 99% !important};
+    .accounttabs .box-body.table-fullwidth{padding-top:15px}
+    .dataTables_wrapper .row:last-child{border:0!important; padding: 0!important; height: auto !important;background:#f0f0f0}
+    div.dataTables_paginate ul.pagination,div.dataTables_paginate{float: none!important; text-align: center!important;}
+    .footer-button {text-align: center}
+    .footer-button .btn{float:none;}
+    .hidden-768{display: none;}
+    .multipagination div.dataTables_info{padding-top:8px}
+    .content-header h1.font-14-768{font-size: 14px;}    
+    .form-inline.form-add-stock-journal .form-group,.form-inline.form-add-stock-journal label,.form-inline.form-add-stock-journal .form-control{display: block; width: 100%; text-align: left !important}
+    .form-inline.form-add-stock-journal .form-group{margin-bottom: 15px;}
+    .sidebar-nav .sidebar-nav i.chevron-selector-sideMenuChild{margin-right: 22px !important}
+}
+    
+@media screen and (max-width: 767px){     
+    .admin-company-name{width:50px; overflow: hidden}    
+    .fixed .main-header{position: relative}    
+    .navbar-custom-menu .navbar-nav > li > a{padding: 18px 15px 8px}
+    .main-header > .navbar{height: 50px; margin: 0}
+    .content-header{position: relative; left: 0; top: 0}
+    .content-header h1 .fa {padding-right: 5px;}
+    .fixed .content-wrapper, .fixed .right-side { padding-top: 0;}
+    .breadcrumb{margin:6px 5px 5px !important}
+    .navbar-custom-menu-search .navbar-nav > li > a{line-height: 29px; position: relative}
+    .invoice_shippingAddress,.invoice_billingAddress{margin-top: 10px;}  
+    .invoice_clientDtls .fa, .invoice_shippingAddress .fa, .invoice_billingAddress .fa{display: none;}
+    .invoice_clientDtls p:last-child, .invoice_shippingAddress p:last-child, .invoice_billingAddress p:last-child{margin-left: 0}
+    .navbar-custom-menu-form {margin-left: 20px;}
+    .navbar-custom-menu-form .nav > li{float: left; display: inline-block}    
+    .skin-black .main-header > .logo{display: none !important}
+    .branch{width:96%;max-width: 400px; margin:0 auto 30px;}
+    .box-dashboard {max-width:500px; margin:0 auto 30px;}
+    .logo-xs{float:left; width: 34px; overflow: hidden; margin: 9px 0 0 5px}
+    .logo-xs img{height: 30px; width: auto;}
+    .main-sidebar, .left-side{padding-top: 60px !important}
+    .same_as_mailing{text-align: left}
+    .main-header .sidebar-toggle {padding: 17px 10px 13px 13px; /*border-left: 1px solid #eee; margin-left: 10px;*/ line-height: 1}
+    .navbar-custom-menu2{margin-left: 5px;}
+    .navbar-custom-menu2 .navbar-nav{margin: 0;}
+    .navbar-custom-menu2 .nav > li{float: left; position: relative}    
+    .navbar-custom-menu2 .navbar-nav > li .dropdown-menu{position: absolute; background: #fff;border:1px solid #ddd; margin-top: 1px;}
+    #add-bill-of-material .form-inline .form-group label,#add-bill-of-material .form-inline .form-group .form-control {width:100%}
+    #pdfPreviewModal .modal-dialog{margin: 20px auto 0}
+    .dropdown.user.user-menu .dropdown-toggle{padding-top: 16px; padding-bottom: 13px;}
+}
+
+@media screen and (max-device-width: 640px){ 
+    .main-header .logo img{max-width: 160px; height: auto}
+    .topbar-search{display: block; width:96%; margin: 0 2%; padding-bottom: 10px;}   
+    .themethumb-wrapper{height:430px}
+    .theme-img{height: 300px}        
+    .fixed .right-side{padding-top: 55px;}    
+    .home-gst-ready{display: none;}
+}
+
+@media screen and (max-device-width: 480px){ 
+    .theme-wrapper {height: 510px; width: 370px; margin: 0 auto; float: none; margin-bottom: 20px}    
+    .branch.container2{background: url(../images/graph2.png) no-repeat center #263238}
+    .branch.container1 {background: url(../images/graph.png) no-repeat center #045d90;}
+    .content-header .col-xs-6:first-child,.content-header .col-xs-6:last-child{width:100%; padding: 0 15px}
+    .content-header .btn.pull-right{float: none !important; position: relative; display: inline; margin-left: 0 !important}
+    .content-header h1{text-align: center; padding: 10px 15px}
+    .content-header div.pull-right{float: none !important; text-align: center; margin-top: 0;}
+    .content-header div.pull-right .dropdown{float: none !important; display: inline}   
+    .content-header h1 .dropdown{position: relative; display: inline}
+    .content-header .dropdown-menu{top: 27px;}
+}
+
+
+@media screen and (max-device-width: 360px){ 
+    .theme-wrapper {height: 340px; width: 220px; margin: 0 auto; float: none; margin-bottom: 20px}    
+}
+@media screen and (max-device-width: 360px){ 
+    
+    .bank_card .bank_details h4{margin-bottom:20px;}
+    .bank_card .bank_links {position: relative; left: auto; right: auto; bottom: auto; margin-bottom: 15px;}
+    .bank_card .bank_links a{ display: block; margin-top: 5px}
+}
+
+@media screen and (max-device-width: 320px){ 
+    
+}

@@ -1,0 +1,282 @@
+@media print {
+@page {size:A4; margin:0 4mm; margin-top: 0 !important; vertical-align: top}
+*{color: #000 !important;text-shadow: none !important;box-shadow: none !important;    }    
+body, article {width: 100%; width:100%; margin: 0;padding: 0;   color: #000 !important; }
+body {font-size:8pt; margin: 0 !important; line-height: 1 !important;}
+body,html{height: 100%; position: relative}
+* { background:transparent !important; color:#000 !important; text-shadow:none !important; filter:none !important; font-family: 'Arial', Arial, sans-serif !important }
+h1{font-size:16pt !important;  margin: 0 0 10px}
+h2{font-size:14pt !important; font-weight: normal !important;  margin: 0 0 10px}
+h3{font-size:12pt!important; font-weight: normal !important ; margin: 0 0 10px}
+h1, h2, h3, h4, h5, h6{page-break-after: avoid;}
+* {-webkit-print-color-adjust: exact; print-color-adjust: exact;}
+a{text-decoration: none !important; color:#000 !important;}
+.table{width:100%}
+.table, .table th, .table td {border-collapse: collapse !important; font-size: 8pt !important; padding:2px 4px !important; word-wrap:break-word;}
+.pageFooter p{font-size: 8pt}
+.side_toggle,.main-footer,.main-sidebar,.content-header,.main-header,.fa{display:none; width:0 }
+.content{margin: 0 !important; padding: 0 !important; width:100% !important;}
+.table-noborder{border: 0 !important}
+a[href]:after {  content:"" !important; color:#000 !important; }
+a[href]{color:#000 !important;}
+.table-balancesheet .table-report2{border: 0 !important}
+.table-report .table-report2 >tr > td{border: 0 !important}
+.table-report .table-report2{border: 0 !important}
+.width-200,.width-180,.width-190,.width-180,.width-170,.width-160,.width-150,.width-120,.width-110,.width-100,.width-90,.width-80,.width-70,.width-60,.width-260{width: auto!important;}
+
+.breadcrumb{display: none !important}
+.table {page-break-after:avoid !important;}
+table{page-break-inside:auto;}
+.table-responsive{overflow: visible !important}
+.vtable{border: 0 !important}
+.table.vtable > tbody > tr.nobordr > td{border-bottom: 0 !important}
+.table.vtable > tbody > tr > td:first-child{border-left: 0 !important; }
+.table.vtable > tbody > tr > td:last-child{border-right: 0 !important;}
+.table.vtable > tbody > tr:first-child > td{border: 1px solid #999; font-weight: bold; text-transform: uppercase}
+.table.vtable > tbody > tr:first-child > td:first-child{border-left: 0}
+.table.vtable > tbody > tr:first-child > td:last-child{border-right: 0;}
+.table.vtable > tbody > tr > td:nth-last-child(2){border-left: 1px solid #999; border-right: 1px solid #999}
+
+.bold{font-weight: bold}
+
+.border-tb{border-top: 1px solid #999 !important; border-bottom: 1px solid #999 !important}
+.table.vtable > tbody > tr > .print-border-b-0 {border-bottom: 0 !important; border-top: 0 !important}
+.table.vtable > tbody > tr > .print-border-t-0 {border-top: 0 !important}
+.table.vtable > tbody > tr > .print-border-lr-1{border-right: 1px solid #999 !important; border-left: 1px solid #999 !important}
+.table > tbody > tr > td{white-space:normal; word-break: break-all; /*word-wrap:break-word;*/}
+.table-print-tax-report > tbody > tr > td,.table-print-tax-report > thead > tr > th,.table-print-tax-report > tfoot > tr > th {padding: 2px !important; border-color: #555!important}
+
+.table.table-invoive-date-no tr:first-child > td:first-child{border-top: 0 !important; border-left: 0 !important}
+.table.table-invoive-date-no td:first-child td{border-left: 0 !important}
+.table.table-invoive-date-no td:last-child td{border-right: 0 !important}
+
+.width-260,.width-200,.width-180,.width-190,.width-180,.width-170,.width-160,.width-150,.width-140,.width-130,.width-120,.width-110,.width-100,.width-90,.width-80,.width-70,.width-60,.width-50p,.width-date,.width-voucher-dr-cr{width:auto !important}
+.width-date{width: 50px !important;}
+.width-70{width:40px !important}
+.width-80{width:50px !important}
+.width-90{width:60px !important}
+.width-100{width:70px !important}
+.width-110{width:75px !important}
+.width-120{width:80px !important}
+.width-130{width:90px !important}
+.width-140{width:100px !important}
+
+.particulars_name{padding-left: 15px;}
+/* bill */
+.w20{width: 25px;} 
+.w30{width: 20px;}
+.w40{width: 25px;}
+.w50{width: 35px;}
+.w60{width: 40px;}
+.w70{width: 45px;}
+.w80{width: 50px;}
+.w90{width: 60px;}
+
+/* invoice width for html and print */
+.inv-width-sl{width:25px !important; text-align: left;padding: 2px !important}
+.inv-width-item-dtls{text-align: left; padding: 2px !important;}
+td.inv-width-item-dtls{padding: 2px !important}
+.inv-width-hsn{width:50px !important; text-align: center;padding: 2px !important}
+.inv-width-qty{width:40px !important; text-align: right; padding: 2px !important}
+.inv-width-rate{width:40px !important; text-align: right; padding: 2px !important}
+.inv-width-unit{width:30px !important; text-align: left; padding: 2px !important}
+.inv-width-value{width:55px !important; text-align: right; white-space: nowrap;padding: 2px !important}
+.inv-width-disc{width:40px !important; text-align: right; padding: 2px !important}
+.inv-width-tax{width:75px !important; text-align: center; padding: 2px !important}
+.inv-width-tax-tot{width:75px !important; text-align: right; padding: 2px !important}
+.inv-width-tax-rate{width:20px !important; text-align: right; padding: 2px !important}
+.inv-width-tax-value{width:55px !important; text-align: right;white-space: nowrap; padding: 2px !important}
+.inv-width-amount{width:65px !important; text-align: right; white-space: nowrap;padding: 2px !important}
+
+.width-voucher-dr-cr{width:100px;}
+.box-body{padding: 0 !important;}
+/* voucher */
+.table-print-wrapper{margin: 0; border: 0 !important; page-break-inside:auto;}
+.table .table th:first-child, .table .table td:first-child{padding-left: 2px !important}
+
+.row-height > td{height: 30px!important; overflow: hidden !important;}
+.table-print-wrapper hr{margin: 5px 0}
+
+.table-stock-summary {min-width: 200px;}
+.table-stock-summary>tbody>tr>td,.table-stock-summary>thead>tr>th,.table-stock-summary>tfoot>tr>th{padding:2px !important; font-size:7pt !important}
+.do-not-print{display: none !important}
+
+.table-aging-analysis>tr>td:nth-child(4):after {
+.pagebreak { page-break-before: always;}
+}
+
+.table.table-gst-header > tbody > tr > td,.table> tbody > tr > td,.table> thead > tr > th,.table> tfoot > tr > th{border-color: #555 !important; font-family: 'Arial Narrow', Arial  Narrow, sans-serif !important }
+.invoice-terms>td{border-bottom: 1px solid #ddd !important; height:100px;}
+.invoice-terms>td:first-child{border-right: 1px solid #000 !important}
+.invoice-terms>td:last-child{width:150px;}
+.invoice-narations>td{height:70px;}
+#fitThisText{font-size: 8pt !important;}
+/* added in 2018 */
+.base_currency{margin: 10px 0 0; font-size: 8pt}
+
+.indent-1 td:first-child{ padding-left: 10px !important;}
+.indent-2 td:first-child{ padding-left: 20px!important;}
+.indent-3 td:first-child{ padding-left: 30px!important;}
+.indent-4 td:first-child{ padding-left: 40px!important;}
+.indent-1.bold,.indent-2.bold,.indent-3.bold,.indent-4.bold{background: #f5f5f5;  color: #000;}
+
+a{text-decoration: none !important}
+.text-left{text-align: left !important}
+.text-right{text-align: right !important}
+.text-center{text-align: center !important}
+.table > thead > tr > th{vertical-align: middle; border-bottom: 1px solid #555}
+.table > tfoot > tr > td{vertical-align: middle}
+
+/* report header */
+.report-header,.report-header-company-info{margin-bottom: 0; display: block}
+.report-header-company-info h3{ font-size: 16px !important; margin: 0 0 5px 0 !important; text-align: center; font-family: 'Arial', Arial, sans-serif;  text-transform: uppercase}
+.report-header h3{ font-size: 14px !important; margin: 0 0 5px 0 !important; text-align: center; font-family: 'Arial', Arial, sans-serif;  text-transform: uppercase}
+.report-header p,.report-header-company-info p{font-size: 10px !important; text-align: center; margin-top: 0;  text-transform:none !important}
+
+/* table report head */
+.table-report thead tr th{border: 1px solid #555 !important; text-transform: uppercase}
+.table-report thead tr:first-child th{border: 0 !important;}
+
+/* table report foot */
+.table-report tfoot tr td,.table-report tfoot tr th{border: 1px solid #555 !important; text-align: right !important; font-weight: bold}
+.table-report tfoot tr td:first-child,.table-report tfoot tr th:first-child{ text-align: left !important}
+
+/* table report body */
+.table-report tbody tr td{text-align: right;}
+.table-report tbody tr  td.noborder{border:0 !important}
+.table-report tbody tr  td:last-child{padding-right: 8px;}
+.table-report tbody tr  td:first-child{text-align: left;}
+.table-report tbody tr  td.text-left{text-align: left;}
+.table-report tbody tr  td.text-center{text-align: center;}
+.table-report tbody tr  tr.text-right th{text-align: right}
+
+/* left & right border 0 */
+.table-report thead tr th:first-child{border-left: 0 !important;}
+.table-report thead tr th:last-child{border-right: 0 !important}
+.table-report tfoot tr th:first-child{border-left: 0 !important;}
+.table-report tfoot tr th:last-child{border-right: 0 !important}
+.table-report tbody tr td{border-left: 0 !important; border-right: 0 !important}
+
+.table-balancesheet-vertical > tbody > tr:last-child > td{border-bottom: 1px solid #555 !important;font-weight: bold}
+.table-balancesheet-vertical > tbody > tr:last-child > td:nth-child(2){border-left: 1px solid #555 !important; border-right: 1px solid #555 !important}
+.table-pl-vertical > tbody > tr:last-child > td{border-bottom: 1px solid #555 !important;font-weight: bold}
+.table-pl-vertical > tbody > tr:last-child > td:nth-child(2){border-left: 1px solid #555 !important; border-right: 1px solid #555 !important}
+
+.table-ratio-analysis > tbody > tr > td:last-child{text-align: right;}
+.table-ratio-analysis > tbody > tr:last-child > td{border-bottom: 1px solid #555 !important;}
+.table-ratio-analysis > tbody > tr.ratio-title {font-weight: bold; text-transform: uppercase}
+.table-ratio-analysis > tbody > tr.ratio-title td:last-child{border-left: 1px solid #555 !important}
+
+.table-stat-report > tbody > tr:last-child > td{border-bottom: 1px solid #555 !important;font-weight: bold}
+.table-stat-report > tbody > tr > td:last-child{text-align: right;}
+.table-stat-report > tbody > tr:last-child > td{border-bottom: 1px solid #555 !important;}
+.table-stat-report > tbody > tr.ratio-title {font-weight: bold; text-transform: uppercase}
+.table-stat-report > tbody > tr.ratio-title td:last-child{border-left: 1px solid #555 !important}
+
+.table-rpt-daybook > tbody > tr > td{text-align: left}
+.table-rpt-daybook > tbody > tr > td:last-child{text-align: right!important}
+.table-rpt-daybook > tbody > tr:last-child > td{border-bottom: 1px solid #555 !important;}
+
+.table-payment-receipt > tbody > tr:last-child > td{border-bottom: 1px solid #555 !important;font-weight: bold}
+.table-payment-receipt > tbody > tr > td:last-child{width:130px; text-align: right}
+.table-payment-receipt > tbody > tr.ratio-title {font-weight: bold; text-transform: uppercase}
+.table-payment-receipt > tbody > tr.ratio-title > td{background: #f5f5f5!important}
+.table-payment-receipt > tbody > tr.ratio-title td:last-child{border-left: 1px solid #555 !important;border-bottom: 1px solid #555 !important}
+
+.wrapper-rpt-stock-summary{margin:0 auto; min-width: 595px; overflow: visible}
+.wrapper-rpt-stock-summary .table {font-size: 10px;}
+
+.wrapper-summary-report{margin:0 auto; min-width: 595px; overflow: visible}
+.wrapper-summary-report .table {font-size: 10px;}
+
+/* Voucher table */
+.table > tbody > tr > td.wrap{white-space: normal !important}
+/* voucher no. date*/
+.table-voucher-header{margin-bottom: 10px;}
+.table-voucher-header>tbody>tr>td{border: 0 !important; text-align: left !important;width: 50%}
+.table-voucher-header>tbody>tr>td span{font-weight: bold;}
+.table-voucher-header>tbody>tr>td:last-child{text-align: right !important;}
+
+.table-voucher-body {margin: 0;}
+/* header & footer */
+.table-voucher-body > thead > tr > th,.table-voucher-body > tfoot > tr > th{text-transform: uppercase; border: 1px solid #555 !important;}
+.table-voucher-body > thead > tr > th:first-child,.table-voucher-body > tfoot > tr > th:first-child{border-left: 0 !important}
+.table-voucher-body > thead > tr > th:last-child,.table-voucher-body > tfoot > tr > th:last-child{border-right: 0 !important}
+.table-voucher-body > tfoot > tr > th:first-child{text-transform: none !important}
+.table-voucher-body > tfoot > tr > th:first-child span{font-weight: normal !important}
+/* body */
+.voucher-naration {white-space: normal !important; min-height: 30px !important; margin-top: 20px; font-size: 7pt !important; font-weight: normal}
+.table-voucher-body > tbody > tr > td{border: 0!important;}
+.table-voucher-body > tbody > tr > td:nth-child(2){border-left: 1px solid #555 !important;border-right: 1px solid #555 !important;}
+/* checked by, Verified by */
+.table-voucher-footer{width:90%;margin: 40px auto 0;}
+.table-voucher-footer>tbody>tr>td{border: 0 !important; text-align: center; font-weight: bold;width: 33.33%}
+.table-voucher-footer>tbody>tr>td:first-child{text-align: left}
+.table-voucher-footer>tbody>tr>td:last-child{text-align: right}
+
+.table-summary-report>tbody>tr>td{font-size: 5.5pt!important}
+.table-summary-report>tr>th{font-size: 6pt!important}
+
+
+/* invoice format-1 2018 */
+.table-invoice-main{border: 0!important; margin: 0;}
+.table-invoice-main>thead>tr>th,.table-invoice-main>tbody>tr>td,.table-invoice-main>tfoot>tr>th{padding: 0!important;border: 0!important;vertical-align: top;}
+.table-invoice-main *{font-size: 8pt;}
+
+.table-invoice-header>tbody>tr>td{padding: 0!important;border: 1px solid #555!important;vertical-align: top; overflow: visible; text-overflow:initial; white-space: normal}
+.table-invoice-header>tbody>tr:first-child>td{border-top: 1px solid transparent!important;border-left: 1px solid transparent!important;border-right: 1px solid transparent!important;}
+.table-invoice-header>tbody>tr>td:first-child,.table-invoice-header>tbody>tr>td:nth-child(2){width:350px !important}
+.invoice-title h1{font-size: 13pt !important;margin: 0 0 10px;}
+.invoice-title h3{font-size: 10pt!important;font-weight: normal !important;margin: 0 0 10px !important;}
+.invoice-header-address{font-weight: normal; padding: 4px; width: 100%; display: block}
+.table-invoice-header-bill-dtls > .table {margin: 0!important; border: 0!important}
+.table-invoice-header-bill-dtls > .table>tbody>tr>td{padding:4px !important; border-color: #555; font-weight: normal;overflow: visible; text-overflow:initial; white-space: normal}
+.table .table-invoice-header-bill-dtls > .table>tbody>tr:first-child>td{border: 0!important;}
+.table .table-invoice-header-bill-dtls .table td {padding: 4px !important;overflow: visible; text-overflow:initial; white-space: normal}
+.invoice-address-indent{padding-left: 10px;}
+
+/* body */
+.table-invoice-body{margin: 0;}
+.table-invoice-body>thead>tr>th{background: #f5f5f5; border:1px solid #555}
+.table-invoice-body>tbody>tr>td{border:0; border-left: 1px solid #555; vertical-align: top !important}
+.table-invoice-body>tbody>tr>td:last-child{border-right: 1px solid #555;}
+.table .table.table-invoice-body td,.table .table.table-invoice-body th {padding: 4px !important;}
+
+.inv-slno{width:20px}
+.inv-itemdtls{}
+.inv-hsn{width:40px}
+.inv-qty{width:45px }
+.inv-rate{width:50px }
+.inv-unit{width:35px }
+.inv-value{width:90px }
+.inv-disc{width:55px }
+.inv-amount{width:85px}
+.inv-tax,.inv-tax-tot{width:90px}
+.inv-tax-rate{width:25px }
+.inv-tax-value{width:65px }
+
+.table-invoice-total{margin: 0; border:0!important;}
+.table-invoice-total>thead>tr>th{background: #f5f5f5; border:1px solid #555}
+.table-invoice-total.table>thead:first-child>tr:first-child>th{border-top:1px solid #555}
+.table .table.table-invoice-total th {padding: 4px !important;}
+
+.table-invoice-footer{border:0; margin: 0;}
+.table .table.table-invoice-footer td {padding: 4px !important;}
+.table-invoice-footer>tbody>tr>td{border:1px solid #555 !important; vertical-align: top; font-weight: normal; overflow: visible; text-overflow:initial; white-space: normal}
+.table-invoice-footer>tbody>tr.row-grand-total>td{border-top: 0!important; background: #f0f0f0; font-weight: bold; font-size: 9pt !important;}
+.table-invoice-footer>tbody>tr.row-grand-total>td:last-child{text-align: right}
+
+.table-invoice-footer>tbody>tr.row-terms>td{}
+.table-invoice-footer>tbody>tr.row-terms>td:last-child{width:200px;}
+.table-invoice-footer>tbody>tr.row-discount>td{background: #f0f0f0}
+.table-invoice-footer>tbody>tr.row-naration>td{height:50px;}
+
+.invoice-declaration{margin:8px 0}
+.invoice-declaration span{font-weight:bold}
+.invoice-continued{width:100%; display:block; text-align: right; margin-top: 10px; font-size: 10px; font-style: italic}
+/* end new invoice-1 */
+/* new invoice- format 2 */
+.table.table-invoice-total2{border:1px solid #555 !important;}
+.table-invoice-body>tbody>tr.row-taxx.itemtotal>td{font-weight: bold;border-bottom:1px solid #555 !important;}
+.table-invoice-body>tbody>tr.row-taxx>td{padding: 0 4px !important;line-height: 1 !important}
+.table-invoice-body>tbody>tr.row-taxx>td:nth-child(2){padding-left: 10px !important}

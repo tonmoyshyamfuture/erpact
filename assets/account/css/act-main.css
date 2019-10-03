@@ -1,0 +1,130 @@
+@import 'https://fonts.googleapis.com/css?family=Open+Sans:400,500,700|PT+Sans:400,700';
+body,.form-control{font-family: 'Open Sans';  font-weight: 400; font-size: 13px;}
+h1,h2,h3,h4,h5{font-family: 'Open Sans'; font-weight: 700}
+/* 
+content: "."; display: block; height: 0px; clear: both; visibility: hidden; 
+*/
+/* LOGIN */
+.sidebar-menu *{font-size: 13px !important}
+.sidebar-menu .treeview-menu{padding-left: 27px;}
+.form-control{border-color: #c6d6db; height: 40px;}
+/*.btn{padding: 9px 15px}*/
+.login-box {background: transparent !important}
+.login-box-body{background: #fff; border-radius: 4px; min-height: 100px; }
+.login-logo img{margin: 0 auto; margin-bottom: 10px; max-width: 200px;}
+.login-box-msg{font-size: 18px !important; padding: 0 0 20px}
+.main-footer {background: #d9e3e7; border-top: 1px solid rgb(210, 214, 222); bottom: 0 !important;}
+/*  DASHBOARD */
+.logo{border-right: 1px solid #eee}
+.user-panel > .image > img {width: 40px;height: 40px;margin-top: 3px; background: #fff; border: 1px solid #555 }
+.user-panel > .info {padding-left: 10px;}
+.user-panel > .info > p { margin-bottom: 5px;}
+.user-panel > .info > a > .fa {margin-right: 0;}
+.main-sidebar .user-panel{white-space: normal; border: 0px solid #eee; border-left:0; padding-bottom: 18px;}
+.content {padding: 0 20px 20px 20px;  position: relative;}
+.navbar-custom-menu-form{float: left; border-right: 1px solid #eee; border-left: 1px solid #eee}
+.main-header .sidebar-toggle:hover{color:#000}
+.main-header .logo img{max-width: 150px;height: auto;max-height: 35px;margin-bottom: 6px;}
+.navbar-nav > .user-menu > .dropdown-menu > li.user-header{background-color: #015E90; color: #fff;}
+.navbar-nav > .user-menu > .dropdown-menu > li.user-header > p{font-size: 15px; color: #fff}
+.skin-black .main-header {box-shadow: none /*0 1px 1px rgba(0, 0, 0, 0.05)*/; border-bottom: 1px solid #eee; background: #fff; z-index: 1500}
+.input-group .input-group-addon{border-color: #c6d6db}
+.db-wrapper {  margin: 0 auto;    max-width: 1200px;}
+.welcomeadmin{max-width: 1200px; margin: 0 auto}
+.welcomeadmin h1{font-size: 24px; font-weight: normal; color: #666; margin: 20px 0 20px 0; line-height: 1.2}
+.welcomeadmin h1 span{font-weight: 700; color: #333;}
+.banner-db{background: url(../images/bg-dashboard.png) top center repeat-x;}
+
+.box-dashboard {    background: #ffffff;    border-radius: 2px;    margin-bottom: 20px;    padding: 15px;    position: relative;width: 100%;}
+.box-dashboard .header { padding: 0 0 15px;}
+.box-dashboard .header h3 { color: #666;    font-size: 16px;    font-weight: normal;    margin: 0;    padding: 0;}
+.box-dashboard .details {    background: #fff none repeat scroll 0 0;    border-bottom: 3px double #ddd;    border-top: 1px solid #ddd;    padding: 15px 5px;}
+.box-dashboard .separator {    background: #dfe6f1;    height: 5px;    margin: 15px 0;}
+.border-right {    border-right: 1px solid #ddd;}
+.box-dashboard .col-xs-6 p:last-child, .box-dashboard .col-xs-12 p:last-child {    margin-bottom: 0;}
+.box-dashboard .lead {    font-size: 13px;    margin-bottom: 10px;}
+.box-dashboard p span {    color: #000;    font-weight: bold;}
+
+.content{margin-top: 0; /*transition: all 0.5s*/}
+/*.content-header {background: #f5f5f5 !important; padding: 0; position: relative; margin-bottom: 20px; -webkit-box-shadow: 0 6px 6px -6px #ccc; -moz-box-shadow: 0 6px 6px -6px #ccc; box-shadow: 0 6px 6px -6px #ccc;}*/
+.content-header h1 {margin: 0; padding: 15px; line-height: 1; font-size: 16px; color: #555;}
+.content-header .btn-wrapper{margin:15px 15px 0 5px;}
+.content-header .btn-group,.content-header .btn-sm{margin-bottom: 8px;}
+.header-sticky{position:fixed; z-index: 1029; top:50px; right:0; left: 230px; transition: all 0.5s}
+.header-sticky.content-header {background: #f7f7f7 !important; -webkit-box-shadow: 0 4px 3px -3px #ddd; -moz-box-shadow: 0 4px 3px -3px #ddd; box-shadow: 0 4px 3px -3px #ddd; padding: 0; border: 0}
+.content.sticky-padding{margin-top: 0px; transition: all 5s}
+.left-menu-sticky{position:fixed; z-index: 2000; top:-46px; left: 0; width:230px; overflow: auto; height: 100% !important}
+.bold{font-weight: bold}
+.box{border-top: 0;}
+.box-header{padding:15px;}
+.bg-grey{background: #f1f1f1; border-top: 1px solid #e5e5e5; border-bottom: 1px solid #e5e5e5}
+.box-body{padding:15px;}
+.box-footer{padding:10px 15px 15px;}
+.box-footer.footer-band{background: #e8f3e6; border-top: 1px solid #dcebd9}
+.box-header h3{font-size: 16px; font-weight: normal; margin: 0; padding: 0}
+.box-body.box-table{padding:0;}
+
+/* data table - detached serch and pagination & appended in separate div */
+.table-header-search{width:100%; padding: 10px; background: #dde9da; border-top: 1px solid #e5e5e5; border-bottom: 1px solid #e5e5e5}
+.dataTables_filter .form-control:focus{border-color: #91c584}
+.dataTables_wrapper .row:first-child,.dataTables_wrapper .row:last-child {display:none;}
+.dataTables_wrapper .row:nth-child(2) {margin: 0}
+.dataTables_wrapper .row:nth-child(2) .col-sm-12 {padding: 0}
+.dataTables_filter label, .dataTables_filter .form-control{width:100%; height: 36px; margin: 0}
+div.dataTables_filter input{margin: 0}
+div.dataTables_info{float: left; width: 50%; margin: 0;}
+div.dataTables_paginate{float: right; width: 50%; margin: 0; padding: 4px 0 0 0}
+div.dataTables_paginate ul.pagination{margin: 0;}
+div.dataTables_info{padding: 10px 0;}
+
+.content-header .dropdown-menu{min-width: 100px !important; border-color: #ddd; background: #015E90}
+.content-header .dropdown-menu > li > a{color:#fff; transition: all 0.3s}
+.content-header .dropdown-menu > li > a:hover{color:#000}
+
+/* LIST - GRID table */
+.table .btn-sm{border-radius: 50%; padding: 6px 10px; font-size: 11px; line-height: 1} 
+.table .dropdown-menu{min-width: 40px !important; left: auto; right: -5px; text-align: center; border-color: #ddd}
+.table .dropdown-menu > li > a{padding: 3px 6px;}
+.table .dropdown-menu > li > a > .fa{margin: 0 auto}
+.table .dropdown-menu > li > a > .fa-pencil{color:#00ACD6}
+.table .dropdown-menu > li > a > .fa-trash-o{color:#f00 }
+table.dataTable thead > tr > th{padding-right: 8px;}
+
+.table-list.dataTable{margin-bottom: 0 !important}
+.table-list > tbody > tr.odd {background:rgba(220,238,252,0.4)}
+.table-list > tbody > tr.even {background:#fff}
+.table-list > tbody > tr:hover{background: #eee}
+.table-list > thead > tr > th{border-bottom: 1px solid #e5e5e5}
+.table-list > tbody > tr > td{border-top: 1px solid #e5e5e5}
+.table-list > tbody > tr > td:first-child,.table-list > thead > tr > th:first-child{padding-left: 15px}
+.table-list > tbody > tr > td:last-child,.table-list > thead > tr > th:last-child{padding-right: 15px}
+.table.action > thead > tr > th:last-child,.table.action > tbody > tr > td:last-child{width:30px !important; text-align: center; padding: 4px 8px!important}
+
+/* ADD ORDER table */
+.table-addorder {border: 1px solid #e5e5e5; margin-top: 20px; margin-bottom: 0 !important}
+.table-addorder > thead > tr > th{border-bottom:1px solid #e5e5e5; background: #f1f1f1}
+.table-addorder > tbody > tr > td{border-top:1px solid #e5e5e5}
+.table-addorder > tbody > tr > td:first-child{width: 38px;}
+.table-addorder > tbody > tr:hover{background: #eee;}
+/* add order SUB total */
+.table-addorder-total > tbody > tr > td:last-child{width:60%; text-align: right; font-weight: bold}
+.table-addorder-total > tbody > tr > td{border-bottom: 1px solid #e5e5e5}
+/* add order GRAND total */
+.table-addorder-grandtotal{margin-bottom: 0}
+.table-addorder-grandtotal > tbody > tr:first-child > td{background: #f1f1f1;}
+.table-addorder-grandtotal > tbody > tr > td{font-weight: bold;}
+
+/* CONTACTS */
+.contactNotesTabs {}
+.contactNotesTabs .nav-tabs{border-color: #ddd}
+.contactNotesTabs .nav-tabs > li {width: 50%}
+.contactNotesTabs .nav-tabs > li > a {background: #f1f1f1; display:block; margin: 0; padding: 0; font-size: 15px; color: #777; padding: 2px 15px; border-radius: 3px 3px 0 0;  border-color: #eee; }
+.contactNotesTabs .nav-tabs > li.active > a {background: rgba(0,172,214,0.8); border-color: #fff; color: #fff}
+.contactNotesTabs .tab-content {padding:20px 0; background: #fff}
+.contactNotesTabs .btnGroup {position: absolute; right: 0; top: -5px}
+.header-contact-row label{margin: 5px 0;}
+.header-contact-row label:first-child{margin-left: 10px;}
+#btnAddPerson{position: absolute; top: 43px; right: 30px; z-index: 100}
+#btnAddNotes{position: absolute; top: 0; right: 30px; z-index: 100}
+
+

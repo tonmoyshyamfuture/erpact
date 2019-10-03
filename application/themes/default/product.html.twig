@@ -1,0 +1,78 @@
+ {% extends "index.html.twig" %}
+
+{% block content %}
+ 
+<div class="container-fluid product-page">
+    
+    <div class="row ">
+    <div class="inner-header margin-b-20 clearfix ">
+
+    <div class="col-sm-4">
+            <div class="page-header">
+                <h2><span>All Products</span></h2>
+            </div>
+        </div>
+        
+        <div class="col-sm-8 ">
+            
+            <div class="form-group filter-blk pull-right">
+           
+                <div class="inline-block text-right">
+            <label>Filter By:</label>
+            </div>
+            <div class="inline-block">
+                <select onchange="productfilter(this.value)" class="form-control" name="productfilter" id="productfilter">
+                  <option {% if session.userdata.productfilter %} {% if session.userdata.productfilter == "new" %} selected {% endif %}  {% endif %} value="new"> New Arrival</option>
+                  <option {% if session.userdata.productfilter %} {% if session.userdata.productfilter == "popularity" %} selected {% endif %}  {% endif %} value="popularity"> Popularity</option>
+                  <option {% if session.userdata.productfilter %} {% if session.userdata.productfilter == "price" %} selected {% endif %}  {% endif %} value="price"> Price</option>
+              </select> 
+            </div>
+           
+            
+              
+               
+            </div>
+        </div>
+    </div>
+        
+    </div>
+    <!-- /.row -->
+{% if products %}
+       {% include 'include/product.html.twig' %}
+
+      {% include 'include/pagination.html.twig' %}
+{% endif %}  
+
+</div><!-- /container fluid-->
+
+         
+
+
+
+
+<script>
+    function productfilter(val)
+    {
+        $.ajaxSetup ({cache: false});
+        var loadUrl = "{{ base_url('front/productfilter') }}/"+val;
+        //var formdata = $("#productfrm").serialize();
+
+        $.ajax({
+                type: "POST",
+                url: loadUrl,
+                dataType:"html",
+                //data:formdata,
+                success:function(responseText)
+                {
+                    window.location.reload(true); 
+                    //alert(responseText);
+                    //window.location.href="{{ site_url('cart') }}";
+                },
+                error: function(jqXHR, exception) {
+                    return false;
+                }
+        });
+        return false;
+    }
+</script>       
+{% endblock %}

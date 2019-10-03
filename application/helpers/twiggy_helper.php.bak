@@ -1,0 +1,6 @@
+<?php
+
+function theme_url(){
+	echo base_url().'assets/themes/';
+}
+/* End of file twiggy_helper.php */

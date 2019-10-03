@@ -1,0 +1,123 @@
+<div class="content clearfix">
+
+
+
+<div class="content-body col-sm-9">
+{% for row in blogs %}
+<div class="row margin-b-20 blog-wrapper">
+        <div class="col-sm-6">
+            <a href="{{ site_url('blog') }}/{{row.title|replace(' ', '-')|lower}}" class="blog-featured-wrap">
+
+            <div class="blog-featured-wrap-img" style="background-image:url('{{base_url()}}application/modules/blogs/uploads/{{row.image}}');"></div>
+                <!--<img src="{{base_url()}}application/modules/blogs/uploads/thumb/{{row.image}}" alt="" class=""> -->
+            </a>
+        </div>
+        <div class="col-sm-6">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="blog-top-wrap">
+                        <h3 class="margin-t-0"><a href="{{ site_url('blog') }}/{{row.title|replace(' ', '-')|lower}}">{{row.title|title}}</a></h3>
+
+                        <p>
+                        <i class="fa fa-user"></i> by <a href="#">{{row.writtenby}}</a> | <i class="fa fa-calendar"></i> {{ row.created_date|date("d-m-Y") }} 
+                        {% if row.tagdtl %}
+                            | <i class="fa fa-tag"></i> Tags :
+                       {% for rows in row.tagdtl %}
+                        <a href="{{ site_url('tags') }}/{{rows.alias}}"><span class="label label-info">{{rows.name}}</span></a>
+                        {% endfor %}
+
+                     {% endif %}  
+
+                    </p>
+                    <div class="blog-content">
+                        {{word_limiter(row.description,50)}}
+                    </div>
+                        
+                    </div>
+                    <div class="navigation-blog">
+                        
+                        <a class="btn btn-primary" href="{{ site_url('blog') }}/{{row.title|replace(' ', '-')|lower}}">Read more</a>
+                    
+                    </div>
+                    
+                </div>
+                
+            </div>
+        </div>
+        </div>    
+        <hr>
+    <!-- /.row -->
+
+                {% endfor %}
+</div>
+
+<div class="col-sm-3">
+<aside class="ecomm-sidebar-widget">
+    
+    <div class="ecomm-widgets">
+        <h2 class="ecomm-widget-head">Tags</h2>
+
+{% if blogtags %}
+    {% for tagrow in blogtags%}
+        <span class="label label-info"><a href="{{ site_url('tags') }}/{{tagrow.alias}}">{{tagrow.name}}</a></span>
+    {% endfor %}
+{% endif %}
+
+    </div>
+
+    <div class="ecomm-widgets">
+        <h2 class="ecomm-widget-head">Category</h2>
+
+{% if catsubcatdet %}
+    {% for catrow in catsubcatdet %}
+       <span class="label label-info"><a href="{{ site_url('category') }}/{{catrow.alias}}">{{catrow.name}}</a></span>
+    {% endfor %}
+{% endif %}
+
+    </div>
+
+    <div class="ecomm-widgets">
+     
+     <h2 class="ecomm-widget-head">Latest Comments</h2>
+
+         <ul class="latest-comments">
+             <li>
+                 <div class="user-img-blk comm-div">
+                 <div class="user-images" style="background-image:url('http://pickaface.net/includes/themes/clean/img/slide2.png');">
+                     
+                 </div>
+                     
+                </div>
+
+                <div class="comments-title comm-div">
+                    The most awesome post I have ever found. Thanks for sharing. I am bookmarking your site. Will read regularly. Please keep on posting. 
+                </div>
+                 
+                 </li>
+
+                 
+
+                 <li>
+                 <div class="user-img-blk comm-div">
+                 <div class="user-images" style="background-image:url('http://pickaface.net/includes/themes/clean/img/slide2.png');">
+                     
+                 </div>
+                     
+                </div>
+
+                <div class="comments-title comm-div">
+                    The most awesome post I have ever found. Thanks for sharing. I am bookmarking your site. Will read regularly. Please keep on posting. 
+                </div>
+                 
+                 </li>
+             
+         </ul>
+  
+    </div>
+    
+
+</aside>
+
+
+</div>
+</div>

@@ -1,0 +1,6 @@
+{
+    "name": "GodownBatch",
+    "version": "0.0.0",
+    "private": true,
+    "main": "./GodownBatch.js"
+}

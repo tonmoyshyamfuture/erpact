@@ -1,0 +1,39 @@
+ {% for row in productimages %}
+ {% if loop.first %}
+    
+<div id="surround">
+    <div class="main_img"> 
+     <img class="cloudzoom" alt ="Cloud Zoom small image" id ="zoom1" src="{{base_url()}}application/modules/products/uploads/{{row.name}}"
+       data-cloudzoom='
+           
+           zoomImage: "{{base_url()}}application/modules/products/uploads/{{row.name}}",
+           zoomSizeMode:"image" ,maxMagnification:4, autoInside:768, tintColor:"#000",tintOpacity:0.25
+
+       ' >
+    </div>
+   
+    <div id="slider1" class="row">
+        {% if productimagecount > 3 %}
+        <div class="thumbelina-but horiz left"><i class="fa fa-angle-left"></i></div>
+        {% endif %}
+        <ul>
+ {% endif %}
+            <li>
+                <div class="tumb_img">
+                    <img class='cloudzoom-gallery' src="{{base_url()}}application/modules/products/uploads/{{row.name}}" 
+                     data-cloudzoom ="useZoom:'.cloudzoom', image:'{{base_url()}}application/modules/products/uploads/{{row.name}}' ">
+                </div>
+            
+                     </li>
+            
+ {% if loop.last %}
+        </ul>
+        {% if productimagecount > 3 %}
+        <div class="thumbelina-but horiz right"><i class="fa fa-angle-right"></i></div>
+        {% endif %}
+    </div>
+</div>
+ {% endif %}
+{% endfor %}
+
+

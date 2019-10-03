@@ -1,0 +1,91 @@
+{% extends "index.html.twig" %}
+
+{% block content %}
+
+<section class="search-header">
+	<div class="container">
+		<div class="row">
+		<div class="page-header">
+			<h2 class="">Search By Content</h2>
+			<p>Search in this website</p>
+		</div>
+			<form name="sitesearchfrm" id="sitesearchfrm" method="post" class="form-inline">
+				<div class="form-group clearfix">
+				  <span class="search-tool"><i class="fa fa-search"></i></span>
+					<input type="text" name="searchterm" id="searchterm" {% if serachterm %} value="{{serachterm}}" {% endif%} class="form-control enter_press" placeholder="Type your Search">
+				</div>
+				<input type="button" id="src-pg-btn" onclick="sitesearchonpage()" class="btn btn-default search-lg-btn text-uppercase btn-info" value="Submit">
+			</form>
+		</div>
+	</div>
+</section>
+
+<section class="search-body">
+	<div class="container">
+ <div class="row">
+ <div class="col-md-8 col-sm-12 col-xs-12">
+
+        {% if sitesearchdata %}
+        {% for row in sitesearchdata %}
+ 	<div class="search-row ">
+ 		<h3><a href="{{row.url}}"> {{substr(row.name,0,40)}}</a></h3>
+
+ 		<div class="search-excerpts">
+ 			<p>{{substr(row.description,0,150)}}</p>
+ 		</div>
+ 	</div>
+        {% endfor %}
+        {% else %}
+        <div class="search-row ">
+            <h2 class="">No record found</h2>
+            <p>Try some other keywords</p>
+        </div>
+        {% endif %}
+
+ </div>
+ 	
+
+ </div>
+
+</div>  
+</section>
+
+<!--<div class="bottom-pagination clearfix">    
+<div class="col-sm-12 text-center">
+        <ul class="pagination"><li class="active"><a href="http://lab-6.sketchdemos.com/P-007-projectbuilder/products.aspx">1</a></li><li><a href="http://lab-6.sketchdemos.com/P-007-projectbuilder/products.aspx/12">2</a></li><a href="http://lab-6.sketchdemos.com/P-007-projectbuilder/products.aspx/12"></a></ul>       
+</div>
+</div>-->
+
+<script>
+    $(document).ready(function(){
+    $(".enter_press").bind('keypress',function(event){
+        var code = event.keyCode ? event.keyCode : event.which;
+        if(code == 13){
+            //alert('hello');
+            $("#src-pg-btn").click();
+        }
+    });
+    });
+    
+
+    function sitesearchonpage()
+    {
+        var searchterm=$("#searchterm").val();
+        var flag=0;
+
+        if(searchterm == ''){
+            $('#searchterm').addClass('errorclass');  
+            flag=1;
+        }
+
+        if(flag!=0)
+        {
+            return false;
+        }
+        else
+        {
+            window.location.href="{{ site_url('search') }}/prm?p="+encodeURI(searchterm);
+        }
+    }
+</script>  
+{% endblock %}

@@ -1,0 +1,206 @@
+ {% extends "index.html.twig" %}
+
+{% block content %}
+ {% if blog %}
+ 
+ <div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+           
+        </div>
+    </div>
+
+    <div class="row margin-b-20 margin-t-30 padding-t-30">
+        
+        <div class="col-sm-12">
+           
+           <div class="blog-inner-pages-featured-image">
+              <img src="{{base_url()}}application/modules/blogs/uploads/{{blog.image}}" alt="" class="img-responsive">
+           </div>
+             
+            
+            <div class="blog-top-wrap clearfix">
+
+            <div class="page-header margin-t-0 margin-b-0 text-center">
+                <h2 class="margin-t-0">{{blog.title|title}}</h2>
+            </div>
+              <div class="col-md-12 padding-left-0 text-center blog-authors">
+                    <p>
+                        <i class="fa fa-user"></i> by <a href="#">{{blog.writtenby}}</a> | <i class="fa fa-calendar"></i> {{ blog.created_date|date("d-m-Y") }} 
+                        {% if blog.tagdtl %}
+                            | <i class="fa fa-tag"></i> Tags :
+                       {% for rows in blog.tagdtl %}
+                        <a href="#"><span class="label label-info">{{rows.name}}</span></a>
+                        {% endfor %}
+
+                     {% endif %}  
+                    </p>
+                </div>
+            </div>
+            
+
+            <div class="blog-inner-content clearfix">
+              <div class="col-md-12 padding-left-0">
+                   {{ html_entity_decode(blog.description,ENT_QUOTES,'utf-8') }}
+                </div>
+            </div>
+
+            <hr class="gray">
+
+            <div class="blog-author-section">
+              
+              <div class="inline-block">
+                <div class="author-featured">
+                  <img src="http://www.lovemarks.com/wp-content/uploads/profile-avatars/default-avatar-tech-guy.png">
+                </div>
+              </div>
+
+              <div class="inline-block">
+                
+                <h3>Admin</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt magna.</p>
+              </div>
+
+
+            </div>
+                
+                
+           
+		<!-- show comments section start -->
+		{% if blog.comments %}
+		{% for commentrow in blog.comments %}
+		<div class="col-sm-8">
+			<p>
+			by <strong>{{commentrow.name}}</strong> | <i class="icon-calendar"></i> {{ commentrow.created_date|date("d-m-Y") }}          
+			</p>
+		</div>
+		<div class="col-sm-8">
+			<strong>{{commentrow.title}}</strong>
+		</div>
+		<div class="col-sm-8">
+			<p>{{commentrow.comment}}</p>
+		</div>
+		<div class="col-sm-8">
+		<hr>
+		</div>
+		{% endfor %}
+		{% endif %} 
+		<!-- showing comments section end -->
+			
+
+                <!--Comment Form Start-->
+                <div class="col-sm-8 padding-left-0">
+                    <div class="btn-group">
+                        <input type="button" name="" class="btn-default form-control" id="comment_btn" value="Post Comment">
+                    </div>
+                        <form data-toggle="validator" role="form" id="comment_form" method="post" action="">
+                        <div class="col-md-12 well" id="comment_box" style="display:none">
+                             <div class="form-group">
+				  <label>Name</label>
+                                  <input type="text" class="form-control" name="name" id="com_name" placeholder="Name" required>
+                                  <span id="namevali" class="error-message"></span>
+                             </div>
+                             <div class="form-group">
+				  <label>Title</label>
+                                  <input type="text" class="form-control" name="title" id="com_title" placeholder="Title" required> 
+				  <span id="titlevali" class="error-message"></span>
+                             </div>
+                             <div class="form-group">
+				  <label>Comment</label>
+                                  <textarea name="comment" rows="6" cols="60" placeholder="Your Comment" class="form-control" id="com_text"></textarea>
+				  <span id="commentvali" class="error-message"></span>
+                             </div>
+                             <div class="form-group">
+                                <div class="btn-group pull-right">
+				  <input type="hidden" name="blog_id" id="blog_id" value="{{blog.id}}">
+				  <input type="hidden" name="parent_id" id="parent_id" value="0">
+                                  <input type="button" name="" class="btn-default form-control" value="Submit" id="submit_btn">
+                                </div>
+                                <div class="btn-group pull-right" style="margin-right: 10px;">
+                                  <input type="button" name="" class="btn-default form-control" value="Cancel" id="cancel_btn">
+                                </div>
+                             </div>
+                        </div>
+                        </form>
+                </div>
+                <!-- /.Comment Form Start -->
+        </div>
+    </div>
+    <!-- /.row -->
+    
+
+
+</div>
+<!-- /.content -->
+
+
+
+
+         {% endif %}  
+
+
+<script type="text/javascript">
+   $(document).ready(function() {
+        $('#comment_btn').on('click', function(){
+            $('#comment_btn').slideUp("slow");
+            $('#comment_box').slideDown("slow");
+        });
+
+        $('#cancel_btn').on('click', function(){
+            $('#comment_box').slideUp("slow");
+            $('#comment_btn').slideDown("slow");
+        });
+        
+        $('#submit_btn').on('click', function(){
+            var commend_name = $('#com_name').val();
+            var commend_title = $('#com_title').val();
+            var commend_text = $('#com_text').val();
+	    var flag=0;
+
+	    if(commend_name === ''){
+              $('#namevali').html('This fild is required');  
+	      flag=1;
+            } 
+          
+	    if(commend_title === ''){
+              $('#titlevali').html('This fild is required');  
+	      flag=1;
+            }
+
+	    if(commend_text === ''){
+              $('#commentvali').html('This fild is required');  
+	      flag=1;
+            }
+
+	    if(flag!=0)
+	    {
+		return false;
+	    } 	    
+		
+	    $.ajaxSetup ({cache: false});
+	    var loadUrl = "{{ site_url('front/postcomment') }}";
+	    var formdata = $("#comment_form").serialize();
+	    
+	    $.ajax({
+		    type: "POST",
+		    url: loadUrl,
+		    dataType:"html",
+		    data:formdata,
+		    success:function(responseText)
+		    {
+		        window.location.reload(true); 
+		    },
+		    error: function(jqXHR, exception) {
+		        return false;
+		    }
+	    });
+	    return false; 
+	    
+            
+        });
+    });
+    
+</script>
+
+         
+{% endblock %}

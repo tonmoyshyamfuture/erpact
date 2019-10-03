@@ -1,0 +1,7 @@
+
+CREATE TABLE IF NOT EXISTS PRFXpackage_countries (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `country_name` varchar(155) NOT NULL,
+  `status` enum('1','2') NOT NULL DEFAULT '1' COMMENT '1=active,2=inactive',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;

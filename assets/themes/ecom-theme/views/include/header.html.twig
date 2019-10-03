@@ -1,0 +1,172 @@
+<nav class="navbar navbar-inverse top-nav">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand hidden-lg hidden-md logo" href="{{ base_url() }}"><img src="{{ base_url() }}assets/images/{{ getThisSettingsData('sitelogo') }}"></a>
+
+            
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+             {% set slogo = getThisSettingsData('sitelogo') %}
+             <a class="navbar-brand hidden-sm hidden-xs logo" href="{{ base_url() }}">
+             {% if slogo != "" %}
+             <img src="{{ base_url() }}assets/images/{{ getThisSettingsData('sitelogo') }}">
+             {% else %}
+             <div class="storename" >{{ getThisSettingsData('sitename') }}</div>
+             {% endif %}
+            </a>
+           {{ generateMenu('Main Menu','class="nav navbar-nav main-nav" id="topnav"') }}
+           <!-- <ul class="nav navbar-nav main-nav" id="topnav">
+                {{ header_menu }}
+            </ul> -->
+
+            <!-- Cart Section -->
+
+            <ul class="nav navbar-nav navbar-right cart-block">
+
+                <li>
+                    {% if catlg_mode=="N" %}
+                    <a  class="cart-drop-element"  title="Cart" href="{{ site_url('cart') }}">
+                        <i class="fa fa-shopping-cart"></i>
+                    </a>
+                    {% endif %}
+ 
+                    <!--<div class="dropdown-menu cart-drop">
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <td class="border-top"> 
+                                        <div class="featured-img-drop-cart pull-left">
+                                            <img src="http://lab-6.sketchdemos.com/P-007-projectbuilder/application/modules/products/uploads/4546773461454651136.jpg" class="img-responsive">
+                                        </div></td>
+                                        <td style="width:70%" class="border-top"> Fuchsia Colored Solid Shift<br/>Dress With Belt
+                                            <ul class="list-inline">
+                                                <li>Size <b>S</b></li>
+                                                <li>|</li>
+                                                <li>Qty <b>1</b></li>
+                                            </ul>
+                                            <a class="btn btn-default">5 LEFT IN STOCK</a>
+                                        </td>
+                                    <td class="text-right border-top"><b class="black-text">$199.00</b></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="blue-text" valign="bottom">TOTAL PRICE</td>
+                                    <td><b class="black-text">$199.00</b></td>
+                                    
+                                </tr>
+                                <tr>
+                                    <td colspan="2" class="blue-text border-top" valign="bottom">FINAL PRICE</td>
+                                    <td class="border-top"><b class="black-text">$199.00</b></td>  
+                                </tr>
+                                
+                            </tbody>
+                        </table>
+                             <div class="small-cart-footer text-center">
+                                 <a class="btn btn-default" href="{{ site_url('cart') }}">
+                                     View Cart
+                                 </a>
+                             </div>
+                        <!-- <div class="small-cart-wrap">
+ 
+                             <div class="small-cart-body">
+                                 <div class="cart-items clearfix">
+                                     <div class="col-xs-10">
+                                         <div class="featured-img-drop-cart pull-left">
+                                             <img src="http://lab-6.sketchdemos.com/P-007-projectbuilder/application/modules/products/uploads/4546773461454651136.jpg" class="img-responsive">
+                                         </div>
+ 
+                                         <div class="cart-cont pull-left">
+                                             Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                                         </div>
+                                     </div>
+ 
+                                     <div class="col-xs-2 price text-right">
+                                         <strong>$199.00 </strong> 
+                                     </div>
+                                 </div>
+                             </div>
+                             <hr/>
+                             <div class="cart-text">
+                                 <div class="col-xs-9 blue-text">Total price</div> 
+                                 <div class="col-xs-2 cart-sub"> <strong>$199.00 </strong> </div> 
+                                 <div class="col-xs-9 blue-text">Total price</div> 
+                                 <div class="col-xs-2 cart-sub"> <strong>$199.00 </strong> </div> 
+                             </div>
+                             <div class="small-cart-footer">
+                                 <a class="btn btn-default" href="{{ site_url('cart') }}">
+                                     View Cart
+                                 </a>
+                             </div>
+                         </div>
+
+
+                    </div>-->
+
+
+                </li>
+                {% if session.userdata.front_uid %}
+                    <li><a title="My account" href="{{ site_url('profile') }}"><i class="fa fa-user"></i></a></li>
+                    <li><a title="Sign out" href="{{ site_url('logout') }}"><i class="fa fa-sign-out"></i></a></li>
+                        {% else %}
+                    <li><a title="Sign in" href="{{ site_url('login') }}"><i class="fa fa-sign-in"></i></a></li>
+                        {% endif%}
+            </ul>
+            <!-- Cart Section -->
+
+            <!-- Search Section -->
+            <div  class="navbar-right">    
+                <form class="navbar-form" role="search">
+                    <div class="input-group">
+                        <input type="text"  name="searchtermhead" id="searchtermhead" class="form-control enter_press" placeholder="Search">
+                        <div class="input-group-btn">
+                            <button class="btn" id="top-src-btn" onclick="sitesearch()" type="button"><i class="glyphicon glyphicon-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <script>
+            $(document).ready(function(){
+            $(".enter_press").bind('keypress',function(event){
+                var code = event.keyCode ? event.keyCode : event.which;
+                if(code == 13){
+                    //alert('hello');
+                    $("#top-src-btn").click();
+                }
+            });
+            });
+
+
+
+
+            function sitesearch()
+            {
+            
+                var searchtermhead=$("#searchtermhead").val();
+                var flag=0;
+
+                if(searchtermhead == ''){
+                    $('#searchtermhead').addClass('errorclass');  
+                    flag=1;
+                }
+
+                if(flag!=0)
+                {
+                    return false;
+                }
+                else
+                {
+                    window.location.href="{{ site_url('search') }}/prm?p="+encodeURI(searchtermhead);
+                }
+            }
+            </script>     
+            <!-- Search Section -->
+
+        </div><!--/.nav-collapse -->
+    </div>
+</nav>
+

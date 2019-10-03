@@ -1,0 +1,6 @@
+$route['admin/users'] = "subadmin/admin";
+$route['admin/add-users'] = "subadmin/admin/formsubadmin";
+$route['admin/edit-users.PAGESUFFIX/(:any)'] = "subadmin/admin/formsubadmin/$1";
+$route['admin/role'] = "subadmin/admin/role";
+$route['admin/add-role'] = "subadmin/admin/addRole";
+$route['admin/edit-role.PAGESUFFIX/(:any)'] = "subadmin/admin/editRole/$1";

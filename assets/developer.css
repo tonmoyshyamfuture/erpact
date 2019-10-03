@@ -1,0 +1,120 @@
+.overlay {
+    background: rgba(0, 0, 0, .5);
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 999
+}
+.errormessage {
+    background: #fcb6b6;
+    color: #9a0000;
+    border-radius: 3px;
+    box-shadow: 0 0 14px -3px rgba(0, 0, 0, .75);
+    width: 650px
+}
+.errormessage,
+.successmessage {
+    -webkit-box-shadow: 0 0 14px -3px rgba(0, 0, 0, .75);
+    -moz-box-shadow: 0 0 14px -3px rgba(0, 0, 0, .75);
+    -o-box-shadow: 0 0 14px -3px rgba(0, 0, 0, .75);
+    border: 5px solid #c2c2c2;
+    height: 50px;
+    left: 50%;
+    z-index: 9999;
+    margin-left: -330px;
+    margin-top: -30px;
+    padding: 10px;
+    position: fixed;
+    top: 50%
+}
+.successmessage {
+    background: #befebe;
+    color: #005b00;
+    border-radius: 3px;
+    box-shadow: 0 0 14px -3px rgba(0, 0, 0, .75);
+    width: 650px
+}
+.errormessage div,
+.successmessage div {
+    display: inline-block;
+    margin-left: 10px
+}
+.successmessage span {
+    display: inline-block
+}
+.errormessage span {
+    display: inline-block
+}
+.closebutn {
+    float: right;
+    cursor: pointer
+}
+.toppanel_txt {
+    margin-right: 0!important
+}
+
+
+.skin-blue .main-header .navbar{ background-color: #536FB2;}
+.skin-blue .main-header li.user-header {
+  background-color: #536FB2;
+}
+.skin-blue .main-header .logo{background-color: #536FB2;}
+.skin-blue .wrapper, .skin-blue .main-sidebar, .skin-blue .left-side{background: #5F646B none repeat scroll 0 0;}
+.skin-blue .main-header .navbar .sidebar-toggle:hover{ background-color: rgba(0,0,0,0.2);}
+.skin-blue .main-header .logo:hover{ background-color:  #536FB2; }
+.skin-blue .sidebar a{ color:#FFF;}
+.skin-blue .sidebar-menu > li > a:hover, .skin-blue .sidebar-menu > li.active > a{border-left-color: #ffffff;
+	background: rgba(0,0,0,0.5) none repeat scroll 0 0;}
+
+	.bg-aqua, .callout.callout-info, .alert-info, .label-info, .modal-info .modal-body {
+    background-color: #536FB2 !important;
+}
+
+a {
+    color: #5F646B;
+}
+.btn-primary:hover, .btn-primary:active, .btn-primary.hover {
+    background-color: #5F646B!important; border:1px solid rgba(0,0,0,0.5);
+} 
+a:hover, a:active, a:focus {
+    color: #5F646B;
+    outline: medium none;
+    text-decoration: none;
+}
+
+.login-page,
+.register-page {
+    background: #DFE8E6;
+}
+
+.btn-primary {
+    background-color: #536FB2;
+    border-color: none;
+}
+
+.not-permited{
+	position:relative;
+cursor:pointer;
+	
+}
+
+.not-permited:hover .mySecondDiv{ display:block; }
+.mySecondDiv{ width:100px; text-align:center; background:#FFF; display:none; position:absolute; top:19px; padding:10px; border-radius:3px; border:#ccc 1px solid; z-index:9999; }
+.mySecondDiv:hover .not-permited{ pointer-events: none; }
+
+
+.error-confirm{
+    background: #fcb6b6 none repeat scroll 0 0;
+    box-shadow: 0 0 14px -3px rgba(0, 0, 0, 0.75);
+    color: #9a0000;
+    }
+
+.success-confirm{
+    box-shadow: 0 0 14px -3px rgba(0, 0, 0, 0.75);
+    background: #befebe;
+    color: #005b00;
+    }
+
+.jconfirm .jconfirm-box div.content{min-height:45px !important;}

@@ -1,0 +1,31 @@
+ {% extends "index.html.twig" %}
+
+{% block content %}
+ {% if blogs %}
+ <div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="page-header">
+                <h2><span>Our Blogs</span></h2>
+            </div>
+        </div>
+    </div>
+
+     
+             {% include 'include/blog.html.twig' %}
+
+   
+         {% include 'include/pagination.html.twig' %}
+
+
+</div><!-- /.content fluid-->
+
+
+
+         {% endif %}  
+
+
+
+
+         
+{% endblock %}

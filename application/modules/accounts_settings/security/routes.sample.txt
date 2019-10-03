@@ -1,0 +1,3 @@
+$route['admin/country'] = "country/admin";
+$route['admin/add-country'] = "country/admin/formcountry";
+$route['admin/edit-country.PAGESUFFIX/(:any)'] = "country/admin/formcountry/$1";

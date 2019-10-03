@@ -1,0 +1,86 @@
+@media screen and (max-device-width: 1200px){ 
+.content-header .row .col-xs-6:first-child{width:70%;}
+.content-header .row .col-xs-6:last-child{width:30%;}    
+}
+
+@media screen and (max-device-width: 1100px){ 
+    .themethumb-wrapper{height:330px}
+    .theme-img{height: 200px}
+}
+
+@media screen and (max-device-width: 992px){ 
+    #fixed,#hourly{margin-bottom: 10px;}
+    .content-small-width,.home-activities{width:96%}
+    .slick .navbar-custom-menu .navbar-nav > li > a {padding-top: 0; padding-bottom: 0;}
+    .slick .navbar-custom-menu > .navbar-nav{float:left  }
+    #newinvoice .table-responsive > .table {margin-bottom: 12px !important;}
+    .managerole .chkbox{width:18px; margin-left: 10px; margin-right: 2px}
+    .managerole .text-right{text-align: left};
+    .content-header .row .col-xs-6:first-child{width:70%;}
+    .content-header .row .col-xs-6:last-child{width:30%;}
+    div.dataTables_filter label {width:auto; }        
+} 
+@media screen and (max-device-width: 900px){ 
+    
+}
+
+@media screen and (max-device-width: 800px){     
+    .content-header .row .col-xs-6:first-child{width:60%;}
+    .content-header .row .col-xs-6:last-child{width:40%;}
+    .themethumb-wrapper{height:330px}
+    .theme-img{height: 200px}
+}
+
+@media screen and (max-width: 768px){ 
+    .wrapper-sidebar-right{ margin-top: -50px;}        
+    .theme-left{float: none; width: 100%;}
+    .theme-right {width: 100%; margin-left: 0; height: 100%; float:none; display: block; padding: 15px; border-left: 0px solid #ddd; border-top: 1px solid #ddd; }
+    .theme-wrapper {height: 500px; width: 400px; margin: 0 auto; float: none; margin-bottom: 20px}    
+    .dataTables_wrapper .row:first-child {margin-bottom: 15px; background: #fff}
+    .dataTables_wrapper .row:first-child .col-xs-6:first-child{display:none;}
+    .dataTables_wrapper .row:first-child .col-xs-6:last-child{width:100%; padding:0 15px; margin-bottom: 0; background: transparent}
+    div.dataTables_filter label{margin:0; width:100%}
+    div.dataTables_filter input {margin-top: 0; }
+    .dataTables_wrapper .dataTables_info{float: none; text-align: center}
+    .dataTables_wrapper .row:last-child .col-xs-6{width:100%; margin-bottom: 8px; padding-bottom: 8px;}
+    .dataTables_wrapper .row:last-child .col-xs-6:first-child{border-top: 1px solid #e5e5e5}
+    .navbar-custom-menu-search .navbar-nav{margin: 0}    
+    .navbar-custom-menu-search .navbar-nav .dropdown-menu{position: absolute}    
+    .clientimg{margin: 0 auto};    
+    li.token-input-token{width: 99% !important};    
+}
+@media screen and (max-width: 767px){ 
+.navbar-custom-menu-search .navbar-nav > li > a{line-height: 29px; position: relative}
+.invoice_shippingAddress,.invoice_billingAddress{margin-top: 10px;}  
+.invoice_clientDtls .fa, .invoice_shippingAddress .fa, .invoice_billingAddress .fa{display: none;}
+.invoice_clientDtls p:last-child, .invoice_shippingAddress p:last-child, .invoice_billingAddress p:last-child{margin-left: 0}
+.navbar-custom-menu-form {margin-left: 20px;}
+.skin-black .main-header > .logo{background: #fff; transition: all 0.5s}
+.skin-black .main-header > .logo:hover{background: #eee}
+}
+ 
+@media screen and (max-device-width: 640px){ 
+    .main-header .logo{display: none}
+    .topbar-search{display: block; width:96%; margin: 0 2%; padding-bottom: 10px;}   
+    .themethumb-wrapper{height:430px}
+    .theme-img{height: 300px}    
+    .content-header h1 .fa{display: none}
+    .content-header h1 {font-size: 14px; padding: 15px;}
+    .content-header .btn{font-size: 12px; padding: 3px 8px}
+    .fixed .content-wrapper, .fixed .right-side{padding-top: 55px;}
+    .content-header div.pull-right{margin:6px 20px 8px 5px}
+    .home-gst-ready{display: none;}
+}
+
+@media screen and (max-device-width: 480px){ 
+    .theme-wrapper {height: 510px; width: 370px; margin: 0 auto; float: none; margin-bottom: 20px}    
+}
+
+@media screen and (max-device-width: 360px){ 
+.theme-wrapper {height: 340px; width: 220px; margin: 0 auto; float: none; margin-bottom: 20px}
+}
+
+@media screen and (max-device-width: 320px){ 
+ .content-header .row .col-xs-6:first-child{width:65%;}
+ .content-header .row .col-xs-6:last-child{width:35%;}   
+}
