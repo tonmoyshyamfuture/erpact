@@ -63,7 +63,7 @@ class BankDetails extends Component {
     handleHide() {
         this.setState({ show: false });
         this.props.getBankDetailsModalKey(false)
-        setTimeout(function(){ $(".wqothers").focus(); }, 500);
+        // setTimeout(function(){ $(".wqothers").focus(); }, 500);
     }
 
     render() {

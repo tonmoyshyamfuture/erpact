@@ -30,14 +30,17 @@ class Godown extends Component {
             values[this.props.productIndex]['productGodownBatchData'][i]['allGodownList'] = values[this.props.productIndex]['ProductAllGodownList']
         }
         this.setState({values})
-        console.log("hahaha==>>",this.props.wqdescindex);
+        
+        setTimeout(() => {
+            if(this.state.goModal) {
+                this.refs.godownValue0.focus();
+            }
+        }, 0);
+        
     }
 
     componentDidUpdate = (prevProps) => {
-        this.buildRefKey()
-        if(this.state.goModal) {
-            this.refs.godownValue0.focus();
-        }
+        this.buildRefKey()        
     }
     
 
@@ -58,17 +61,13 @@ class Godown extends Component {
                 });
             }
             else{
-                var qty_val = event.target.value
-                console.log("hahaha===>>>",qty_val)
-
+                var qty_val = +event.target.value
                 var available_stock = values[this.props.productIndex]['stock'] - (values[this.props.productIndex]['qty'] + (qty_val - values[this.props.productIndex]['productGodownBatchData'][i]['qty']));
-
-                console.log("hhihihihihi===>>>",available_stock)
-
                 if(available_stock >= 0){
                     values[this.props.productIndex]['productGodownBatchData'][i]['qty'] = qty_val
-                } else {
-                    values[this.props.productIndex]['productGodownBatchData'][i]['qty'] = qty_val 
+                }
+                else {
+                    values[this.props.productIndex]['productGodownBatchData'][i]['qty'] = qty_val + available_stock
                 }
                 this.setState({values}, () => {
                     this.calculateGross(i)
@@ -109,7 +108,7 @@ class Godown extends Component {
                 });
             }
             else {
-                values[this.props.productIndex]['productGodownBatchData'][i]['rate'] = event.target.value
+                values[this.props.productIndex]['productGodownBatchData'][i]['rate'] = +event.target.value
                 this.setState({values}, () => {
                     this.calculateGross(i)
                 }) 
@@ -138,11 +137,11 @@ class Godown extends Component {
         
         this.setState({ show: false });
         this.props.getGodownModalKey(false)
-        if(this.props.wqdescindex == 1) {
-            setTimeout(function(){ $(".wqothers").focus(); }, 500);
-        } else {
-            setTimeout(function(){ $(".wqdiscount").focus(); }, 500);
-        }
+        // if(this.props.wqdescindex == 1) {
+        //     setTimeout(function(){ $(".wqothers").focus(); }, 500);
+        // } else {
+        //     setTimeout(function(){ $(".wqdiscount").focus(); }, 500);
+        // }
     }
 
     godownOnChange = (i,selectedOption) => {
@@ -249,8 +248,7 @@ class Godown extends Component {
             <div className="godownRow" key={i}>
                 <div className="row form-group">
                     <div className="col-md-3">
-                        <Select
-                            autoFocus
+                        <Select                            
                             value={item.godownValue}
                             onChange={this.godownOnChange.bind(this,i)}
                             options={item.allGodownList}

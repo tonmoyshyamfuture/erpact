@@ -15,11 +15,24 @@ class DespatchDetails extends Component {
         this.handleHide = this.handleHide.bind(this);
 
         this.state = {
-            show: true
+            show: true,
+            transportationMode: []
         };
     }
 
     componentDidMount = () => {
+        var data = ['Railways','Roadways','Airways','Waterways','Pipelines'];
+        var transportList = [];
+        data.forEach(x => {
+            var d = {
+                value: x,
+                label: x,
+            }
+            transportList.push(d)
+        })
+        this.setState({
+            transportationMode: transportList
+        })
         this.buildRefKey()
     }
 
@@ -65,7 +78,7 @@ class DespatchDetails extends Component {
     handleHide() {
         this.setState({ show: false });
         this.props.getDespatchDetailsModalKey(false)
-        setTimeout(function(){ $(".wqothers").focus(); }, 500);
+        // setTimeout(function(){ $(".wqothers").focus(); }, 500);
     }
 
     despatchDocOnChange = (event) => {
@@ -96,8 +109,9 @@ class DespatchDetails extends Component {
         this.props.despatchFieldOnChange(event.target.name,event.target.value)
     }
     
-    transportationModeOnChange = (event) => {
-        this.props.despatchFieldOnChange(event.target.name,event.target.value)
+    transportationModeOnChange = (selectedOption) => {
+        console.log(selectedOption)
+        this.props.despatchFieldOnChange("transportation_mode",selectedOption)
     }
 
     render() {
@@ -168,7 +182,21 @@ class DespatchDetails extends Component {
                             </div>
                             <div className="form-group col-md-6">
                                 <label>Transportation Mode</label>
-                                <input type="text" className="form-control" placeholder="Transportation Mode" name="transportation_mode" ref="transportation_mode" autoComplete="off" value={this.props.despatchDetails['transportation_mode']} onChange={this.transportationModeOnChange.bind(this)}/>
+                                <Select                                    
+                                    value={this.props.despatchDetails['transportation_mode']}
+                                    onChange={this.transportationModeOnChange.bind(this)}
+                                    options={this.state.transportationMode} 
+                                    styles={customStyles}
+                                    placeholder={`Select Transportation Mode`}
+                                    ref="transportation_mode" name="transportation_mode"
+                                    components = {
+                                        {
+                                            DropdownIndicator: () => null,
+                                            IndicatorSeparator: () => null
+                                        }
+                                    }
+                                />
+                                {/* <input type="text" className="form-control" placeholder="Transportation Mode" name="transportation_mode" ref="transportation_mode" autoComplete="off" value={this.props.despatchDetails['transportation_mode']} onChange={this.transportationModeOnChange.bind(this)}/> */}
                             </div>
                         </div>
                     </Modal.Body>

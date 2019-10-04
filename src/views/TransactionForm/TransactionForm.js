@@ -38,6 +38,7 @@ class TransactionForm extends Component {
     super(props);
     this._handleKeyPress = this._handleKeyPress.bind(this);
     this.state = {
+      currentRef: null,
       title: '',
       action: '',
       tran_type: 0,
@@ -656,6 +657,17 @@ class TransactionForm extends Component {
     }
   }
 
+  onFocus = (event) => {
+      
+    if(event.target.name == ''){
+        console.log(event.target.id)
+        $( "#"+event.target.id ).keydown();
+    }
+    this.setState({
+        currentRef: event.target.name
+    })
+  }
+
   getLedgerDebtorsList(){
     var params = "?tran_type=" + this.state.tran_type;
     transactionService.getLedgerDebtorsList(params).then(res => {
@@ -1007,12 +1019,22 @@ class TransactionForm extends Component {
   getGodownBatchModalKey = (key) => {
     this.setState({
         modalGodownBatchKey: key
+    },() => {
+        if(this.state.currentRef != null){
+            var currentRef = "discount_" + this.state.currentRef.split('_')[1]
+            this.resetFocus(currentRef)
+        }       
     })
   }
   
   getGodownModalKey = (key) => {
     this.setState({
         modalGodownKey: key
+    },() => {
+        if(this.state.currentRef != null){
+            var currentRef = "discount_" + this.state.currentRef.split('_')[1]
+            this.resetFocus(currentRef)
+        }        
     })
   } 
 
@@ -1062,6 +1084,7 @@ class TransactionForm extends Component {
 
   createProductRow = () => {
     let values = [...this.state.productValue];
+    console.log(values)
     values.forEach(x => {
         // console.log(x)        
         var selectIndex = this.state.selectedProductList.findIndex(y => y.id == x.value);
@@ -1138,12 +1161,13 @@ class TransactionForm extends Component {
                 this.setState({
                     selectedProductList: this.state.selectedProductList
                 }, () => {
+                    console.log(this.state.selectedProductList)
                     var index = this.state.selectedProductList.findIndex(k => k.id == x.value);
                     this.calculateGross(index);
                     if(this.state.formSettingData.productDescReadOnly == 1) {
-                        this.refs['unit'+index].focus();
+                        this.refs['unit_'+index].focus();
                     } else {
-                        this.refs['description'+index].focus();
+                        this.refs['description_'+index].focus();
                     }
                 })
             }) 
@@ -1288,6 +1312,7 @@ class TransactionForm extends Component {
     let values = [...this.state.selectedProductList];
     values[i]['isFocus'] = true;
     this.setState({ values });    
+    this.setState({currentRef: event.target.name})
   }
   
   quantityOnChange = (i, event) => {
@@ -1407,7 +1432,7 @@ class TransactionForm extends Component {
     let values = [...this.state.selectedProductList];
     values[i]['unit'] = selectedOption;
     this.setState({ values });
-    this.refs['qty'+i].focus();
+    this.refs['qty_'+i].focus();
     // this.refs.qty0.focus();
   }
   rateOnChange = (i, event) => {
@@ -2508,8 +2533,17 @@ class TransactionForm extends Component {
   getDespatchDetailsModalKey = (key) => {
     this.setState({
         despatchDetailsModalKey: key
+    }, () => {
+        if(this.state.currentRef != null){
+            this.resetFocus(this.state.currentRef)
+        }        
     })
   }
+
+
+  resetFocus =(key)=>{
+    this.refs[key].focus();
+  } 
 
   getDespatchOnChange = (selectedOption) => {
     this.getDespatchDetailsByCourierId(selectedOption['value'])
@@ -2564,6 +2598,10 @@ class TransactionForm extends Component {
   getChangeShippingAddressModalKey = (key) => {
     this.setState({
         changeShippingAddressModalKey: key
+    },() => {
+        if(this.state.currentRef != null){
+            this.resetFocus(this.state.currentRef)
+        }        
     })
   }
 
@@ -2667,6 +2705,10 @@ class TransactionForm extends Component {
   getBankDetailsModalKey = (key) => {
     this.setState({
         bankDetailsModalKey: key
+    },() => {
+        if(this.state.currentRef != null){
+            this.resetFocus(this.state.currentRef)
+        }        
     })
   }
 
@@ -2706,9 +2748,9 @@ class TransactionForm extends Component {
     const selectedProductItems = this.state.selectedProductList.map((item, i) =>
         <tr  key={i}>
             <td><a onClick={() => this.removeProductRow(item)}><i className='fa fa-trash-o text-danger'></i></a></td>
-            <td>{item.name}</td>
+            <td>{item.name}<br/><span>Stock :- {item.stock}</span></td>
             <td className={this.state.formSettingData.productDescReadOnly == 1 ? 'hidden td-input' : 'td-input'}>
-                <input readOnly={this.state.formSettingData.productDescReadOnly == 1 ? true : false} ref={`description${i}`} name={`description${i}`} value={item.description} type="text" className={item.isFocus ? 'form-control prod-desc isFocus wqdescription' : 'form-control prod-desc wqdescription'} placeholder="product description"
+                <input readOnly={this.state.formSettingData.productDescReadOnly == 1 ? true : false} ref={`description_${i}`} name={`description_${i}`} value={item.description} type="text" className={item.isFocus ? 'form-control prod-desc isFocus wqdescription' : 'form-control prod-desc wqdescription'} placeholder="product description"
                 onChange={this.descriptionOnChange.bind(this,i)}
                 onBlur={this.descriptionOnBlur.bind(this,i)}
                 onFocus={this.descriptionOnFocus.bind(this,i)}
@@ -2721,7 +2763,8 @@ class TransactionForm extends Component {
                     options={item.units} 
                     styles={customStyles}
                     placeholder="Select Unit"
-                    ref={`unit${i}`} name={`unit${i}`}
+                    ref={`unit_${i}`} name={`unit_${i}`}
+                    onFocus={ this.onFocus.bind(this)}
                     components = {
                         {
                             DropdownIndicator: () => null,
@@ -2731,21 +2774,21 @@ class TransactionForm extends Component {
                 />
             </td>
             <td className="td-input">
-                <input ref={`qty${i}`} name={`qty${i}`} value={item.qty} type="text"  className="form-control" placeholder="Qty"
+                <input ref={`qty_${i}`} name={`qty_${i}`} onFocus={ this.onFocus.bind(this)} value={item.qty} type="text"  className="form-control" placeholder="Qty"
                 onChange={this.quantityOnChange.bind(this,i)}
                 onBlur={() => this.quantityRateOnBlurChange(i)}
                 style={{width: '80px'}}
                 />
             </td>
             <td className="td-input">
-                <input ref={`rate${i}`} name={`rate${i}`} value={item.rate} type="text"  className="form-control text-right" placeholder="Rate"
+                <input ref={`rate_${i}`} name={`rate_${i}`} onFocus={ this.onFocus.bind(this)} value={item.rate} type="text"  className="form-control text-right" placeholder="Rate"
                 onChange={this.rateOnChange.bind(this,i)}
                 onBlur={() => this.quantityRateOnBlurChange(i)}
                 style={{width: '80px'}}
                 />
             </td>
             <td className={this.state.formSettingData.productDiscReadOnly == 1 ? 'hidden td-input' : 'td-input'}>
-                <input readOnly={this.state.formSettingData.productDiscReadOnly == 1 ? true : false} ref={`discount${i}`} name={`discount${i}`} value={item.discount} type="text"  className="form-control text-right wqdiscount" placeholder="Discount"
+                <input readOnly={this.state.formSettingData.productDiscReadOnly == 1 ? true : false} ref={`discount_${i}`} name={`discount_${i}`} onFocus={ this.onFocus.bind(this)} value={item.discount} type="text"  className="form-control text-right wqdiscount" placeholder="Discount"
                 onChange={this.discountOnChange.bind(this,i)} onKeyDown={this.productSearchFocus.bind(this)}
                 style={{width: '80px'}}
                 />
@@ -2810,9 +2853,9 @@ class TransactionForm extends Component {
     const selectedExpenseItems = this.state.selectedExpenseList.map((item, i) =>
         <tr style={{position: 'relative'}} key={i}>
             <td><a onClick={() => this.removeExpenseRow(item)}><i className='fa fa-trash-o text-danger'></i></a></td>
-            <td colSpan="10" >{item.ladger_name}</td>
+            <td colSpan="10" >{item.ladger_name}<br/><span>Cur. Bal. {item.data.current_closing_balance}</span></td>
             <td colSpan="3" className="text-right">
-                <input ref={`expense${i}`} name={`expense${i}`} value={item.price} type="text"  className="form-control text-right wqexpense" placeholder="Expenses"
+                <input ref={`expense_${i}`} name={`expense_${i}`} onFocus={ this.onFocus.bind(this)} value={item.price} type="text"  className="form-control text-right wqexpense" placeholder="Expenses"
                 onChange={this.expensesChange.bind(this,i)} onKeyDown={this.expenseFocus.bind(this)}
                 />
             </td>            
@@ -2840,7 +2883,7 @@ class TransactionForm extends Component {
                                     }
                                     {
                                         this.state.transactionParameters.auto_no_status != 1 && (
-                                            <input maxLength="16" ref="invoiceNumber" name="invoiceNumber" type="text" className="form-control" placeholder="Invoice Number" value={this.state.invoiceNumber} onChange={this.invoiceNumberChange.bind(this)}/>
+                                            <input maxLength="16" ref="invoiceNumber" onFocus={ this.onFocus.bind(this)} name="invoiceNumber" type="text" className="form-control" placeholder="Invoice Number" value={this.state.invoiceNumber} onChange={this.invoiceNumberChange.bind(this)}/>
                                         )
                                     }                                   
                                 </div>
@@ -2857,7 +2900,7 @@ class TransactionForm extends Component {
                                     }
                                     {
                                         this.state.transactionParameters.auto_date != 1 && (
-                                            <input ref="date" name="date" type='text' placeholder="DD/MM/YYYY" className='form-control' value={this.state.date} onChange={this.onDateChange.bind(this)} autoComplete="off"/>
+                                            <input ref="date" name="date" onFocus={ this.onFocus.bind(this)} type='text' placeholder="DD/MM/YYYY" className='form-control' value={this.state.date} onChange={this.onDateChange.bind(this)} autoComplete="off"/>
                                         )
                                     }
                                     
@@ -2875,6 +2918,7 @@ class TransactionForm extends Component {
                                         className="wqDebtorsSelect"
                                         placeholder={`Select ${this.state.ledgerDebtorsTitle}`}
                                         ref="debtorsValue" name="debtorsValue"
+                                        onFocus={ this.onFocus.bind(this)}
                                         components = {
                                             {
                                                 DropdownIndicator: () => null,
@@ -2882,6 +2926,12 @@ class TransactionForm extends Component {
                                             }
                                         }
                                     />
+                                    {
+                                        this.state.debtorsValue['data'] != undefined && (
+                                            <span>Cur. Bal. ${this.state.debtorsValue.data.current_closing_balance}</span>
+                                        )
+                                    }
+                                    
                                 </div>
                             </div>
                             <div className="col-lg-3 col-sm-6">
@@ -2895,6 +2945,7 @@ class TransactionForm extends Component {
                                         className="wqSalesSelect"
                                         placeholder={`Select ${this.state.ledgerSalesTitle}`}
                                         ref="salesValue" name="salesValue"
+                                        onFocus={ this.onFocus.bind(this)}
                                         components = {
                                             {
                                                 DropdownIndicator: () => null,
@@ -2902,6 +2953,11 @@ class TransactionForm extends Component {
                                             }
                                         }
                                     />
+                                    {
+                                        this.state.salesValue['data'] != undefined && (
+                                            <span>Cur. Bal. ${this.state.salesValue.data.current_closing_balance}</span>
+                                        )
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -2910,14 +2966,14 @@ class TransactionForm extends Component {
                         <div className="row">
                             <div className="col-lg-3 col-sm-6">
                                 <div className="form-group">
-                                    <input maxLength="16" ref="advanceBillName" name="advanceBillName" type="text" className="form-control" placeholder="Advance Bill Name" value={this.state.advanceBillName} onChange={this.advanceBillNameChange.bind(this)}/>
+                                    <input maxLength="16" ref="advanceBillName" name="advanceBillName" onFocus={ this.onFocus.bind(this)} type="text" className="form-control" placeholder="Advance Bill Name" value={this.state.advanceBillName} onChange={this.advanceBillNameChange.bind(this)}/>
                                 </div>
                             </div>
                             <div className="col-lg-3 col-sm-6">
                                 <div className="form-group">
                                     {
                                         this.state.transactionParameters.recurring == 1 && (
-                                            <input maxLength="16" ref="recurring" name="recurring" type="text" className="form-control" placeholder="Recurring" value={this.state.recurring} onChange={this.recurringChange.bind(this)}/>
+                                            <input maxLength="16" ref="recurring" name="recurring" onFocus={ this.onFocus.bind(this)} type="text" className="form-control" placeholder="Recurring" value={this.state.recurring} onChange={this.recurringChange.bind(this)}/>
                                         )
                                     }
                                     
@@ -2925,12 +2981,12 @@ class TransactionForm extends Component {
                             </div>
                             <div className="col-lg-3 col-sm-6">
                                 <div className="form-group">
-                                    <input maxLength="16" ref="refNo" name="refNo" type="text" className="form-control" placeholder="Ref. No." value={this.state.refNo} onChange={this.refNoNumberChange.bind(this)}/>
+                                    <input maxLength="16" ref="refNo" name="refNo" onFocus={ this.onFocus.bind(this)} type="text" className="form-control" placeholder="Ref. No." value={this.state.refNo} onChange={this.refNoNumberChange.bind(this)}/>
                                 </div>
                             </div>
                             <div className="col-lg-3 col-sm-6">
                                 <div className="form-group">
-                                    <input ref="refDate" name="refDate" type="text" className="form-control" placeholder="Ref. Date" value={this.state.refDate} onChange={this.refDateChange.bind(this)}/>
+                                    <input ref="refDate" name="refDate" onFocus={ this.onFocus.bind(this)} type="text" className="form-control" placeholder="Ref. Date" value={this.state.refDate} onChange={this.refDateChange.bind(this)}/>
                                 </div>
                             </div>
                         </div>
@@ -2984,6 +3040,7 @@ class TransactionForm extends Component {
                                         styles={customLedgerStyles}
                                         placeholder={`Select Sales Man`}
                                         ref="salesman" name="salesman"
+                                        onFocus={ this.onFocus.bind(this)}
                                         components = {
                                             {
                                                 DropdownIndicator: () => null,
@@ -2996,7 +3053,7 @@ class TransactionForm extends Component {
                             <div className="col-lg-3 col-sm-6">
                                 <div className="form-group">
                                     {/* <input type="text" ref="others" name="others" className="form-control" placeholder="Others"/> */}
-                                    <input ref="others" name="others" type="text" className="form-control wqothers" placeholder="Others" value={this.state.others} onChange={this.othersChange.bind(this)}/>
+                                    <input ref="others" name="others" onFocus={ this.onFocus.bind(this)} type="text" className="form-control wqothers" placeholder="Others" value={this.state.others} onChange={this.othersChange.bind(this)}/>
                                 </div>
                             </div>
                             {
@@ -3069,6 +3126,7 @@ class TransactionForm extends Component {
                                                         styles={customLedgerStyles}
                                                         placeholder="Search product..."
                                                         ref="productValue" name="productValue"
+                                                        onFocus={ this.onFocus.bind(this)}
                                                         components = {
                                                             {
                                                                 DropdownIndicator: () => null,
@@ -3105,6 +3163,7 @@ class TransactionForm extends Component {
                                                         styles={customLedgerStyles}
                                                         placeholder="Search expense..."
                                                         ref="expense" name="expense"
+                                                        onFocus={ this.onFocus.bind(this)}
                                                         components = {
                                                             {
                                                                 DropdownIndicator: () => null,
@@ -3135,11 +3194,11 @@ class TransactionForm extends Component {
                                 </div>
                                 <div className="form-group">
                                     <label>Notes</label>
-                                    <input ref="notes" name="notes" type="text" className="form-control" placeholder="Notes" value={this.state.notes} onChange={this.notesChange.bind(this)}/>
+                                    <input ref="notes" name="notes" onFocus={ this.onFocus.bind(this)} type="text" className="form-control" placeholder="Notes" value={this.state.notes} onChange={this.notesChange.bind(this)}/>
                                 </div>
                                 <div className="form-group">
                                     <label>Terms & Conditions</label>
-                                    <input ref="termsConditions" name="termsConditions" type="text" className="form-control" placeholder="Terms & Conditions" value={this.state.termsConditions} onChange={this.termsConditionsChange.bind(this)}/>
+                                    <input ref="termsConditions" name="termsConditions" onFocus={ this.onFocus.bind(this)} type="text" className="form-control" placeholder="Terms & Conditions" value={this.state.termsConditions} onChange={this.termsConditionsChange.bind(this)}/>
                                 </div>
                             </div>
 
