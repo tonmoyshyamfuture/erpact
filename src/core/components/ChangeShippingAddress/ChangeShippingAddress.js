@@ -121,7 +121,8 @@ class ChangeShippingAddress extends Component {
                                 <div className="form-group">
                                     <label>Contact</label>
                                     <Select
-                                        autoFocus
+                                        openMenuOnFocus={true}
+                                        autoFocus={true}
                                         value={this.props.contactValue}
                                         onChange={this.contactOnChange.bind(this)}
                                         options={this.props.allContactList} 
@@ -135,6 +136,7 @@ class ChangeShippingAddress extends Component {
                                 <div className="form-group">
                                     <label>Shipping Address</label>
                                     <Select
+                                        openMenuOnFocus={true}
                                         value={this.props.shippingValue}
                                         onChange={this.shippingOnChange.bind(this)}
                                         options={this.state.shippingList} 

@@ -658,11 +658,6 @@ class TransactionForm extends Component {
   }
 
   onFocus = (event) => {
-      
-    if(event.target.name == ''){
-        console.log(event.target.id)
-        $( "#"+event.target.id ).keydown();
-    }
     this.setState({
         currentRef: event.target.name
     })
@@ -2758,6 +2753,7 @@ class TransactionForm extends Component {
             </td>
             <td className="td-input">
                 <Select
+                    openMenuOnFocus={true}
                     value={item.unit}
                     onChange={this.unitOnChange.bind(this,i)}
                     options={item.units} 
@@ -2911,6 +2907,7 @@ class TransactionForm extends Component {
                                     <label>{this.state.ledgerDebtorsTitle}</label>
                                     <Select
                                         value={this.state.debtorsValue}
+                                        openMenuOnFocus={true}
                                         // menuIsOpen= {true}
                                         onChange={this.ledgerOnChange.bind(this)}
                                         options={this.state.allLedgerDebtorsList} 
@@ -2938,6 +2935,7 @@ class TransactionForm extends Component {
                                 <div className="form-group">
                                     <label>{this.state.ledgerSalesTitle}</label>
                                     <Select
+                                        openMenuOnFocus={true}
                                         value={this.state.salesValue}
                                         onChange={this.salesOnChange.bind(this)}
                                         options={this.state.allLedgerSalesList} 
@@ -3034,6 +3032,7 @@ class TransactionForm extends Component {
                             <div className="col-lg-3 col-sm-6">
                                 <div className="form-group">
                                     <Select
+                                        openMenuOnFocus={true}
                                         value={this.state.salesManValue}
                                         onChange={this.salesManOnChange.bind(this)}
                                         options={this.state.allSalesManList} 
@@ -3117,6 +3116,7 @@ class TransactionForm extends Component {
                                             <tr>
                                                 <td colSpan="13" className="td-input">
                                                     <Select
+                                                        openMenuOnFocus={true}
                                                         value={this.state.productValue}
                                                         onChange={this.productOnChange.bind(this)}
                                                         onKeyDown={this.expenseFocus.bind(this)}
@@ -3155,6 +3155,7 @@ class TransactionForm extends Component {
                                             <tr>
                                                 <td colSpan="13" className="td-input">
                                                     <Select
+                                                        openMenuOnFocus={true}
                                                         value={this.state.expense}
                                                         onChange={this.expenseOnChange.bind(this)}
                                                         onKeyDown={this.notesFocus.bind(this)}

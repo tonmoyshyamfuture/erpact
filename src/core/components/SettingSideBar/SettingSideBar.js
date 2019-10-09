@@ -213,6 +213,7 @@ class SettingSideBar extends Component {
                                 <label >Select currency</label>
                                 <div className="form-group">
                                     <Select
+                                        openMenuOnFocus={true}
                                         value={this.state.selectedCurrency}
                                         onChange={this.onCurrencyChange.bind(this)}
                                         options={this.state.CurrencyList} 

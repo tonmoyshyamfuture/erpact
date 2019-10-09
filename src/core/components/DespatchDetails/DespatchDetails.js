@@ -135,7 +135,8 @@ class DespatchDetails extends Component {
                             <div className="form-group col-md-6">
                                 <label>Despatched Through</label>
                                 <Select
-                                    autoFocus
+                                    openMenuOnFocus={true}
+                                    autoFocus={true}
                                     value={this.props.despatchValue}
                                     // value={ {label: this.props.despatchValue, value: this.props.despatchValue} }
                                     onChange={this.despatchOnChange.bind(this)}
@@ -182,7 +183,8 @@ class DespatchDetails extends Component {
                             </div>
                             <div className="form-group col-md-6">
                                 <label>Transportation Mode</label>
-                                <Select                                    
+                                <Select
+                                    openMenuOnFocus={true}
                                     value={this.props.despatchDetails['transportation_mode']}
                                     onChange={this.transportationModeOnChange.bind(this)}
                                     options={this.state.transportationMode} 

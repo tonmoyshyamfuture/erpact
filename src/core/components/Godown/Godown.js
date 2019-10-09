@@ -249,6 +249,7 @@ class Godown extends Component {
                 <div className="row form-group">
                     <div className="col-md-3">
                         <Select                            
+                            openMenuOnFocus={true}
                             value={item.godownValue}
                             onChange={this.godownOnChange.bind(this,i)}
                             options={item.allGodownList}

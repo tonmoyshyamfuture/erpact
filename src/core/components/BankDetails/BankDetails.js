@@ -85,7 +85,8 @@ class BankDetails extends Component {
                     <Modal.Body>
                         <div className="form-group">
                             <Select
-                                autoFocus
+                                openMenuOnFocus={true}
+                                autoFocus={true}
                                 //value={this.props.bankValue}
                                 value={ {label: this.props.wqbankName, value: this.props.bankValue} }
                                 onChange={this.bankOnChange.bind(this)}

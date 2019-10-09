@@ -305,7 +305,8 @@ class GodownBatch extends Component {
             <div className="godownbatchRow" key={i}>
                 <div className="row form-group">
                     <div className="col-md-3">
-                        <Select                            
+                        <Select
+                            openMenuOnFocus={true}
                             value={item.godownValue}
                             onChange={this.godownOnChange.bind(this,i)}
                             options={item.allGodownList}
@@ -316,6 +317,7 @@ class GodownBatch extends Component {
                     </div>
                     <div className="col-md-3">
                         <Select
+                            openMenuOnFocus={true}
                             value={item.batchValue}
                             onChange={this.batchOnChange.bind(this,i)}
                             options={item.allBatchList}
