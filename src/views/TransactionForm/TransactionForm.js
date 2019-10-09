@@ -1188,7 +1188,7 @@ class TransactionForm extends Component {
         }
     })
     this.buildRefKey()
-    setTimeout(function(){ $(".wqdescription").focus(); }, 0);
+    // setTimeout(function(){ $(".wqdescription").focus(); }, 0);
   }
 
   removeProductRow = (data) => {       
