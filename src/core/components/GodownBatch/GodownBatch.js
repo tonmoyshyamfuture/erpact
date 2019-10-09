@@ -4,7 +4,7 @@ import { Button, Modal } from 'react-bootstrap';
 import * as transactionService from '../../services/TransactionService';
 import Autocomplete from 'react-autocomplete';
 import Select from 'react-select';
-import * as $ from 'jquery';
+// import * as $ from 'jquery';
 import { toast } from 'react-toastify';
 const customLedgerStyles = {
     control: styles => ({ ...styles, backgroundColor: 'white', width: '100%', })

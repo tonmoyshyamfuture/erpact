@@ -2,7 +2,7 @@ import React, { Component, Suspense } from 'react';
 import { Link } from "react-router-dom";
 import { Button, Modal } from 'react-bootstrap';
 import Select from 'react-select';
-import * as $ from 'jquery';
+// import * as $ from 'jquery';
 import * as transactionService from '../../services/TransactionService';
 const customStyles = {
     control: styles => ({ ...styles, backgroundColor: 'white', width: '100%', })

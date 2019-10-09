@@ -83,6 +83,7 @@ class TransactionForm extends Component {
       selectedProductTotalValue: 0,
       selectedItemTotalValue: 0,
       selectedItemGrossValue: 0,
+      selectedItemQtyValue: 0,
       selectedItemTaxValue: 0,
       termsConditions: 'Goods once sold cannot be returned except manufacturing defects.',
       notes: '',
@@ -302,6 +303,7 @@ class TransactionForm extends Component {
             selectedProductTotalValue: 0,
             selectedItemTotalValue: 0,
             selectedItemGrossValue: 0,
+            selectedItemQtyValue: 0,
             selectedItemTaxValue: 0,
             termsConditions: 'Goods once sold cannot be returned except manufacturing defects.',
             notes: '',
@@ -1186,7 +1188,7 @@ class TransactionForm extends Component {
         }
     })
     this.buildRefKey()
-    setTimeout(function(){ $(".wqdescription").focus(); }, 1000);
+    setTimeout(function(){ $(".wqdescription").focus(); }, 0);
   }
 
   removeProductRow = (data) => {       
@@ -1264,7 +1266,7 @@ class TransactionForm extends Component {
     })
     this.buildRefKey()
     this.calculateSumValue()
-    setTimeout(function(){ $(".wqexpense").focus(); }, 500);
+    setTimeout(function(){ $(".wqexpense").focus(); }, 0);
   }
 
   removeExpenseRow = (data) => {       
@@ -1747,17 +1749,20 @@ class TransactionForm extends Component {
     var grossSum = 0;
     var taxSum = 0;
     var total = 0;
+    var qty = 0;
     let newSelectedProdValuesWithAssessable = [...this.state.selectedProductList];
     newSelectedProdValuesWithAssessable.forEach(x => {
         prodSum += +x.total
         grossSum += +x.grossTotal
         taxSum += +x.taxValue
+        qty +=x.qty
     })
     total = prodSum + expenseSum
     this.setState({selectedItemTotalValue: parseFloat(prodSum.toFixed(2))})
     this.setState({selectedItemGrossValue: parseFloat(grossSum.toFixed(2))})
     this.setState({selectedItemTaxValue: parseFloat(taxSum.toFixed(2))})
     this.setState({selectedProductTotalValue: parseFloat(total.toFixed(2))})
+    this.setState({selectedItemQtyValue: qty})
   }
 
   invoiceNumberChange = (event) => {
@@ -3137,7 +3142,11 @@ class TransactionForm extends Component {
                                                 </td>
                                             </tr>
                                             <tr className="bold">
-                                                <td colSpan="4"></td>
+                                                <td colSpan="2"></td>
+                                                <td colSpan="1">Total Quantity</td>
+                                                <td colSpan="1" className="text-right">
+                                                    {this.state.selectedItemQtyValue}
+                                                </td>
                                                 <td colSpan="2" className="text-right">Gross Total</td>
                                                 <td colSpan="1" className="text-right">
                                                     {this.state.selectedItemGrossValue}
