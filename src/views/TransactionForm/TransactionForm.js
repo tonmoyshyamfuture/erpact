@@ -77,7 +77,7 @@ class TransactionForm extends Component {
       selectedProductList: [],
       ledgerDebtorsTitle: '',
       ledgerSalesTitle: '',
-    //   loading: true,
+      loading: true,
       allExpenseList: [],
       expense: [],
       selectedProductTotalValue: 0,
@@ -298,7 +298,7 @@ class TransactionForm extends Component {
             selectedProductList: [],
             ledgerDebtorsTitle: '',
             ledgerSalesTitle: '',
-            // loading: true,
+            loading: true,
             expense: [],
             selectedProductTotalValue: 0,
             selectedItemTotalValue: 0,
@@ -796,9 +796,9 @@ class TransactionForm extends Component {
   }
 
   getShippingDetails(ledger_id){
-    // this.setState({
-    //     loading: true
-    // })
+    this.setState({
+        loading: true
+    })
     var params = "?ledger=" + ledger_id;
     transactionService.getShippingDetails(params).then(res => {               
         console.log(res.data)
@@ -812,7 +812,7 @@ class TransactionForm extends Component {
                     ledgerStateCode: this.state.shippingDetails.state,
                     billing_address: this.state.shippingDetails['billing_address'][0],
                     shipping_address: this.state.shippingDetails['shipping_address'][0],
-                    // loading: false
+                    loading: false
                 }, () => {
                     // console.log(this.state.ledgerStateCode)
                     this.getColKey();
@@ -821,7 +821,7 @@ class TransactionForm extends Component {
             else {
                 this.setState({
                     ledgerStateCode: this.state.shippingDetails.state,
-                    // loading: false
+                    loading: false
                 }, () => {
                     // console.log(this.state.ledgerStateCode)
                     this.getColKey();
