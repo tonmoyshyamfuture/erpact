@@ -67,9 +67,9 @@ class GodownBatch extends Component {
     }
 
     quantityOnChange = (i,event) => {
-        // const re = RegExp(/^[0-9]+(\.[0-9][0-9]?)*$/);
-        // if (event.target.value === '' || re.test(event.target.value)) {
-        if (event.target.value != '') {
+        const re = RegExp(/^[0-9]+(\.[0-9][0-9]?)*$/);
+        if (event.target.value === '' || re.test(event.target.value)) {
+        // if (event.target.value != '') {
             let values = [...this.props.selectedProductList];
             if(values[this.props.productIndex]['productGodownBatchData'][i]['godownValue'] == ''){
                 toast.error(`Please Select Godown`, {
@@ -94,15 +94,32 @@ class GodownBatch extends Component {
             else{
                 var qty_val = +event.target.value
                 var available_stock = values[this.props.productIndex]['stock'] - (values[this.props.productIndex]['qty'] + (qty_val - values[this.props.productIndex]['productGodownBatchData'][i]['qty']));
-                if(available_stock >= 0){
-                    values[this.props.productIndex]['productGodownBatchData'][i]['qty'] = qty_val
-                }                
-                else{
-                    values[this.props.productIndex]['productGodownBatchData'][i]['qty'] = qty_val + available_stock
+                if(event.target.value === ''){
+                    console.log("productGodownBatchData")
+                    values[this.props.productIndex]['productGodownBatchData'][i]['qty'] = event.target.value
                 }
+                else if(available_stock >= 0){
+                    values[this.props.productIndex]['productGodownBatchData'][i]['qty'] = qty_val
+                }
+                else {                    
+                    if(qty_val + available_stock > 0){
+                        values[this.props.productIndex]['productGodownBatchData'][i]['qty'] = qty_val + available_stock
+                    }
+                    else{
+                        toast.error(`Stock is not available`, {
+                            position: "top-right",
+                            autoClose: 1000,
+                            hideProgressBar: false,
+                            closeOnClick: true,
+                            pauseOnHover: true,
+                            draggable: true
+                        });
+                    }
+                    
+                }  
                 this.setState({values}, () => {
                     this.calculateGross(i)
-                })   
+                })
                 // this.refs['rate'+i].focus();         
             }
         }        
@@ -124,9 +141,9 @@ class GodownBatch extends Component {
 
 
     rateOnChange = (i,event) => {
-        // const re = RegExp(/^[0-9]+(\.[0-9][0-9]?)*$/);
-        // if (event.target.value === '' || re.test(event.target.value)) {
-        if (event.target.value != '') {
+        const re = RegExp(/^[0-9]+(\.[0-9][0-9]?)*$/);
+        if (event.target.value === '' || re.test(event.target.value)) {
+        // if (event.target.value != '') {
             let values = [...this.props.selectedProductList];
             if(values[this.props.productIndex]['productGodownBatchData'][i]['godownValue'] == ''){
                 toast.error(`Please Select Godown`, {
@@ -149,7 +166,12 @@ class GodownBatch extends Component {
                 });
             }
             else {
-                values[this.props.productIndex]['productGodownBatchData'][i]['rate'] = +event.target.value
+                if(event.target.value === ''){
+                    values[this.props.productIndex]['productGodownBatchData'][i]['rate'] = event.target.value
+                }
+                else{
+                    values[this.props.productIndex]['productGodownBatchData'][i]['rate'] = +event.target.value
+                }
                 this.setState({values}, () => {
                     this.calculateGross(i)
                 }) 
