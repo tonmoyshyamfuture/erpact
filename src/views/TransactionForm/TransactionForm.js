@@ -188,6 +188,7 @@ class TransactionForm extends Component {
         taxValColKey: false,
         transaction_id: transactionId
     }, () => {
+        this.getPreferencesDetails()
         this.getLedgerDebtorsList()
         this.getLedgerSalesList()
         this.getTransactionParameters()
@@ -196,8 +197,7 @@ class TransactionForm extends Component {
         this.getdiscountList()
         this.getUserDetails()
         this.getAllContactsList()
-        this.getAllDespatchList()
-        this.getPreferencesDetails()
+        this.getAllDespatchList()        
         this.getBankListForTransaction()
         if(this.state.tran_type == 5 || this.state.tran_type == 7 || this.state.tran_type == 10){
             this.setState({
@@ -337,6 +337,7 @@ class TransactionForm extends Component {
             wqbankName: '',
             allBankList: []
         }, () => {
+            this.getPreferencesDetails()
             this.getLedgerDebtorsList()
             this.getLedgerSalesList()
             this.getTransactionParameters()
@@ -345,8 +346,7 @@ class TransactionForm extends Component {
             this.getdiscountList()
             this.getUserDetails()
             this.getAllContactsList()
-            this.getAllDespatchList()
-            this.getPreferencesDetails()
+            this.getAllDespatchList()            
             this.getBankListForTransaction()
             if(this.state.tran_type == 5 || this.state.tran_type == 7 || this.state.tran_type == 10){
                 this.setState({
@@ -796,9 +796,6 @@ class TransactionForm extends Component {
   }
 
   getShippingDetails(ledger_id){
-    this.setState({
-        loading: true
-    })
     var params = "?ledger=" + ledger_id;
     transactionService.getShippingDetails(params).then(res => {               
         console.log(res.data)
@@ -811,8 +808,7 @@ class TransactionForm extends Component {
                     shippingDetailsKey: true,
                     ledgerStateCode: this.state.shippingDetails.state,
                     billing_address: this.state.shippingDetails['billing_address'][0],
-                    shipping_address: this.state.shippingDetails['shipping_address'][0],
-                    loading: false
+                    shipping_address: this.state.shippingDetails['shipping_address'][0]
                 }, () => {
                     // console.log(this.state.ledgerStateCode)
                     this.getColKey();
@@ -820,8 +816,7 @@ class TransactionForm extends Component {
             }
             else {
                 this.setState({
-                    ledgerStateCode: this.state.shippingDetails.state,
-                    loading: false
+                    ledgerStateCode: this.state.shippingDetails.state
                 }, () => {
                     // console.log(this.state.ledgerStateCode)
                     this.getColKey();
@@ -832,6 +827,9 @@ class TransactionForm extends Component {
   }
 
   getTransactionParameters(){
+    this.setState({
+        loading: true
+    })
     var params = "?tran_type=" + this.state.tran_type;
     transactionService.getTransactionParameters(params).then(res => {
         this.setState({
@@ -847,18 +845,27 @@ class TransactionForm extends Component {
                     date: moment().format('DD/MM/YYYY')
                 })
             }
-
-            if(this.state.transactionParameters.auto_no_status != 1) {
-                this.refs.invoiceNumber.focus();
-            } 
-            if(this.state.transactionParameters.auto_date != 1) {
-                this.refs.date.focus();
-            }
-            if(this.state.transactionParameters.auto_no_status == 1 && this.state.transactionParameters.auto_date == 1) {
-                this.refs.debtorsValue.focus();
-            }
+            this.setState({
+                loading: false
+            }, ()=> {
+                if(this.state.transactionParameters.auto_no_status != 1) {
+                    this.refs.invoiceNumber.focus();
+                } 
+                if(this.state.transactionParameters.auto_date != 1) {
+                    this.refs.date.focus();
+                }
+                if(this.state.transactionParameters.auto_no_status == 1 && this.state.transactionParameters.auto_date == 1) {
+                    this.refs.debtorsValue.focus();
+                }
+            })
+            
         })        
         console.log(res.data)
+    },
+    error => {
+        this.setState({
+            loading: false
+        })
     })
   }
 
@@ -889,6 +896,7 @@ class TransactionForm extends Component {
   }
 
   getProductList(){
+    
     transactionService.getProductList().then(res => {        
         var productData = [];
         res.data.forEach(x => {
@@ -909,6 +917,9 @@ class TransactionForm extends Component {
         if(this.state.transaction_id != ''){
             this.getTransactionDataById(this.state.transaction_id)
         }
+    }, 
+    error => {
+        
     })
   }
 
