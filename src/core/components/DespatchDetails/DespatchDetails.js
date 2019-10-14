@@ -2,7 +2,7 @@ import React, { Component, Suspense } from 'react';
 import { Link } from "react-router-dom";
 import { Button, Modal } from 'react-bootstrap';
 import Select from 'react-select';
-// import * as $ from 'jquery';
+import * as $ from 'jquery';
 import * as transactionService from '../../services/TransactionService';
 const customStyles = {
     control: styles => ({ ...styles, backgroundColor: 'white', width: '100%', })
@@ -63,10 +63,9 @@ class DespatchDetails extends Component {
                 if(this.refs[field.name].name === arr[i]){                    
                     this.refs[arr[i+1]].focus()
                 }
-            }
-            
-            if(this.refs[field.name].name == "transportation_mode"){
-                this.handleHide();
+            }           
+            if(this.refs[field.name].name == "btn"){
+                this.handleHide();                
             }
         }
     }
@@ -112,6 +111,7 @@ class DespatchDetails extends Component {
     transportationModeOnChange = (selectedOption) => {
         console.log(selectedOption)
         this.props.despatchFieldOnChange("transportation_mode",selectedOption)
+        this.refs.btn.focus()
     }
 
     render() {
@@ -203,7 +203,7 @@ class DespatchDetails extends Component {
                         </div>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button onClick={this.handleHide} className="btn btn-primary">Save</Button>
+                        <button onClick={this.handleHide} className="btn btn-primary" name="btn" ref="btn">Save</button>
                     </Modal.Footer>
                     </Modal>
                 </div>

@@ -871,7 +871,13 @@ class TransactionForm extends Component {
 
   getSalesManList(){
     transactionService.getSalesManList().then(res => {
-        var salesManData = [];
+        var salesManData = [
+            {
+                value: null,
+                label: "Select Sales Man",
+                data: null
+            }
+        ];
         res.data.forEach(x => {
             var d = {
                 value: x.id,
@@ -889,16 +895,28 @@ class TransactionForm extends Component {
   }
 
   salesManOnChange = (selectedOption) => {
-    this.setState({ salesManValue: selectedOption}, () => {
-        console.log(this.state.salesManValue)
+    if(selectedOption.value != null){
+        this.setState({ salesManValue: selectedOption}, () => {
+            console.log(this.state.salesManValue)
+            this.refs.others.focus();
+        })  
+    }
+    else{
         this.refs.others.focus();
-    })    
+    }  
   }
 
   getProductList(){
     
     transactionService.getProductList().then(res => {        
-        var productData = [];
+        var productData = [
+            {
+                value: null,
+                // label: `${x.name} (${x.sku}) [Stock: ${x.stock}]`,
+                label: "Select Product",
+                data: null
+            }
+        ];
         res.data.forEach(x => {
             var d = {
                 value: x.id,
@@ -925,7 +943,13 @@ class TransactionForm extends Component {
 
   getdiscountList(){
     transactionService.getdiscountList().then(res => {       
-        var expenseData = [];
+        var expenseData = [
+            {
+                value: null,
+                label: "Select Expense",
+                data: null
+            }
+        ];
         res.data.forEach(x => {
             var d = {
                 value: x.id,
@@ -1030,7 +1054,12 @@ class TransactionForm extends Component {
     },() => {
         if(this.state.currentRef != null){
             var currentRef = "discount_" + this.state.currentRef.split('_')[1]
-            this.resetFocus(currentRef)
+            if(this.state.currentRef.split('_')[1] != undefined){
+                this.resetFocus(currentRef)
+            }
+            else{
+                this.resetFocus(this.state.currentRef)
+            }
         }       
     })
   }
@@ -1041,7 +1070,13 @@ class TransactionForm extends Component {
     },() => {
         if(this.state.currentRef != null){
             var currentRef = "discount_" + this.state.currentRef.split('_')[1]
-            this.resetFocus(currentRef)
+            if(this.state.currentRef.split('_')[1] != undefined){
+                this.resetFocus(currentRef)
+            }
+            else{
+                this.resetFocus(this.state.currentRef)
+            }          
+            
         }        
     })
   } 
@@ -1076,16 +1111,26 @@ class TransactionForm extends Component {
         });
     }
     else{
-        this.setState({ productValue: selectedOption}, () => {
-            if(this.state.selectedProductList.length == 0){
-                let values = {...this.state.companyInfo};
-                values['state'] = selectedOption[0]['data']['billingStateId']
-                this.setState({companyInfo: values}, () => {
-                    this.getColKey();
+        console.log(selectedOption)
+        if(selectedOption.length > 0){
+            if(selectedOption[0].value != null){
+                this.setState({ productValue: selectedOption}, () => {
+                    if(this.state.selectedProductList.length == 0){
+                        let values = {...this.state.companyInfo};
+                        values['state'] = selectedOption[0]['data']['billingStateId']
+                        this.setState({companyInfo: values}, () => {
+                            this.getColKey();
+                        })
+                    }            
+                    this.createProductRow()
+                    
                 })
-            }            
-            this.createProductRow()
-        })
+            }
+            else{
+                this.refs.expense.focus()
+            }
+        }
+        
     }  
     
   }
@@ -1238,9 +1283,17 @@ class TransactionForm extends Component {
         });
     }
     else{
-        this.setState({ expense: selectedOption}, () => {
-            this.createExpenseRow()
-        })
+        if(selectedOption.length > 0){
+            if(selectedOption[0].value != null){
+                this.setState({ expense: selectedOption}, () => {
+                    this.createExpenseRow()
+                })
+            }
+            else{
+                this.refs.notes.focus()
+            }
+        }
+        
     }
     
   }
@@ -1432,8 +1485,17 @@ class TransactionForm extends Component {
     }
     else if(this.state.transactionParameters.batch_status == 1 && this.state.transactionParameters.godown_status == 0){
         this.quantityRateOnBlur(i)
-    }       
-        
+    }
+
+    if(this.state.currentRef != null){
+        var currentRef = "discount_" + this.state.currentRef.split('_')[1]
+        if(this.state.currentRef.split('_')[1] != undefined){
+            this.resetFocus(currentRef)
+        }
+        else{
+            this.resetFocus(this.state.currentRef)
+        }
+    }        
   }
 
   unitOnChange = (i, selectedOption) => {
@@ -1534,8 +1596,8 @@ class TransactionForm extends Component {
     values[i]['taxValue'] = 0;
     values[i]['total'] = 0;
     var data = values[i]['detailsData'];    
-    var rate = +values[i]['rate']
-    var qty = +values[i]['qty']
+    var rate = values[i]['rate']
+    var qty = values[i]['qty']
     if(this.state.companyInfo.type == "1" && rate > 0 && qty > 0){
         if(this.state.companyInfo.state == this.state.ledgerStateCode){
             if(data.tax[0]['gst_type'] == 0){

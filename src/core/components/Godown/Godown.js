@@ -46,8 +46,8 @@ class Godown extends Component {
 
     quantityOnChange = (i,event) => {
         console.log(event.target.value)
-        const re = RegExp(/^[0-9]+(\.[0-9][0-9]?)*$/);
-        if (event.target.value === '' || re.test(event.target.value)) {
+        // const re = RegExp(/^[0-9]+(\.[0-9][0-9]?)*$/);
+        // if (event.target.value === '' || re.test(event.target.value)) {
         // if (event.target.value != '') {
             let values = [...this.props.selectedProductList];
             if(values[this.props.productIndex]['productGodownBatchData'][i]['godownValue'] == ''){
@@ -61,7 +61,7 @@ class Godown extends Component {
                 });
             }
             else{
-                var qty_val = +event.target.value
+                var qty_val = event.target.value
                 var available_stock = values[this.props.productIndex]['stock'] - (values[this.props.productIndex]['qty'] + (qty_val - values[this.props.productIndex]['productGodownBatchData'][i]['qty']));
                 if(event.target.value === ''){
                     values[this.props.productIndex]['productGodownBatchData'][i]['qty'] = event.target.value
@@ -90,14 +90,14 @@ class Godown extends Component {
                 })
                 // this.refs['rate'+i].focus(); 
             }
-        }        
+        // }        
         
     }
 
     calculateGross = (i) => {
         let values = [...this.props.selectedProductList];
-        var qty = +values[this.props.productIndex]['productGodownBatchData'][i]['qty']
-        var rate = +values[this.props.productIndex]['productGodownBatchData'][i]['rate']
+        var qty = values[this.props.productIndex]['productGodownBatchData'][i]['qty']
+        var rate = values[this.props.productIndex]['productGodownBatchData'][i]['rate']
         var grossTotal = 0;
         grossTotal = qty*rate;
         values[this.props.productIndex]['productGodownBatchData'][i]['grossTotal'] = parseFloat(grossTotal.toFixed(2));
@@ -109,8 +109,8 @@ class Godown extends Component {
 
 
     rateOnChange = (i,event) => {
-        const re = RegExp(/^[0-9]+(\.[0-9][0-9]?)*$/);
-        if (event.target.value === '' || re.test(event.target.value)) {
+        // const re = RegExp(/^[0-9]+(\.[0-9][0-9]?)*$/);
+        // if (event.target.value === '' || re.test(event.target.value)) {
         // if (event.target.value != '') {
             let values = [...this.props.selectedProductList];
             if(values[this.props.productIndex]['productGodownBatchData'][i]['godownValue'] == ''){
@@ -128,14 +128,14 @@ class Godown extends Component {
                     values[this.props.productIndex]['productGodownBatchData'][i]['rate'] = event.target.value
                 }
                 else{
-                    values[this.props.productIndex]['productGodownBatchData'][i]['rate'] = +event.target.value
+                    values[this.props.productIndex]['productGodownBatchData'][i]['rate'] = event.target.value
                 }
                 this.setState({values}, () => {
                     this.calculateGross(i)
                 })
                  
             } 
-        }
+        // }
          
     }
 

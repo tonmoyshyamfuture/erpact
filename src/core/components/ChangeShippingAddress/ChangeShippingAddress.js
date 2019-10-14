@@ -2,7 +2,7 @@ import React, { Component, Suspense } from 'react';
 import { Link } from "react-router-dom";
 import { Button, Modal } from 'react-bootstrap';
 import Select from 'react-select';
-// import * as $ from 'jquery';
+import * as $ from 'jquery';
 import * as transactionService from '../../services/TransactionService';
 const customStyles = {
     control: styles => ({ ...styles, backgroundColor: 'white', width: '100%', })
@@ -57,6 +57,10 @@ class ChangeShippingAddress extends Component {
                     this.refs[arr[i+1]].focus()
                 }
             }
+
+            if(this.refs[field.name].name == "btn"){
+                this.handleHide();                
+            }
         }
     }
 
@@ -70,6 +74,7 @@ class ChangeShippingAddress extends Component {
     shippingOnChange = (selectedOption) => {
         this.props.getShippingOnChange(selectedOption)
         this.props.getShippingAndLedgerState(selectedOption['data'])  
+        this.refs.btn.focus()
     }
 
     handleHide() {
@@ -150,7 +155,7 @@ class ChangeShippingAddress extends Component {
                         
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button onClick={this.handleHide} className="btn btn-danger">Close</Button>
+                        <button onClick={this.handleHide} className="btn btn-danger" name="btn" ref="btn">Close</button>
                     </Modal.Footer>
                     </Modal>
                 </div>
