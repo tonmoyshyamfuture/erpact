@@ -1113,7 +1113,7 @@ class TransactionForm extends Component {
     }
     else{
         console.log(selectedOption)
-        if(selectedOption.length > 0){
+        // if(selectedOption.length > 0){
             var blankData = selectedOption.findIndex(x => x.value == null)
             if(blankData == -1){
                 this.setState({ productValue: selectedOption}, () => {
@@ -1131,7 +1131,7 @@ class TransactionForm extends Component {
             else{
                 this.refs.expense.focus()
             }
-        }
+        // }
         
     }  
     
@@ -1285,7 +1285,7 @@ class TransactionForm extends Component {
         });
     }
     else{
-        if(selectedOption.length > 0){
+        // if(selectedOption.length > 0){
             var blankData = selectedOption.findIndex(x => x.value == null)
             if(blankData == -1){
                 this.setState({ expense: selectedOption}, () => {
@@ -1295,7 +1295,7 @@ class TransactionForm extends Component {
             else{
                 this.refs.notes.focus()
             }
-        }
+        // }
         
     }
     

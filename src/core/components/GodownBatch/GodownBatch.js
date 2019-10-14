@@ -226,6 +226,9 @@ class GodownBatch extends Component {
             values[this.props.productIndex]['productGodownBatchData'][i]['batchValue'] = ''
             this.setState({ values })
             this.getBatchByGodownIdAndProductId(i,selectedOption.value)
+        }
+        else{
+            this.refs['batchValue'+i].focus();
         }        
     }
 

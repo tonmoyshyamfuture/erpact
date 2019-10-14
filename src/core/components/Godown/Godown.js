@@ -178,12 +178,16 @@ class Godown extends Component {
     }
 
     godownOnChange = (i,selectedOption) => {
+        console.log(selectedOption)
         let values = [...this.props.selectedProductList];
         if(values[this.props.productIndex]['productGodownBatchData'][i]['godownValue']['value'] != selectedOption.value){
             values[this.props.productIndex]['productGodownBatchData'][i]['godownValue'] = selectedOption
             this.setState({ values, goModal: false}, function() {
                 this.refs['qty'+i].focus();
             })
+        }
+        else{
+            this.refs['qty'+i].focus();
         }        
     }
     
