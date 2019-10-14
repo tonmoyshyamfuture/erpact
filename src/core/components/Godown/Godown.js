@@ -45,9 +45,14 @@ class Godown extends Component {
     
 
     quantityOnChange = (i,event) => {
-        event.target.value = event.target.value.replace(/^0+/, '');
         const re = RegExp(/^[0-9]+\.?[0-9]*$/);
         if (event.target.value === '' || re.test(event.target.value)) {
+            if(event.target.value.length > 1){
+                var digit = event.target.value.toString()[1];
+                if(digit != '.'){
+                    event.target.value = event.target.value.replace(/^0+/, '');
+                }            
+            }
         // if (event.target.value != '') {
             let values = [...this.props.selectedProductList];
             if(values[this.props.productIndex]['productGodownBatchData'][i]['godownValue'] == ''){
@@ -109,10 +114,15 @@ class Godown extends Component {
 
 
     rateOnChange = (i,event) => {
-        event.target.value = event.target.value.replace(/^0+/, '');
         const re = RegExp(/^[0-9]+\.?[0-9]*$/);
         if (event.target.value === '' || re.test(event.target.value)) {
         // if (event.target.value != '') {
+            if(event.target.value.length > 1){
+                var digit = event.target.value.toString()[1];
+                if(digit != '.'){
+                    event.target.value = event.target.value.replace(/^0+/, '');
+                }            
+            }
             let values = [...this.props.selectedProductList];
             if(values[this.props.productIndex]['productGodownBatchData'][i]['godownValue'] == ''){
                 toast.error(`Please Select Godown`, {

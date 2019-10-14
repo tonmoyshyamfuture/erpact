@@ -1537,8 +1537,13 @@ class TransactionForm extends Component {
   discountOnChange = (i, event) => {
     const re = RegExp(/^[0-9]+\.?[0-9]*$/);
     if (event.target.value === '' || re.test(event.target.value)) {
-    // if (event.target.value != '') {
-        event.target.value = event.target.value.replace(/^0+/, '');
+    // if (event.target.value != '') {       
+        if(event.target.value.length > 1){
+            var digit = event.target.value.toString()[1];
+            if(digit != '.'){
+                event.target.value = event.target.value.replace(/^0+/, '');
+            }            
+        }        
         let values = [...this.state.selectedProductList];
         values[i]['discount'] = event.target.value;
         this.setState({ values }, () => {
@@ -1562,7 +1567,12 @@ class TransactionForm extends Component {
     const re = RegExp(/^[0-9]+\.?[0-9]*$/);
     if (event.target.value === '' || re.test(event.target.value)) {
     // if (event.target.value != '') {
-        event.target.value = event.target.value.replace(/^0+/, '');
+        if(event.target.value.length > 1){
+            var digit = event.target.value.toString()[1];
+            if(digit != '.'){
+                event.target.value = event.target.value.replace(/^0+/, '');
+            }            
+        }
         let values = [...this.state.selectedExpenseList];
         values[i]['price'] = event.target.value;
         this.setState({ values }, () => {
