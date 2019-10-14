@@ -1533,14 +1533,15 @@ class TransactionForm extends Component {
   discountOnChange = (i, event) => {
     // const re = RegExp(/^[0-9]+(\.[0-9][0-9]?)*$/);
     // if (event.target.value === '' || re.test(event.target.value)) {
-    if (event.target.value != '') {
+    // if (event.target.value != '') {
+        event.target.value = event.target.value.replace(/^0+/, '');
         let values = [...this.state.selectedProductList];
         values[i]['discount'] = event.target.value;
         this.setState({ values }, () => {
             this.calculateGross(i);
         }); 
         // this.refs.productValue.focus();
-    }    
+    // }    
         
   }
 
@@ -1556,14 +1557,15 @@ class TransactionForm extends Component {
     // const re = RegExp(/^[0-9]+(\.[0-9][0-9]?)*$/);
     // const re = RegExp(/^([+-]){0,1}([0-9])*$/);
     // if (event.target.value === '' || re.test(event.target.value)) {
-    if (event.target.value != '') {
+    // if (event.target.value != '') {
+        event.target.value = event.target.value.replace(/^0+/, '');
         let values = [...this.state.selectedExpenseList];
         values[i]['price'] = event.target.value;
         this.setState({ values }, () => {
             this.calculateSumValue();
         });
         // this.refs.expense.focus();
-    }
+    // }
            
   }
 
