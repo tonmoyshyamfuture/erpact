@@ -45,10 +45,9 @@ class Godown extends Component {
     
 
     quantityOnChange = (i,event) => {
-        console.log(event.target.value)
         event.target.value = event.target.value.replace(/^0+/, '');
-        // const re = RegExp(/^[0-9]+(\.[0-9][0-9]?)*$/);
-        // if (event.target.value === '' || re.test(event.target.value)) {
+        const re = RegExp(/^[0-9]+\.?[0-9]*$/);
+        if (event.target.value === '' || re.test(event.target.value)) {
         // if (event.target.value != '') {
             let values = [...this.props.selectedProductList];
             if(values[this.props.productIndex]['productGodownBatchData'][i]['godownValue'] == ''){
@@ -91,7 +90,7 @@ class Godown extends Component {
                 })
                 // this.refs['rate'+i].focus(); 
             }
-        // }        
+        }        
         
     }
 
@@ -111,8 +110,8 @@ class Godown extends Component {
 
     rateOnChange = (i,event) => {
         event.target.value = event.target.value.replace(/^0+/, '');
-        // const re = RegExp(/^[0-9]+(\.[0-9][0-9]?)*$/);
-        // if (event.target.value === '' || re.test(event.target.value)) {
+        const re = RegExp(/^[0-9]+\.?[0-9]*$/);
+        if (event.target.value === '' || re.test(event.target.value)) {
         // if (event.target.value != '') {
             let values = [...this.props.selectedProductList];
             if(values[this.props.productIndex]['productGodownBatchData'][i]['godownValue'] == ''){
@@ -137,7 +136,7 @@ class Godown extends Component {
                 })
                  
             } 
-        // }
+        }
          
     }
 

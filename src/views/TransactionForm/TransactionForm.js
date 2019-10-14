@@ -1070,6 +1070,7 @@ class TransactionForm extends Component {
     },() => {
         if(this.state.currentRef != null){
             var currentRef = "discount_" + this.state.currentRef.split('_')[1]
+            console.log(this.state.currentRef.split('_')[1])
             if(this.state.currentRef.split('_')[1] != undefined){
                 this.resetFocus(currentRef)
             }
@@ -1113,7 +1114,8 @@ class TransactionForm extends Component {
     else{
         console.log(selectedOption)
         if(selectedOption.length > 0){
-            if(selectedOption[0].value != null){
+            var blankData = selectedOption.findIndex(x => x.value == null)
+            if(blankData == -1){
                 this.setState({ productValue: selectedOption}, () => {
                     if(this.state.selectedProductList.length == 0){
                         let values = {...this.state.companyInfo};
@@ -1284,7 +1286,8 @@ class TransactionForm extends Component {
     }
     else{
         if(selectedOption.length > 0){
-            if(selectedOption[0].value != null){
+            var blankData = selectedOption.findIndex(x => x.value == null)
+            if(blankData == -1){
                 this.setState({ expense: selectedOption}, () => {
                     this.createExpenseRow()
                 })
@@ -1377,11 +1380,11 @@ class TransactionForm extends Component {
   }
   
   quantityOnChange = (i, event) => {
-    //const re = RegExp(/^[0-9]+(\.[0-9][0-9]?)*$/);
+    const re = RegExp(/^[0-9]+\.?[0-9]*$/);
     //console.log("===>>>",i);
     //console.log("===>>>",event.target.value);
-    // if (event.target.value === '' || re.test(event.target.value)) {
-    if (event.target.value != '') {
+    if (event.target.value === '' || re.test(event.target.value)) {
+    // if (event.target.value != '') {
         if(this.state.transactionParameters.batch_status == 1 && this.state.transactionParameters.godown_status == 1){
             this.quantityRateOnBlur(i)
         }
@@ -1489,6 +1492,7 @@ class TransactionForm extends Component {
 
     if(this.state.currentRef != null){
         var currentRef = "discount_" + this.state.currentRef.split('_')[1]
+        console.log(this.state.currentRef.split('_')[1])
         if(this.state.currentRef.split('_')[1] != undefined){
             this.resetFocus(currentRef)
         }
@@ -1506,9 +1510,9 @@ class TransactionForm extends Component {
     // this.refs.qty0.focus();
   }
   rateOnChange = (i, event) => {
-    // const re = RegExp(/^[0-9]+(\.[0-9][0-9]?)*$/);
-    // if (event.target.value === '' || re.test(event.target.value)) {
-    if (event.target.value != '') {
+    const re = RegExp(/^[0-9]+\.?[0-9]*$/);
+    if (event.target.value === '' || re.test(event.target.value)) {
+    // if (event.target.value != '') {
         if(this.state.transactionParameters.batch_status == 1 && this.state.transactionParameters.godown_status == 1){
             this.quantityRateOnBlur(i)
         }
@@ -1531,8 +1535,8 @@ class TransactionForm extends Component {
   }
 
   discountOnChange = (i, event) => {
-    // const re = RegExp(/^[0-9]+(\.[0-9][0-9]?)*$/);
-    // if (event.target.value === '' || re.test(event.target.value)) {
+    const re = RegExp(/^[0-9]+\.?[0-9]*$/);
+    if (event.target.value === '' || re.test(event.target.value)) {
     // if (event.target.value != '') {
         event.target.value = event.target.value.replace(/^0+/, '');
         let values = [...this.state.selectedProductList];
@@ -1541,7 +1545,7 @@ class TransactionForm extends Component {
             this.calculateGross(i);
         }); 
         // this.refs.productValue.focus();
-    // }    
+    }    
         
   }
 
@@ -1555,8 +1559,8 @@ class TransactionForm extends Component {
     //     });
     // }
     // const re = RegExp(/^[0-9]+(\.[0-9][0-9]?)*$/);
-    // const re = RegExp(/^([+-]){0,1}([0-9])*$/);
-    // if (event.target.value === '' || re.test(event.target.value)) {
+    const re = RegExp(/^[0-9]+\.?[0-9]*$/);
+    if (event.target.value === '' || re.test(event.target.value)) {
     // if (event.target.value != '') {
         event.target.value = event.target.value.replace(/^0+/, '');
         let values = [...this.state.selectedExpenseList];
@@ -1565,7 +1569,7 @@ class TransactionForm extends Component {
             this.calculateSumValue();
         });
         // this.refs.expense.focus();
-    // }
+    }
            
   }
 
