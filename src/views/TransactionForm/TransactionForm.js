@@ -1407,7 +1407,16 @@ class TransactionForm extends Component {
         }
     }   
         
-        
+    if(this.state.currentRef != null){
+        var currentRef = "discount_" + this.state.currentRef.split('_')[1]
+        console.log(this.state.currentRef.split('_')[1])
+        if(this.state.currentRef.split('_')[1] != undefined){
+            this.resetFocus(currentRef)
+        }
+        else{
+            this.resetFocus(this.state.currentRef)
+        }
+    }
   }
   calculateAvgQtyRate = (index) => {
     let values = [...this.state.selectedProductList];
@@ -1564,21 +1573,29 @@ class TransactionForm extends Component {
     //     });
     // }
     // const re = RegExp(/^[0-9]+(\.[0-9][0-9]?)*$/);
-    const re = RegExp(/^[0-9]+\.?[0-9]*$/);
+    // const re = RegExp(/^[0-9]+\.?[0-9]*$/);
+    // if (event.target.value === '' || re.test(event.target.value)) {
+    // // if (event.target.value != '') {
+    //     if(event.target.value.length > 1){
+    //         var digit = event.target.value.toString()[1];
+    //         if(digit != '.'){
+    //             event.target.value = event.target.value.replace(/^0+/, '');
+    //         }            
+    //     }
+    //     let values = [...this.state.selectedExpenseList];
+    //     values[i]['price'] = event.target.value;
+    //     this.setState({ values }, () => {
+    //         this.calculateSumValue();
+    //     });
+    //     // this.refs.expense.focus();
+    // }
+    const re = RegExp(/^([+-]){0,1}([0-9])*$/);
     if (event.target.value === '' || re.test(event.target.value)) {
-    // if (event.target.value != '') {
-        if(event.target.value.length > 1){
-            var digit = event.target.value.toString()[1];
-            if(digit != '.'){
-                event.target.value = event.target.value.replace(/^0+/, '');
-            }            
-        }
         let values = [...this.state.selectedExpenseList];
         values[i]['price'] = event.target.value;
         this.setState({ values }, () => {
             this.calculateSumValue();
         });
-        // this.refs.expense.focus();
     }
            
   }
