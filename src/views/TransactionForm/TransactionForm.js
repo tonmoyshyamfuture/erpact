@@ -652,7 +652,18 @@ class TransactionForm extends Component {
                 this.formSubmit();
             } else {
                 console.log(this.refs[field.name].name)
-                this.refs[arr[i+1]].focus();
+                if(this.state.formSettingData.productDiscReadOnly == 0){
+                    this.refs[arr[i+1]].focus();
+                }
+                else{
+                    if(this.refs[field.name].name.split('_')[0] == "rate" || this.refs[field.name].name.split('_')[0] == "qty"){
+                        this.refs.others.focus();
+                    }
+                    else{
+                        this.refs[arr[i+1]].focus();
+                    }
+                }
+                
             }
         }
       }
@@ -1053,12 +1064,21 @@ class TransactionForm extends Component {
         modalGodownBatchKey: key
     },() => {
         if(this.state.currentRef != null){
-            var currentRef = "discount_" + this.state.currentRef.split('_')[1]
-            if(this.state.currentRef.split('_')[1] != undefined){
-                this.resetFocus(currentRef)
+            if(this.state.formSettingData.productDiscReadOnly == 0){
+                var currentRef = "discount_" + this.state.currentRef.split('_')[1]
+                console.log(this.state.currentRef.split('_')[1])
+                if(this.state.currentRef.split('_')[1] != undefined){
+                    this.resetFocus(currentRef)
+                }
+                else{
+                    this.resetFocus(this.state.currentRef)
+                }
             }
             else{
-                this.resetFocus(this.state.currentRef)
+                setTimeout(() => {
+                    this.refs.productValue.focus()
+                }, 0);
+                
             }
         }       
     })
@@ -1069,13 +1089,20 @@ class TransactionForm extends Component {
         modalGodownKey: key
     },() => {
         if(this.state.currentRef != null){
-            var currentRef = "discount_" + this.state.currentRef.split('_')[1]
-            console.log(this.state.currentRef.split('_')[1])
-            if(this.state.currentRef.split('_')[1] != undefined){
-                this.resetFocus(currentRef)
+            if(this.state.formSettingData.productDiscReadOnly == 0){
+                var currentRef = "discount_" + this.state.currentRef.split('_')[1]
+                console.log(this.state.currentRef.split('_')[1])
+                if(this.state.currentRef.split('_')[1] != undefined){
+                    this.resetFocus(currentRef)
+                }
+                else{
+                    this.resetFocus(this.state.currentRef)
+                }
             }
             else{
-                this.resetFocus(this.state.currentRef)
+                setTimeout(() => {
+                    this.refs.productValue.focus()
+                }, 0);
             }          
             
         }        
@@ -1408,14 +1435,21 @@ class TransactionForm extends Component {
     }   
         
     if(this.state.currentRef != null){
-        var currentRef = "discount_" + this.state.currentRef.split('_')[1]
-        console.log(this.state.currentRef.split('_')[1])
-        if(this.state.currentRef.split('_')[1] != undefined){
-            this.resetFocus(currentRef)
+        if(this.state.formSettingData.productDiscReadOnly == 0){
+            var currentRef = "discount_" + this.state.currentRef.split('_')[1]
+            console.log(this.state.currentRef.split('_')[1])
+            if(this.state.currentRef.split('_')[1] != undefined){
+                this.resetFocus(currentRef)
+            }
+            else{
+                this.resetFocus(this.state.currentRef)
+            }
         }
         else{
-            this.resetFocus(this.state.currentRef)
+            this.refs.others.focus()
+            
         }
+        
     }
   }
   calculateAvgQtyRate = (index) => {
@@ -1489,6 +1523,7 @@ class TransactionForm extends Component {
     // })
   }
   quantityRateOnBlurChange = (i) => {
+    console.log("fdgdgdgdfgdfgdfgdfgdfgdfgdfgd")
     if(this.state.transactionParameters.batch_status == 1 && this.state.transactionParameters.godown_status == 1){
         this.quantityRateOnBlur(i)
     }
@@ -1500,13 +1535,19 @@ class TransactionForm extends Component {
     }
 
     if(this.state.currentRef != null){
-        var currentRef = "discount_" + this.state.currentRef.split('_')[1]
-        console.log(this.state.currentRef.split('_')[1])
-        if(this.state.currentRef.split('_')[1] != undefined){
-            this.resetFocus(currentRef)
+        if(this.state.formSettingData.productDiscReadOnly == 0){
+            var currentRef = "discount_" + this.state.currentRef.split('_')[1]
+            console.log(this.state.currentRef.split('_')[1])
+            if(this.state.currentRef.split('_')[1] != undefined){
+                this.resetFocus(currentRef)
+            }
+            else{
+                this.resetFocus(this.state.currentRef)
+            }
         }
         else{
-            this.resetFocus(this.state.currentRef)
+            this.refs.others.focus()
+            
         }
     }        
   }
@@ -1538,6 +1579,23 @@ class TransactionForm extends Component {
                 this.calculateGross(i);
             });
         } 
+        
+    }
+    if(this.state.currentRef != null){
+        if(this.state.formSettingData.productDiscReadOnly == 0){
+            var currentRef = "discount_" + this.state.currentRef.split('_')[1]
+            console.log(this.state.currentRef.split('_')[1])
+            if(this.state.currentRef.split('_')[1] != undefined){
+                this.resetFocus(currentRef)
+            }
+            else{
+                this.resetFocus(this.state.currentRef)
+            }
+        }
+        else{
+            this.refs.others.focus()
+            
+        }
     }
        
         
