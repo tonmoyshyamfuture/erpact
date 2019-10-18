@@ -67,7 +67,7 @@ class GodownBatch extends Component {
     }
 
     quantityOnChange = (i,event) => {
-        const re = RegExp(/^[0-9]+\.?[0-9]*$/);
+        const re = RegExp(/^([0-9])*(\.){0,1}([0-9]){0,2}$/);
         if (event.target.value === '' || re.test(event.target.value)) {
         // if (event.target.value != '') {
             if(event.target.value.length > 1){
@@ -147,7 +147,7 @@ class GodownBatch extends Component {
 
 
     rateOnChange = (i,event) => {
-        const re = RegExp(/^[0-9]+\.?[0-9]*$/);
+        const re = RegExp(/^([0-9])*(\.){0,1}([0-9]){0,2}$/);
         if (event.target.value === '' || re.test(event.target.value)) {
         // if (event.target.value != '') {
             if(event.target.value.length > 1){
@@ -353,6 +353,12 @@ class GodownBatch extends Component {
                             styles={customLedgerStyles}
                             placeholder="Select Godown"
                             ref={`godownValue${i}`} name={`godownValue${i}`}
+                            components = {
+                                {
+                                    DropdownIndicator: () => null,
+                                    IndicatorSeparator: () => null
+                                }
+                            }
                         />
                     </div>
                     <div className="col-md-3">
@@ -364,6 +370,12 @@ class GodownBatch extends Component {
                             styles={customLedgerStyles}
                             placeholder="Select Batch"
                             ref={`batchValue${i}`} name={`batchValue${i}`}
+                            components = {
+                                {
+                                    DropdownIndicator: () => null,
+                                    IndicatorSeparator: () => null
+                                }
+                            }
                         />
                     </div>
                     <div className="col-md-2">

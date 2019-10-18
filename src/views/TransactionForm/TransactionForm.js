@@ -1380,7 +1380,7 @@ class TransactionForm extends Component {
   }
   
   quantityOnChange = (i, event) => {
-    const re = RegExp(/^[0-9]+\.?[0-9]*$/);
+    const re = RegExp(/^([0-9])*(\.){0,1}([0-9]){0,2}$/);
     //console.log("===>>>",i);
     //console.log("===>>>",event.target.value);
     if (event.target.value === '' || re.test(event.target.value)) {
@@ -1519,7 +1519,7 @@ class TransactionForm extends Component {
     // this.refs.qty0.focus();
   }
   rateOnChange = (i, event) => {
-    const re = RegExp(/^[0-9]+\.?[0-9]*$/);
+    const re = RegExp(/^([0-9])*(\.){0,1}([0-9]){0,2}$/);
     if (event.target.value === '' || re.test(event.target.value)) {
     // if (event.target.value != '') {
         if(this.state.transactionParameters.batch_status == 1 && this.state.transactionParameters.godown_status == 1){
@@ -1544,7 +1544,7 @@ class TransactionForm extends Component {
   }
 
   discountOnChange = (i, event) => {
-    const re = RegExp(/^[0-9]+\.?[0-9]*$/);
+    const re = RegExp(/^([0-9])*(\.){0,1}([0-9]){0,2}$/);
     if (event.target.value === '' || re.test(event.target.value)) {
     // if (event.target.value != '') {       
         if(event.target.value.length > 1){
@@ -1589,7 +1589,8 @@ class TransactionForm extends Component {
     //     });
     //     // this.refs.expense.focus();
     // }
-    const re = RegExp(/^([+-]){0,1}([0-9])*$/);
+    // const re = RegExp(/^([+-]){0,1}([0-9])*$/);
+    const re = RegExp(/^([+-]){0,1}(\d+)*(\.){0,1}(\d){0,2}$/);
     if (event.target.value === '' || re.test(event.target.value)) {
         let values = [...this.state.selectedExpenseList];
         values[i]['price'] = event.target.value;
@@ -1755,42 +1756,45 @@ class TransactionForm extends Component {
     })
     if(newExpenseValues.length > 0){
         newExpenseValues.forEach(y => {
-            var price = +y.price
-            if(y.data.include_assessable == 1){
-                for(var i = 0; i < newSelectedProdValues.length ; i++){
-                    var dis = 0;
-                    var rate = newSelectedProdValues[i]['rate'];                
-                    var qty = +newSelectedProdValues[i]['qty'];
-                    var grossTotal = newSelectedProdValues[i]['grossTotal'];
-                    var igst = +newSelectedProdValues[i]['igst']
-                    var cgst = +newSelectedProdValues[i]['cgst']
-                    var sgst = +newSelectedProdValues[i]['sgst']
-                    var cess = +newSelectedProdValues[i]['cess']
-                    var cessRate = +newSelectedProdValues[i]['cessRate']
-                    var igstTotal = 0;
-                    var cgstTotal = 0;
-                    var sgstTotal = 0;
-                    var cessTotal = 0;
-                    var cessRateTotal = 0;
-                    var taxTotal = 0;
-                    if(qty > 0 && rate > 0){
-                        dis = (price/prodGrossSum)*grossTotal
-                        console.log(dis)                                        
-                        igstTotal = ((grossTotal+dis)*igst)/100
-                        cgstTotal = ((grossTotal+dis)*cgst)/100
-                        sgstTotal = ((grossTotal+dis)*sgst)/100
-                        cessTotal = ((grossTotal+dis)*cess)/100
-                        cessRateTotal = qty*cessRate
-                        taxTotal = igstTotal + cgstTotal + sgstTotal + cessTotal + cessRateTotal
-                        newSelectedProdValues[i]['taxValue'] = parseFloat(taxTotal.toFixed(2))
-                        newSelectedProdValues[i]['total'] = parseFloat(((grossTotal+dis) + taxTotal).toFixed(2))
+            if(!Number.isNaN(+y.price)){
+                var price = +y.price
+                if(y.data.include_assessable == 1){
+                    for(var i = 0; i < newSelectedProdValues.length ; i++){
+                        var dis = 0;
+                        var rate = newSelectedProdValues[i]['rate'];                
+                        var qty = +newSelectedProdValues[i]['qty'];
+                        var grossTotal = newSelectedProdValues[i]['grossTotal'];
+                        var igst = +newSelectedProdValues[i]['igst']
+                        var cgst = +newSelectedProdValues[i]['cgst']
+                        var sgst = +newSelectedProdValues[i]['sgst']
+                        var cess = +newSelectedProdValues[i]['cess']
+                        var cessRate = +newSelectedProdValues[i]['cessRate']
+                        var igstTotal = 0;
+                        var cgstTotal = 0;
+                        var sgstTotal = 0;
+                        var cessTotal = 0;
+                        var cessRateTotal = 0;
+                        var taxTotal = 0;
+                        if(qty > 0 && rate > 0){
+                            dis = (price/prodGrossSum)*grossTotal
+                            if(!Number.isNaN(dis)){                                       
+                                igstTotal = ((grossTotal+dis)*igst)/100
+                                cgstTotal = ((grossTotal+dis)*cgst)/100
+                                sgstTotal = ((grossTotal+dis)*sgst)/100
+                                cessTotal = ((grossTotal+dis)*cess)/100
+                                cessRateTotal = qty*cessRate
+                                taxTotal = igstTotal + cgstTotal + sgstTotal + cessTotal + cessRateTotal
+                                newSelectedProdValues[i]['taxValue'] = parseFloat(taxTotal.toFixed(2))
+                                newSelectedProdValues[i]['total'] = parseFloat(((grossTotal+dis) + taxTotal).toFixed(2))
+                            }
+                        }
+                        
                     }
-                    
+                    this.setState({ newSelectedProdValues })
                 }
-                this.setState({ newSelectedProdValues })
-            }
-            else if(y.data.include_assessable == 0){
-                expenseSum += price
+                else if(y.data.include_assessable == 0){
+                    expenseSum += price
+                }
             }
             
         })

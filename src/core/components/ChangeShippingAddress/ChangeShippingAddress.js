@@ -134,6 +134,12 @@ class ChangeShippingAddress extends Component {
                                         styles={customStyles}
                                         placeholder={`Select Contact`}
                                         ref="contact" name="contact"
+                                        components = {
+                                            {
+                                                DropdownIndicator: () => null,
+                                                IndicatorSeparator: () => null
+                                            }
+                                        }
                                     />
                                 </div>                                
                             </div>
@@ -148,6 +154,12 @@ class ChangeShippingAddress extends Component {
                                         styles={customStyles}
                                         placeholder={`Select Shipping`}
                                         ref="shipping" name="shipping"
+                                        components = {
+                                            {
+                                                DropdownIndicator: () => null,
+                                                IndicatorSeparator: () => null
+                                            }
+                                        }
                                     />
                                 </div>                                
                             </div>

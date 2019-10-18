@@ -99,6 +99,12 @@ class BankDetails extends Component {
                                 styles={customStyles}
                                 placeholder={`Select Bank`}
                                 ref="bank" name="bank"
+                                components = {
+                                    {
+                                        DropdownIndicator: () => null,
+                                        IndicatorSeparator: () => null
+                                    }
+                                }
                             />
                         </div>
                     </Modal.Body>

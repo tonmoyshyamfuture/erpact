@@ -45,7 +45,7 @@ class Godown extends Component {
     
 
     quantityOnChange = (i,event) => {
-        const re = RegExp(/^[0-9]+\.?[0-9]*$/);
+        const re = RegExp(/^([0-9])*(\.){0,1}([0-9]){0,2}$/);
         if (event.target.value === '' || re.test(event.target.value)) {
             if(event.target.value.length > 1){
                 var digit = event.target.value.toString()[1];
@@ -114,7 +114,7 @@ class Godown extends Component {
 
 
     rateOnChange = (i,event) => {
-        const re = RegExp(/^[0-9]+\.?[0-9]*$/);
+        const re = RegExp(/^([0-9])*(\.){0,1}([0-9]){0,2}$/);
         if (event.target.value === '' || re.test(event.target.value)) {
         // if (event.target.value != '') {
             if(event.target.value.length > 1){
@@ -293,6 +293,12 @@ class Godown extends Component {
                             styles={customLedgerStyles}
                             placeholder="Select Godown"
                             ref={`godownValue${i}`} name={`godownValue${i}`}
+                            components = {
+                                {
+                                    DropdownIndicator: () => null,
+                                    IndicatorSeparator: () => null
+                                }
+                            }
                         />
                     </div>
                     <div className="col-md-3">
