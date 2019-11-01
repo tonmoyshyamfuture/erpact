@@ -1141,17 +1141,18 @@ class TransactionForm extends Component {
     else{
         console.log(selectedOption)
         // if(selectedOption.length > 0){
-            var blankData = selectedOption.findIndex(x => x.value == null)
-            if(blankData == -1){
-                this.setState({ productValue: selectedOption}, () => {
+            // var blankData = selectedOption.findIndex(x => x.value == null)
+            if(selectedOption.value != null){
+                this.setState({ productValue: null}, () => {
                     if(this.state.selectedProductList.length == 0){
                         let values = {...this.state.companyInfo};
-                        values['state'] = selectedOption[0]['data']['billingStateId']
+                        values['state'] = selectedOption['data']['billingStateId']
                         this.setState({companyInfo: values}, () => {
                             this.getColKey();
                         })
-                    }            
-                    this.createProductRow()
+                    }
+                    console.log("sddsfsdfsdfsdf")            
+                    this.createProductRow(selectedOption)
                     
                 })
             }
@@ -1164,14 +1165,14 @@ class TransactionForm extends Component {
     
   }
 
-  createProductRow = () => {
-    let values = [...this.state.productValue];
-    console.log(values)
-    values.forEach(x => {
-        // console.log(x)        
-        var selectIndex = this.state.selectedProductList.findIndex(y => y.id == x.value);
-        if(selectIndex == -1){
-            var params = "?unit_id=" + x.data.id;
+  createProductRow = (selectedOption) => {
+    // let values = [...this.state.productValue];
+    // console.log(values)
+    // values.forEach(x => {
+    //     // console.log(x)        
+    //     var selectIndex = this.state.selectedProductList.findIndex(y => y.id == x.value);
+    //     if(selectIndex == -1){
+            var params = "?unit_id=" + selectedOption.data.id;
             transactionService.getComplexUnitById(params).then(res => {
                 var allUnits = res.data;
                 const options = []
@@ -1184,31 +1185,31 @@ class TransactionForm extends Component {
                 })
                 if(options.length == 0){
                     var d = {
-                        value: x.data.productUnitId,
-                        label: x.data.productUnitName
+                        value: selectedOption.data.productUnitId,
+                        label: selectedOption.data.productUnitName
                     }
                     options.push(d)
                 }
 
                 var godownData = [];               
-                var params = "?pid=" + x.data.id;
+                var params = "?pid=" + selectedOption.data.id;
                 transactionService.getGodownListById(params).then(res => {                    
-                    res.data.forEach(x => {
+                    res.data.forEach(y => {
                         // console.log(x)
                         var d = {
-                            value: x.id,
-                            label: x.value,
-                            data: x
+                            value: y.id,
+                            label: y.value,
+                            data: y
                         }
                         godownData.push(d)
                     })
                 })
 
                 var prodData = {
-                    id: x.data.id,
-                    name: x.data.name,
-                    sku: x.data.sku,
-                    description: x.data.shortDescription,
+                    id: selectedOption.data.id,
+                    name: selectedOption.data.name,
+                    sku: selectedOption.data.sku,
+                    description: selectedOption.data.shortDescription,
                     units: options,
                     unit: options[0],
                     godownValue: '',
@@ -1221,13 +1222,13 @@ class TransactionForm extends Component {
                             batchValue: '',
                             allBatchList: [],
                             qty: 0,
-                            rate: +x.data.productSalesPrice,
-                            grossTotal: +x.data.productSalesPrice
+                            rate: +selectedOption.data.productSalesPrice,
+                            grossTotal: +selectedOption.data.productSalesPrice
                         }
                     ],
                     qty: 0,
-                    stock: x.data.stock,
-                    rate: +x.data.productSalesPrice,
+                    stock: selectedOption.data.stock,
+                    rate: +selectedOption.data.productSalesPrice,
                     discount: '',
                     grossTotal: 0,
                     cgst: 0,
@@ -1237,14 +1238,15 @@ class TransactionForm extends Component {
                     cessRate: 0,
                     taxValue: 0,
                     total: 0,
-                    detailsData: x.data
+                    detailsData: selectedOption.data
                 }
                 this.state.selectedProductList.push(prodData)
                 this.setState({
                     selectedProductList: this.state.selectedProductList
                 }, () => {
                     console.log(this.state.selectedProductList)
-                    var index = this.state.selectedProductList.findIndex(k => k.id == x.value);
+                    // var index = this.state.selectedProductList.findIndex(k => k.id == selectedOption.value);
+                    var index = this.state.selectedProductList.length - 1;
                     this.calculateGross(index);
                     if(this.state.formSettingData.productDescReadOnly == 1) {
                         this.refs['unit_'+index].focus();
@@ -1253,38 +1255,38 @@ class TransactionForm extends Component {
                     }
                 })
             }) 
-        }
+        // }
         
-    })
+    // })
 
-    let selectedValues = [...this.state.selectedProductList];
-    selectedValues.forEach(m => {
-        var selectIndex = this.state.productValue.findIndex(n => n.value == m.id);
-        if(selectIndex == -1){
-            var removalIndex = this.state.selectedProductList.findIndex(o => o.id == m.id);
-            if(removalIndex != -1){
-                this.state.selectedProductList.splice(removalIndex, 1)
-                this.setState({
-                    selectedProductList: this.state.selectedProductList
-                }, () => {
-                    this.calculateSumValue()
-                })
-            }
-        }
-    })
+    // let selectedValues = [...this.state.selectedProductList];
+    // selectedValues.forEach(m => {
+    //     var selectIndex = this.state.productValue.findIndex(n => n.value == m.id);
+    //     if(selectIndex == -1){
+    //         var removalIndex = this.state.selectedProductList.findIndex(o => o.id == m.id);
+    //         if(removalIndex != -1){
+    //             this.state.selectedProductList.splice(removalIndex, 1)
+    //             this.setState({
+    //                 selectedProductList: this.state.selectedProductList
+    //             }, () => {
+    //                 this.calculateSumValue()
+    //             })
+    //         }
+    //     }
+    // })
     this.buildRefKey()
     // setTimeout(function(){ $(".wqdescription").focus(); }, 0);
   }
 
   removeProductRow = (data) => {       
-    var index = this.state.productValue.findIndex(x => x.value == data.id)    
-    if(index != -1){
-        let values = [...this.state.productValue];
-        values.splice(index, 1)
-        this.setState({
-            productValue: values
-        })
-    }
+    // var index = this.state.productValue.findIndex(x => x.value == data.id)    
+    // if(index != -1){
+    //     let values = [...this.state.productValue];
+    //     values.splice(index, 1)
+    //     this.setState({
+    //         productValue: values
+    //     })
+    // }
     var selectIndex = this.state.selectedProductList.findIndex(y => y.id == data.id);
     if(selectIndex != -1){
         let values = [...this.state.selectedProductList];
@@ -1313,10 +1315,10 @@ class TransactionForm extends Component {
     }
     else{
         // if(selectedOption.length > 0){
-            var blankData = selectedOption.findIndex(x => x.value == null)
-            if(blankData == -1){
-                this.setState({ expense: selectedOption}, () => {
-                    this.createExpenseRow()
+            // var blankData = selectedOption.findIndex(x => x.value == null)
+            if(selectedOption.value != null){
+                this.setState({ expense: null}, () => {
+                    this.createExpenseRow(selectedOption)
                 })
             }
             else{
@@ -1328,50 +1330,60 @@ class TransactionForm extends Component {
     
   }
 
-  createExpenseRow = () => {
-    let values = [...this.state.expense];
-    values.forEach(x => {        
-        var selectIndex = this.state.selectedExpenseList.findIndex(y => y.id == x.value);
-        if(selectIndex == -1){
-            var expenseData = {
-                id: x.value,
-                ladger_name: x.label,
-                price: '',
-                data: x.data
-            }
-            this.state.selectedExpenseList.push(expenseData)
-            this.setState({
-                selectedExpenseList: this.state.selectedExpenseList
-            })
-        }
+  createExpenseRow = (selectedOption) => {
+    // let values = [...this.state.expense];
+    // values.forEach(x => {        
+    //     var selectIndex = this.state.selectedExpenseList.findIndex(y => y.id == x.value);
+    //     if(selectIndex == -1){
+    //         var expenseData = {
+    //             id: x.value,
+    //             ladger_name: x.label,
+    //             price: '',
+    //             data: x.data
+    //         }
+    //         this.state.selectedExpenseList.push(expenseData)
+    //         this.setState({
+    //             selectedExpenseList: this.state.selectedExpenseList
+    //         })
+    //     }
+    // })
+    var expenseData = {
+        id: selectedOption.value,
+        ladger_name: selectedOption.label,
+        price: '',
+        data: selectedOption.data
+    }
+    this.state.selectedExpenseList.push(expenseData)
+    this.setState({
+        selectedExpenseList: this.state.selectedExpenseList
     })
-    let selectedValues = [...this.state.selectedExpenseList];
-    selectedValues.forEach(y => {
-        var selectIndex = this.state.expense.findIndex(z => z.value == y.id);
-        if(selectIndex == -1){
-            var removalIndex = this.state.selectedExpenseList.findIndex(m => m.id == y.id);
-            if(removalIndex != -1){
-                this.state.selectedExpenseList.splice(removalIndex, 1)
-                this.setState({
-                    selectedExpenseList: this.state.selectedExpenseList
-                })
-            }
-        }
-    })
+    // let selectedValues = [...this.state.selectedExpenseList];
+    // selectedValues.forEach(y => {
+    //     var selectIndex = this.state.expense.findIndex(z => z.value == y.id);
+    //     if(selectIndex == -1){
+    //         var removalIndex = this.state.selectedExpenseList.findIndex(m => m.id == y.id);
+    //         if(removalIndex != -1){
+    //             this.state.selectedExpenseList.splice(removalIndex, 1)
+    //             this.setState({
+    //                 selectedExpenseList: this.state.selectedExpenseList
+    //             })
+    //         }
+    //     }
+    // })
     this.buildRefKey()
     this.calculateSumValue()
     setTimeout(function(){ $(".wqexpense").focus(); }, 0);
   }
 
   removeExpenseRow = (data) => {       
-    var index = this.state.expense.findIndex(x => x.value == data.id)    
-    if(index != -1){
-        let values = [...this.state.expense];
-        values.splice(index, 1)
-        this.setState({
-            expense: values
-        })
-    }
+    // var index = this.state.expense.findIndex(x => x.value == data.id)    
+    // if(index != -1){
+    //     let values = [...this.state.expense];
+    //     values.splice(index, 1)
+    //     this.setState({
+    //         expense: values
+    //     })
+    // }
     var selectIndex = this.state.selectedExpenseList.findIndex(y => y.id == data.id);
     if(selectIndex != -1){
         let values = [...this.state.selectedExpenseList];
@@ -3294,7 +3306,6 @@ class TransactionForm extends Component {
                                                         onChange={this.productOnChange.bind(this)}
                                                         onKeyDown={this.expenseFocus.bind(this)}
                                                         options={this.state.allProductList}
-                                                        isMulti 
                                                         isClearable={false}
                                                         styles={customLedgerStyles}
                                                         placeholder="Search product..."
@@ -3337,7 +3348,6 @@ class TransactionForm extends Component {
                                                         onChange={this.expenseOnChange.bind(this)}
                                                         onKeyDown={this.notesFocus.bind(this)}
                                                         options={this.state.allExpenseList}
-                                                        isMulti 
                                                         styles={customLedgerStyles}
                                                         placeholder="Search expense..."
                                                         ref="expense" name="expense"
