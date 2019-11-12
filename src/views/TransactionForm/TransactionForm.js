@@ -381,11 +381,15 @@ class TransactionForm extends Component {
             refDate: data.entry.voucher_date,
             notes: data.entry.narration,
             termsConditions: data.order.terms_and_conditions,
-            // despatchValue: data.courier.despatch_through,
-            despatchDetails: data.courier,
             bankValue: data.entry.bank_id,
             wqbankName: data.entry.bank_name
         })
+        if(data.courier){
+            this.setState({
+                despatchValue: data.courier.despatch_through,
+                despatchDetails: data.courier,
+            })
+        }
         console.log("bankValue1=>",this.state.bankValue);
         
         // ledgerDebtors
@@ -408,7 +412,7 @@ class TransactionForm extends Component {
         }
         // SalesMan
         if(data.sales_man_dateils != null) {
-            var manSalesIndex = this.state.allSalesManList.findIndex(x => x.data.id == data.sales_man_dateils.id)
+            var manSalesIndex = this.state.allSalesManList.findIndex(x => x.value == data.sales_man_dateils.id)
             if(manSalesIndex != -1){
                 this.setState({
                     salesManValue: this.state.allSalesManList[manSalesIndex]
@@ -417,50 +421,68 @@ class TransactionForm extends Component {
         }
         // Expense
         data.entry_details.forEach(s => {
-            var expenseIndex = this.state.allExpenseList.findIndex(x => x.data.id == s.ladger_id)
+            var expenseIndex = this.state.allExpenseList.findIndex(x => x.value == s.ladger_id)
             if(expenseIndex != -1){
-                var expenseValues = [...this.state.expense]
-                expenseValues.push(this.state.allExpenseList[expenseIndex])
+                // var expenseValues = [...this.state.expense]
+                // expenseValues.push(this.state.allExpenseList[expenseIndex])
                 this.setState({
-                    expense: expenseValues
+                    expense: null
                 }, () => {
-                    let values = [...this.state.expense];
-                    values.forEach(x => {        
-                        var selectIndex = this.state.selectedExpenseList.findIndex(y => y.id == x.value);
-                        if(selectIndex == -1){
-                            var expenseData = {
-                                expenseValue_entry_id: s.id, 
-                                id: x.value,
-                                ladger_name: x.label,
-                                price: parseInt(s.balance),
-                                data: x.data
-                            }
-                            this.state.selectedExpenseList.push(expenseData)
-                            this.setState({
-                                selectedExpenseList: this.state.selectedExpenseList
-                            }, () => {
-                                this.buildRefKey()
-                                this.calculateSumValue()
-                            })
-                        }
+                    // let values = [...this.state.expense];
+                    // values.forEach(x => {        
+                    //     var selectIndex = this.state.selectedExpenseList.findIndex(y => y.id == x.value);
+                    //     if(selectIndex == -1){
+                    //         var expenseData = {
+                    //             expenseValue_entry_id: s.id, 
+                    //             id: x.value,
+                    //             ladger_name: x.label,
+                    //             price: parseInt(s.balance),
+                    //             data: x.data
+                    //         }
+                    //         this.state.selectedExpenseList.push(expenseData)
+                    //         this.setState({
+                    //             selectedExpenseList: this.state.selectedExpenseList
+                    //         }, () => {
+                    //             this.buildRefKey()
+                    //             this.calculateSumValue()
+                    //         })
+                    //     }
+                    // })
+                    var selectedOption = this.state.allExpenseList[expenseIndex]
+                    var expenseData = {
+                        expenseValue_entry_id: s.id, 
+                        id: selectedOption.value,
+                        ladger_name: selectedOption.label,
+                        price: parseInt(s.balance),
+                        data: selectedOption.data
+                    }
+                    
+                    this.state.selectedExpenseList.push(expenseData)
+                    this.setState({
+                        selectedExpenseList: this.state.selectedExpenseList
+                    }, () => {
+                        this.buildRefKey()
+                        this.calculateSumValue()
                     })
                 })
             }
         })
-
+        console.log(this.state.allProductList)
+        console.log(data.productData)
         // product
         data.productData.forEach(y => {
-            var productIndex = this.state.allProductList.findIndex(x => x.data.product_id == y.product_id)
+            var productIndex = this.state.allProductList.findIndex(x => x.value == y.product_id)
             if(productIndex != -1){
-                var productValues = [...this.state.productValue]
-                productValues.push(this.state.allProductList[productIndex])
+                // var productValues = [...this.state.productValue]
+                // productValues.push(this.state.allProductList[productIndex])
                 this.setState({
-                    productValue: productValues
+                    productValue: null
                 }, () => {
-                    var selectedProductValIndex = this.state.productValue.findIndex(z => z.data.product_id == y.product_id);
-                    var selectedProductListIndex = this.state.selectedProductList.findIndex(m => m.detailsData.product_id == y.product_id);
-                    if(selectedProductListIndex == -1){
-                        var unitParams = "?unit_id=" + this.state.productValue[selectedProductValIndex].data.id;
+                    var selectedOption = this.state.allProductList[productIndex]
+                    // var selectedProductValIndex = this.state.productValue.findIndex(z => z.data.product_id == y.product_id);
+                    // var selectedProductListIndex = this.state.selectedProductList.findIndex(m => m.detailsData.product_id == y.product_id);
+                    // if(selectedProductListIndex == -1){
+                        var unitParams = "?unit_id=" + selectedOption.data.id;
                         transactionService.getComplexUnitById(unitParams).then(res => {
                             var allUnits = res.data;
                             const options = []
@@ -473,8 +495,8 @@ class TransactionForm extends Component {
                             })
                             if(options.length == 0){
                                 var d = {
-                                    value: this.state.productValue[selectedProductValIndex].data.productUnitId,
-                                    label: this.state.productValue[selectedProductValIndex].data.productUnitName
+                                    value: selectedOption.data.productUnitId,
+                                    label: selectedOption.data.productUnitName
                                 }
                                 options.push(d)
                             }
@@ -486,7 +508,7 @@ class TransactionForm extends Component {
                             var selectedProductGodownBatchData = [];
                             console.log(y)
                             var godownData = [];               
-                            var godownParams = "?pid=" + this.state.productValue[selectedProductValIndex].data.id;
+                            var godownParams = "?pid=" + selectedOption.data.id;
                             console.log(godownParams)
                             transactionService.getGodownListById(godownParams).then(res => {
                                 console.log(res.data)
@@ -503,7 +525,7 @@ class TransactionForm extends Component {
                                     y.batch_details.forEach(c => {
 
                                         var batchData = [];
-                                        var batchParams = "?pid=" + this.state.productValue[selectedProductValIndex].data.id + "&gid=" + c.godown_id;
+                                        var batchParams = "?pid=" + selectedOption.data.id + "&gid=" + c.godown_id;
                                         transactionService.getBatchByGodownIdAndProductId(batchParams).then(res => {
                                             console.log(res.data)
                                             res.data.forEach(p => {
@@ -560,19 +582,19 @@ class TransactionForm extends Component {
 
                             var prodData = {
                                 entry_product_id: y.id,
-                                id: this.state.productValue[selectedProductValIndex].data.id,
-                                name: this.state.productValue[selectedProductValIndex].data.name,
-                                sku: this.state.productValue[selectedProductValIndex].data.sku,
-                                description: this.state.productValue[selectedProductValIndex].data.shortDescription,
+                                id: selectedOption.data.id,
+                                name: selectedOption.data.name,
+                                sku: selectedOption.data.sku,
+                                description: y.product_description,
                                 units: options,
                                 unit: selectUnitoption,
                                 godownValue: '',
                                 ProductAllGodownList: godownData,
                                 batchValue: '',
                                 productGodownBatchData: selectedProductGodownBatchData,
-                                qty: +y.quantity,
-                                stock: this.state.productValue[selectedProductValIndex].data.stock,
-                                rate: +y.base_price,
+                                qty: +y.transaction_qty,
+                                stock: selectedOption.data.stock,
+                                rate: +y.transaction_price,
                                 discount: '',
                                 grossTotal: 0,
                                 cgst: 0,
@@ -582,23 +604,41 @@ class TransactionForm extends Component {
                                 cessRate: 0,
                                 taxValue: 0,
                                 total: 0,
-                                detailsData: this.state.productValue[selectedProductValIndex].data
+                                detailsData: selectedOption.data
                             }
                             this.state.selectedProductList.push(prodData)
                             this.setState({
                                 selectedProductList: this.state.selectedProductList
                             }, () => {
-                                var index = this.state.selectedProductList.findIndex(k => k.id == this.state.productValue[selectedProductValIndex].value);
+                                var index = this.state.selectedProductList.findIndex(k => k.id == selectedOption.value);
                                 this.calculateGross(index);
                             })
                         }) 
-                    }
+                    // }
                 })
                 
             }
             
         })
-    })
+        this.setState({
+            loading: false
+        }, ()=> {
+            if(this.state.transactionParameters.auto_no_status != 1) {
+                this.refs.invoiceNumber.focus();
+            } 
+            if(this.state.transactionParameters.auto_date != 1) {
+                this.refs.date.focus();
+            }
+            if(this.state.transactionParameters.auto_no_status == 1 && this.state.transactionParameters.auto_date == 1) {
+                this.refs.debtorsValue.focus();
+            }
+        })
+    },
+    error => {
+        this.setState({
+           loading: false
+       })
+   })
   }
 
   getUserDetails(){
@@ -855,28 +895,14 @@ class TransactionForm extends Component {
                 this.setState({
                     date: moment().format('DD/MM/YYYY')
                 })
-            }
-            this.setState({
-                loading: false
-            }, ()=> {
-                if(this.state.transactionParameters.auto_no_status != 1) {
-                    this.refs.invoiceNumber.focus();
-                } 
-                if(this.state.transactionParameters.auto_date != 1) {
-                    this.refs.date.focus();
-                }
-                if(this.state.transactionParameters.auto_no_status == 1 && this.state.transactionParameters.auto_date == 1) {
-                    this.refs.debtorsValue.focus();
-                }
-            })
+            }            
+            
             
         })        
         console.log(res.data)
     },
     error => {
-        this.setState({
-            loading: false
-        })
+       
     })
   }
 
@@ -946,9 +972,26 @@ class TransactionForm extends Component {
         if(this.state.transaction_id != ''){
             this.getTransactionDataById(this.state.transaction_id)
         }
+        else{
+            this.setState({
+                loading: false
+            }, ()=> {
+                if(this.state.transactionParameters.auto_no_status != 1) {
+                    this.refs.invoiceNumber.focus();
+                } 
+                if(this.state.transactionParameters.auto_date != 1) {
+                    this.refs.date.focus();
+                }
+                if(this.state.transactionParameters.auto_no_status == 1 && this.state.transactionParameters.auto_date == 1) {
+                    this.refs.debtorsValue.focus();
+                }
+            })
+        }
     }, 
     error => {
-        
+         this.setState({
+            loading: false
+        })
     })
   }
 
@@ -2146,7 +2189,7 @@ class TransactionForm extends Component {
     if(this.state.action == 'Edit') {
         if(this.checkValidation()) {
             console.log(this.state.editdetails);
-            var wqedit = [];
+            var wqedit;
             var data = {
                 tr_branch_id: this.state.userDetails['branch_id'],
                 select_branch_id: this.state.userDetails['branch_id'],
@@ -2335,85 +2378,91 @@ class TransactionForm extends Component {
                 data.bill_details_status = this.state.debtorsValue.data.bill_details_status;
                 var data6 = {
                     edit_entry_details_id: this.state.debtorsValue_entry_id,
-                    ladger_name: this.state.debtorsValue.label,
-                    ledger_id: this.state.debtorsValue.value,
-                    account: this.state.debtorsValue.data.account
+                    tr_ledger: this.state.debtorsValue.label,
+                    tr_ledger_id: this.state.debtorsValue.value,
+                    tr_type: this.state.debtorsValue.data.account,
+                    price: ''
                 }
                 data.entry_details.push(data6);
             }
             if(this.state.salesValue){
                 var data6 = {
                     edit_entry_details_id: this.state.salesValue_entry_id,
-                    ladger_name: this.state.salesValue.label,
-                    ledger_id: this.state.salesValue.value,
-                    account: this.state.salesValue.data.account
+                    tr_ledger: this.state.salesValue.label,
+                    tr_ledger_id: this.state.salesValue.value,
+                    tr_type: this.state.salesValue.data.account,
+                    price: ''
                 }
                 data.entry_details.push(data6);
             }
             if(this.state.igstColKey) {
                 data.igst_status = "1"
-                // var data6 = {
-                //     edit_entry_details_id: this.state.salesValue_entry_id,
-                //     ladger_name: this.state.salesValue.label,
-                //     ledger_id: this.state.salesValue.value,
-                //     account: this.state.salesValue.data.account
-                // }
-                // data.entry_details.push(data6);
             }
             if(this.state.selectedExpenseList.length > 0){
                 this.state.selectedExpenseList.forEach(z => {
                     var data6 = {
                         edit_entry_details_id: z.expenseValue_entry_id,
-                        ladger_name: `${z.data.ladger_name} (${z.data.ledger_code}) [Cur. Bal. ${z.data.current_closing_balance} - ${z.data.account}]`,
-                        ledger_id: z.id,
-                        account: z.data.account,
-                        balance: z.price
+                        tr_ledger: `${z.data.ladger_name} (${z.data.ledger_code}) [Cur. Bal. ${z.data.current_closing_balance} - ${z.data.account}]`,
+                        tr_ledger_id: z.id,
+                        tr_type: z.data.account,
+                        price: z.price
                     }
                     data.entry_details.push(data6)
                 })
             }
 
-            wqedit.push(data);
-            console.log(wqedit)
+            wqedit = data
             console.log(JSON.stringify(wqedit))
-
-            return false;
-
             if(this.state.debtorsValue.data.bill_details_status == 1){
+                // eslint-disable-next-line no-redeclare
                 var current_credit_limit = parseFloat(((+this.state.shippingDetails.credit_days[0]['LL_creditLimit']) - (+this.state.debtorsValue.data.current_closing_balance)).toFixed(2))
-                console.log(current_credit_limit)
-                // if(data.netTotal < current_credit_limit){
-                    transactionService.salesUpdate(data).then(res => {
+                if(wqedit['order'][0].grand_total < current_credit_limit){
+                    if(this.state.tran_type == '5') {
+                        transactionService.salesUpdate(wqedit).then(res => {
+                            console.log(res)
+                            if(res.status == 200){
+                                if(this.state.formSettingData['formSubmissionOption'] == 1) {
+                                    this.props.history.push('/transaction/sales-add/5')
+                                } else if (this.state.formSettingData['formSubmissionOption'] == 2) {
+                                    this.props.history.push('/sales/5')
+                                } else {
+                                    //
+                                }
+                            }
+                        })
+                    } else if(this.state.tran_type == '6') {
+                        
+                    } else {
+                        
+                    }
+                }
+                else{
+                    toast.error(`You exceed your credit limit`, {
+                        position: "top-right",
+                        autoClose: 1000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true
+                    });
+                }
+            } else{
+                if(this.state.tran_type == '5') {
+                    transactionService.salesUpdate(wqedit).then(res => {
                         console.log(res)
-                        // if(res.status == 200){
-                        //     var url = '/sales/5';
-                        //     if(this.props.location.pathname != url){
-                        //         this.props.history.push(url)
-                        //     }
-                        // }
+                        if(res.status == 200){
+                            var url = '/sales/5';
+                            if(this.props.location.pathname != url){
+                                this.props.history.push(url)
+                            }
+                        }
                     })
-                // }
-                // else{
-                //     toast.error(`You exceed your credit limit`, {
-                //         position: "top-right",
-                //         autoClose: 1000,
-                //         hideProgressBar: false,
-                //         closeOnClick: true,
-                //         pauseOnHover: true,
-                //         draggable: true
-                //     });
-                // }
-            } else {
-                transactionService.salesUpdate(data).then(res => {
-                    console.log(res)
-                    // if(res.status == 200){
-                    //     var url = '/sales/5';
-                    //     if(this.props.location.pathname != url){
-                    //         this.props.history.push(url)
-                    //     }
-                    // }
-                })
-            }
+                } else if(this.state.tran_type == '6') {
+                    
+                } else {
+                    
+                }
+            }            
         }
 
     } else {
@@ -2501,7 +2550,6 @@ class TransactionForm extends Component {
             
             var sumTaxVal = 0;
             var sumGrandVal = 0;
-            console.log(this.state.selectedProductList)        
             this.state.selectedProductList.forEach(x => {
                 var ProdData = {
                     product_id: x.detailsData.product_id,
@@ -2606,15 +2654,12 @@ class TransactionForm extends Component {
                     data.ledgerData.push(ldgrData)
                 })
             }
-            console.log(data)
             console.log(JSON.stringify(data))
-            // return false;
 
             if(this.state.debtorsValue.data.bill_details_status == 1){
                 // eslint-disable-next-line no-redeclare
-                var current_credit_limit = parseFloat(((+this.state.shippingDetails.credit_days[0]['LL_creditLimit']) - (+this.state.debtorsValue.data.current_closing_balance)).toFixed(2))
-                console.log(current_credit_limit)
-                console.log(data.netTotal)
+                var current_credit_limit = parseFloat(((+this.state.shippingDetails.credit_days[0]['LL_creditLimit']) - (+this.state.debtorsValue.data.current_closing_balance)).toFixed(2)) 
+                 
                 if(data.netTotal < current_credit_limit){
                     if(this.state.tran_type == '5') {
                         transactionService.transactionSubmit(data).then(res => {
@@ -2628,23 +2673,20 @@ class TransactionForm extends Component {
                                 } else {
                                     //
                                 }
-                                // if(this.props.location.pathname != url){
-                                //     this.props.history.push(url)
-                                // }
                             }
                         })
                     } else if(this.state.tran_type == '6') {
                         transactionService.transactionSubmit(data).then(res => {
                             console.log(res)
-                            // if(res.status == 200){
-                            //     var url = '/purchase/6';
-                            //     if(this.props.location.pathname != url){
-                            //         this.props.history.push(url)
-                            //     }
-                            // }
+                            if(res.status == 200){
+                                var url = '/purchase/6';
+                                if(this.props.location.pathname != url){
+                                    this.props.history.push(url)
+                                }
+                            }
                         })
                     } else {
-                        console.log("oops");
+                        
                     }
                 }
                 else{
@@ -2679,7 +2721,7 @@ class TransactionForm extends Component {
                         }
                     })
                 } else {
-                    console.log("oops");
+                    
                 }
             }
             

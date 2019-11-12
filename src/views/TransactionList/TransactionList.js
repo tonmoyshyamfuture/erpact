@@ -9,7 +9,8 @@ class TransactionList extends Component {
         super(props);
         this.state = {
             title: '',
-            transactionDataList: []
+            transactionDataList: [],
+            loading: true,
         }
     }
 
@@ -63,7 +64,8 @@ class TransactionList extends Component {
         var params = "?name=" + this.props.match.params.name + '&id=' + this.props.match.params.tran_type;
         transactionService.getTransactionList(params).then(res => {
             this.setState({
-                transactionDataList: res.data['all_entries']
+                transactionDataList: res.data['all_entries'],
+                loading: false,
             }, () => {
                 console.log(this.state.transactionDataList)
             })        
@@ -97,52 +99,60 @@ class TransactionList extends Component {
     }
 
     render() {
-        
-        return (            
-            <div className="content-wrapper">
-                <section className="content-header">
-                    <div className="row">
-                        <div className="col-xs-5">
-                            <h1><i className="fa fa-list"></i> {this.state.title} </h1>
-                        </div>
-                        <div className="col-xs-7 text-right">
-                            <div className="btn-wrapper">                                
-                                <a className="btn btn-sm btn-primary" onClick={() => 
-                                this.addItem()}>Add</a>
+        let data;
+        if (this.state.loading) {
+            data = <div className="loading"><div className="loading-spinner"></div></div>
+        }
+        else{
+            data = <div className="content-wrapper">
+                    <section className="content-header">
+                        <div className="row">
+                            <div className="col-xs-5">
+                                <h1><i className="fa fa-list"></i> {this.state.title} </h1>
+                            </div>
+                            <div className="col-xs-7 text-right">
+                                <div className="btn-wrapper">                                
+                                    <a className="btn btn-sm btn-primary" onClick={() => 
+                                    this.addItem()}>Add</a>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </section>
-                <section className="clearfix">
-                    <div className="col-md-12">
-                        <ol className="breadcrumb">
-                            <li><a href="#"><i className="fa fa-dashboard"></i> Transactions</a></li>
-                            <li className="active">{this.state.title} List</li>
-                        </ol>
-                    </div>
-                </section>
-                <section className="content">
-                    <div className="box">
-                        <div className="box-header hidden">
-                            <h3>header</h3>
+                    </section>
+                    <section className="clearfix">
+                        <div className="col-md-12">
+                            <ol className="breadcrumb">
+                                <li><a href="#"><i className="fa fa-dashboard"></i> Transactions</a></li>
+                                <li className="active">{this.state.title} List</li>
+                            </ol>
                         </div>
-                        <div className="box-body box-table">
-                            <div className="col-md-12 list-data-table">
-                                <BootstrapTable data={this.state.transactionDataList} striped hover pagination={ true } search={ true }>
-                                    <TableHeaderColumn isKey dataField='create_date' dataSort={ true }>Date</TableHeaderColumn>
-                                    <TableHeaderColumn dataField='entry_no' dataSort={ true }>Number</TableHeaderColumn>
-                                    <TableHeaderColumn dataField='type' dataSort={ true }>Type</TableHeaderColumn>
-                                    <TableHeaderColumn dataField='cr_amount' dataSort={ true }>Amount</TableHeaderColumn>
-                                    <TableHeaderColumn dataField='ledger_ids_by_accounts' dataSort={ true }>Ledger</TableHeaderColumn>
-                                    <TableHeaderColumn dataField='action' export={ false } dataFormat={this.buttonFormatter.bind(this)}>Action</TableHeaderColumn>
-                                </BootstrapTable>
-                            </div>                        
+                    </section>
+                    <section className="content">
+                        <div className="box">
+                            <div className="box-header hidden">
+                                <h3>header</h3>
+                            </div>
+                            <div className="box-body box-table">
+                                <div className="col-md-12 list-data-table">
+                                    <BootstrapTable data={this.state.transactionDataList} striped hover pagination={ true } search={ true }>
+                                        <TableHeaderColumn isKey dataField='create_date' dataSort={ true }>Date</TableHeaderColumn>
+                                        <TableHeaderColumn dataField='entry_no' dataSort={ true }>Number</TableHeaderColumn>
+                                        <TableHeaderColumn dataField='type' dataSort={ true }>Type</TableHeaderColumn>
+                                        <TableHeaderColumn dataField='cr_amount' dataSort={ true }>Amount</TableHeaderColumn>
+                                        <TableHeaderColumn dataField='ledger_ids_by_accounts' dataSort={ true }>Ledger</TableHeaderColumn>
+                                        <TableHeaderColumn dataField='action' export={ false } dataFormat={this.buttonFormatter.bind(this)}>Action</TableHeaderColumn>
+                                    </BootstrapTable>
+                                </div>                        
+                            </div>
+                            <div className="box-footer footer-band">
+                            </div>
                         </div>
-                        <div className="box-footer footer-band">
-                        </div>
-                    </div>
-                </section>
-            </div>
+                    </section>
+                </div>
+        } 
+        return (
+            <React.Fragment>
+                {data}
+            </React.Fragment>
         );
     }
 }

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { HashRouter, Route, Switch, Redirect, BrowserRouter , CreateBrowserHistory} from 'react-router-dom';
+import { HashRouter, Route, Switch, Redirect, BrowserRouter ,Router , CreateBrowserHistory} from 'react-router-dom';
 import { createBrowserHistory } from "history";
 
 import 'react-toastify/dist/ReactToastify.css';
@@ -46,12 +46,12 @@ class App extends Component {
   render() {
     
     return (
-      <BrowserRouter history={history} basename={'/act_react'}>
+      <Router history={history} basename={'/act_react'}>
           <Switch>
             <Route exact path="/login" name="Login Page" component={Login} />
             <CanActivate path='/' component={DefaultLayout} />
           </Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }

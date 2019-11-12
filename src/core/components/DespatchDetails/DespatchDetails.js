@@ -34,6 +34,7 @@ class DespatchDetails extends Component {
             transportationMode: transportList
         })
         this.buildRefKey()
+        console.log(this.props.despatchDetails)
     }
 
     componentDidUpdate = (prevProps) => {
