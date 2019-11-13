@@ -595,7 +595,7 @@ class TransactionForm extends Component {
                                 qty: +y.transaction_qty,
                                 stock: selectedOption.data.stock,
                                 rate: +y.transaction_price,
-                                discount: '',
+                                discount: y.discount_percentage,
                                 grossTotal: 0,
                                 cgst: 0,
                                 sgst: 0,
