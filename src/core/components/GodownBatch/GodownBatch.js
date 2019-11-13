@@ -233,7 +233,6 @@ class GodownBatch extends Component {
     }
 
     batchOnChange = (i,selectedOption) => {
-        console.length(selectedOption)
         let values = [...this.props.selectedProductList];
         values[this.props.productIndex]['productGodownBatchData'][i]['batchValue'] = selectedOption
         this.setState({ values }, function() {
