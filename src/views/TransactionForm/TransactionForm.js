@@ -376,9 +376,9 @@ class TransactionForm extends Component {
         this.setState({
             editdetails: data,
             invoiceNumber: data.entry.entry_no,
-            date: data.entry.create_date,
+            date: moment(data.entry.create_date).format('DD/MM/YYYY'),
             refNo: data.entry.voucher_no,
-            refDate: data.entry.voucher_date,
+            refDate: moment(data.entry.voucher_date).format('DD/MM/YYYY'),
             notes: data.entry.narration,
             termsConditions: data.order.terms_and_conditions,
             bankValue: data.entry.bank_id,
@@ -453,7 +453,8 @@ class TransactionForm extends Component {
                         expenseValue_entry_id: s.id, 
                         id: selectedOption.value,
                         ladger_name: selectedOption.label,
-                        price: parseInt(s.balance),
+                        price: s.balance,
+                        // price: parseFloat(s.balance.toFixed(2)),
                         data: selectedOption.data
                     }
                     
@@ -547,9 +548,12 @@ class TransactionForm extends Component {
                                                     allGodownList: [],
                                                     batchValue: batchData[batchIndex],
                                                     allBatchList: [],
-                                                    qty: +c.quantity,
-                                                    rate: +c.rate,
-                                                    grossTotal: +c.value
+                                                    qty: c.quantity,
+                                                    // qty: parseFloat(c.quantity.toFixed(2)),
+                                                    rate: c.rate,
+                                                    // rate: parseFloat(c.rate.toFixed(2)),
+                                                    grossTotal: +c.value,
+                                                    // grossTotal: parseFloat(c.value.toFixed(2)),
                                                 }
                                                 selectedProductGodownBatchData.push(bd)
                                             }
@@ -563,13 +567,16 @@ class TransactionForm extends Component {
                                         if(godownIndex != -1){
                                             var wqgrossTotal = 0;
                                             wqgrossTotal = parseInt(f.quantity_out) * parseInt(f.transaction_price)
+                                            // wqgrossTotal = parseFloat(f.quantity_out.toFixed(2)) * parseFloat(f.transaction_price.toFixed(2))
                                             var bd = {
                                                 godownValue: godownData[godownIndex],
                                                 allGodownList: [],
                                                 batchValue: '',
                                                 allBatchList: [],
-                                                qty: +parseInt(f.quantity_out),
-                                                rate: +parseInt(f.transaction_price),
+                                                qty: f.quantity_out,
+                                                // qty: parseFloat(f.quantity_out.toFixed(2)),
+                                                rate: f.transaction_price,
+                                                // rate: parseFloat(f.transaction_price.toFixed(2)),
                                                 grossTotal: wqgrossTotal
                                             }
                                             selectedProductGodownBatchData.push(bd)
@@ -592,9 +599,9 @@ class TransactionForm extends Component {
                                 ProductAllGodownList: godownData,
                                 batchValue: '',
                                 productGodownBatchData: selectedProductGodownBatchData,
-                                qty: +y.transaction_qty,
+                                qty: y.transaction_qty,
                                 stock: selectedOption.data.stock,
-                                rate: +y.transaction_price,
+                                rate: y.transaction_price,
                                 discount: y.discount_percentage,
                                 grossTotal: 0,
                                 cgst: 0,
