@@ -552,7 +552,7 @@ class TransactionForm extends Component {
                                                     // qty: parseFloat(c.quantity.toFixed(2)),
                                                     rate: c.rate,
                                                     // rate: parseFloat(c.rate.toFixed(2)),
-                                                    grossTotal: +c.value,
+                                                    grossTotal: c.value,
                                                     // grossTotal: parseFloat(c.value.toFixed(2)),
                                                 }
                                                 selectedProductGodownBatchData.push(bd)
