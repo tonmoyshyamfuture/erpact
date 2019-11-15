@@ -214,6 +214,66 @@ class TransactionForm extends Component {
     })
   }  
 
+  resetFormData(){
+    var despatchDetailsVal = {
+        despatch_through: '',
+        despatch_doc_no: '',
+        courier_gstn: '',
+        destination: '',
+        bill_lr_rr: '',
+        bill_lr_rr_date: '',
+        motor_vehicle_no: '',
+        vehicle_type: '',
+        transportation_mode: ''
+    }
+    this.setState({
+        modalKey: false,
+        debtorsValue: '',
+        salesValue: '',
+        shippingDetails: null,
+        shippingDetailsKey: false,
+        billing_address: null,
+        shipping_address: null,
+        ledgerStateCode: '',
+        productValue: [],
+        selectedExpenseList: [],
+        selectedProductList: [],
+        expense: [],
+        selectedProductTotalValue: 0,
+        selectedItemTotalValue: 0,
+        selectedItemGrossValue: 0,
+        selectedItemQtyValue: 0,
+        selectedItemTaxValue: 0,
+        termsConditions: 'Goods once sold cannot be returned except manufacturing defects.',
+        notes: '',
+        others:'',
+        invoiceNumber: '',
+        refDate: '',
+        refNo: '',
+        recurring: '',
+        advanceBillName: '',
+        modalGodownBatchKey: false,
+        modalGodownKey: false,
+        productIndex: '',
+        cgstColKey: false,
+        sgstColKey: false,
+        cessColKey: false,
+        igstColKey: false,
+        taxValColKey: false,
+        salesManValue: '',
+        despatchDetailsModalKey: false,
+        changeShippingAddressModalKey: false,
+        contactValue: null,
+        shippingValue: null,
+        shippingAddressByContact: null,
+        despatchValue: null,
+        despatchDetails: despatchDetailsVal,
+        bankDetailsModalKey: false,
+        bankValue: null,
+        wqbankName: '',
+    })
+  }
+
   componentDidUpdate = (prevProps) => {
     this.buildRefKey()   
     if (prevProps.location.pathname !== this.props.location.pathname) {
@@ -382,7 +442,9 @@ class TransactionForm extends Component {
             notes: data.entry.narration,
             termsConditions: data.order.terms_and_conditions,
             bankValue: data.entry.bank_id,
-            wqbankName: data.entry.bank_name
+            wqbankName: data.entry.bank_name,
+            advanceBillName: data.entry.advance_voucher_no,
+            // others: data.entry.others,
         })
         if(data.courier){
             this.setState({
@@ -2257,6 +2319,7 @@ class TransactionForm extends Component {
             var data2 = {
                 edit_order_id: this.state.editdetails.order.id,
                 notes: this.state.notes,
+                others: this.state.notes,
                 terms_and_conditions: this.state.termsConditions, 
                 tax_total: '',
                 product_grand_total: '',
@@ -2428,6 +2491,14 @@ class TransactionForm extends Component {
                         transactionService.salesUpdate(wqedit).then(res => {
                             console.log(res)
                             if(res.status == 200){
+                                toast.success(`Sales has been successfuly updated`, {
+                                    position: "top-right",
+                                    autoClose: 1000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true
+                                });
                                 if(this.state.formSettingData['formSubmissionOption'] == 1) {
                                     this.props.history.push('/transaction/sales-add/5')
                                 } else if (this.state.formSettingData['formSubmissionOption'] == 2) {
@@ -2458,6 +2529,14 @@ class TransactionForm extends Component {
                     transactionService.salesUpdate(wqedit).then(res => {
                         console.log(res)
                         if(res.status == 200){
+                            toast.success(`Sales has been successfuly updated`, {
+                                position: "top-right",
+                                autoClose: 1000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true
+                            });
                             var url = '/sales/5';
                             if(this.props.location.pathname != url){
                                 this.props.history.push(url)
@@ -2512,6 +2591,7 @@ class TransactionForm extends Component {
             product_grand_total: '',
             netTotal: '',
             notes: this.state.notes,
+            others: this.state.notes,
             terms_and_conditions:this.state.termsConditions,
             newRefCall: 0,
             entry_type: this.state.tran_type,
@@ -2672,9 +2752,18 @@ class TransactionForm extends Component {
                         transactionService.transactionSubmit(data).then(res => {
                             console.log(res)
                             if(res.status == 200){
+                                toast.success(`Sales has been successfuly created`, {
+                                    position: "top-right",
+                                    autoClose: 1000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true
+                                });
                                 var url = '/sales/5';
                                 if(this.state.formSettingData['formSubmissionOption'] == 1) {
-                                    window.location.reload();
+                                    // window.location.reload();
+                                    this.resetFormData();
                                 } else if (this.state.formSettingData['formSubmissionOption'] == 2) {
                                     this.props.history.push(url)
                                 } else {
@@ -2686,6 +2775,14 @@ class TransactionForm extends Component {
                         transactionService.transactionSubmit(data).then(res => {
                             console.log(res)
                             if(res.status == 200){
+                                toast.success(`Purchase has been successfuly created`, {
+                                    position: "top-right",
+                                    autoClose: 1000,
+                                    hideProgressBar: false,
+                                    closeOnClick: true,
+                                    pauseOnHover: true,
+                                    draggable: true
+                                });
                                 var url = '/purchase/6';
                                 if(this.props.location.pathname != url){
                                     this.props.history.push(url)
@@ -2711,6 +2808,14 @@ class TransactionForm extends Component {
                     transactionService.transactionSubmit(data).then(res => {
                         console.log(res)
                         if(res.status == 200){
+                            toast.success(`Sales has been successfuly created`, {
+                                position: "top-right",
+                                autoClose: 1000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true
+                            });
                             var url = '/sales/5';
                             if(this.props.location.pathname != url){
                                 this.props.history.push(url)
@@ -2721,6 +2826,14 @@ class TransactionForm extends Component {
                     transactionService.transactionSubmit(data).then(res => {
                         console.log(res)
                         if(res.status == 200){
+                            toast.success(`Purchase has been successfuly created`, {
+                                position: "top-right",
+                                autoClose: 1000,
+                                hideProgressBar: false,
+                                closeOnClick: true,
+                                pauseOnHover: true,
+                                draggable: true
+                            });
                             var url = '/purchase/6';
                             if(this.props.location.pathname != url){
                                 this.props.history.push(url)
