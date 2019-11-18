@@ -876,8 +876,8 @@ class TransactionForm extends Component {
 
   getColKey = () => {
     // console.log(this.state.companyInfo.type)
-    // console.log(this.state.companyInfo.state)
-    // console.log(this.state.ledgerStateCode)
+    console.log(this.state.companyInfo.state)
+    console.log(this.state.ledgerStateCode)
     if(this.state.companyInfo.type == 1){
        
         if(this.state.companyInfo.state == this.state.ledgerStateCode){
@@ -2047,7 +2047,7 @@ class TransactionForm extends Component {
         prodSum += +x.total
         grossSum += +x.grossTotal
         taxSum += +x.taxValue
-        qty +=x.qty
+        qty +=+x.qty
     })
     total = prodSum + expenseSum
     this.setState({selectedItemTotalValue: parseFloat(prodSum.toFixed(2))})
