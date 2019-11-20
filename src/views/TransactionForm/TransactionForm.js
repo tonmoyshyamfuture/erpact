@@ -447,10 +447,19 @@ class TransactionForm extends Component {
             // others: data.entry.others,
         })
         if(data.courier){
+            var index = this.state.allDespatchList.findIndex(x => x.label == data.courier.despatch_through)
+            console.log(this.state.allDespatchList)
+            console.log(index)
+            if(index != -1){
+                var obj = this.state.allDespatchList[index]
+                this.setState({
+                    despatchValue: obj
+                })
+            }
             this.setState({
-                despatchValue: data.courier.despatch_through,
                 despatchDetails: data.courier,
             })
+            
         }
         console.log("bankValue1=>",this.state.bankValue);
         
@@ -754,7 +763,7 @@ class TransactionForm extends Component {
     if (e.keyCode === 13) {
       e.preventDefault();
       let arr = [];
-        console.log("yess===>>>",this.refs)
+        // console.log("yess===>>>",this.refs)
       for (let x in this.refs) {        
         if(this.refs.hasOwnProperty(x)){
             arr.push(x);
@@ -762,12 +771,12 @@ class TransactionForm extends Component {
       }
       
       for(var i = 0 ; i< arr.length - 1; i++){
-        console.log("00000===>>>",arr[i]);
+        // console.log("00000===>>>",arr[i]);
         if(this.refs[field.name].name === arr[i]){
             if(this.refs[field.name].name === 'termsConditions') {
                 this.formSubmit();
             } else {
-                console.log(this.refs[field.name].name)
+                // console.log(this.refs[field.name].name)
                 if(this.state.formSettingData.productDiscReadOnly == 0){
                     this.refs[arr[i+1]].focus();
                 }
