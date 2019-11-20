@@ -675,6 +675,13 @@ class TransactionForm extends Component {
                                 total: 0,
                                 detailsData: selectedOption.data
                             }
+                            if(this.state.selectedProductList.length == 0){
+                                let values = {...this.state.companyInfo};
+                                values['state'] = selectedOption['data']['billingStateId']
+                                this.setState({companyInfo: values}, () => {
+                                    this.getColKey();
+                                })
+                            }
                             this.state.selectedProductList.push(prodData)
                             this.setState({
                                 selectedProductList: this.state.selectedProductList
