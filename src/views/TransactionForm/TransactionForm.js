@@ -2355,6 +2355,7 @@ class TransactionForm extends Component {
             }
             if(this.state.despatchValue){
                 data3.despatch_through = this.state.despatchDetails.despatch_through
+                data3.despatch_through_id = this.state.despatchDetails.despatch_through_id
                 data3.despatch_doc_no = this.state.despatchDetails.despatch_doc_no
                 data3.courier_gstn = this.state.despatchDetails.courier_gstn
                 data3.destination = this.state.despatchDetails.destination
