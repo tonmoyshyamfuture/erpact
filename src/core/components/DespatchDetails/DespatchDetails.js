@@ -72,7 +72,11 @@ class DespatchDetails extends Component {
     }
 
     despatchOnChange = (selectedOption) => {
-        this.props.getDespatchOnChange(selectedOption)    
+        if(this.props.despatchValue != selectedOption){
+            this.props.getDespatchOnChange(selectedOption)
+        }
+        this.refs['despatch_doc_no'].focus()
+            
     }
 
     handleHide() {
