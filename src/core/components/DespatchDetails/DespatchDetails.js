@@ -16,10 +16,23 @@ class DespatchDetails extends Component {
 
         this.state = {
             show: true,
+            transportationMode: []
         };
     }
 
     componentDidMount = () => {
+        var data = ['Railways','Roadways','Airways','Waterways','Pipelines'];
+        var transportList = [];
+        data.forEach(x => {
+            var d = {
+                value: x,
+                label: x,
+            }
+            transportList.push(d)
+        })
+        this.setState({
+            transportationMode: transportList
+        })
         this.buildRefKey()
         console.log(this.props.despatchDetails)
     }
@@ -48,7 +61,8 @@ class DespatchDetails extends Component {
             }
             
             for(var i = 0 ; i< arr.length - 1; i++){
-                if(this.refs[field.name].name === arr[i]){                    
+                if(this.refs[field.name].name === arr[i]){
+                    console.log(this.refs[arr[i]])
                     this.refs[arr[i+1]].focus()
                 }
             }           
