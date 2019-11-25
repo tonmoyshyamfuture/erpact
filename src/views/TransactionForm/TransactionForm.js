@@ -36,6 +36,7 @@ const customLedgerStyles = {
 class TransactionForm extends Component {
   constructor(props) {
     super(props);
+    this.goBack = this.goBack.bind(this);
     this._handleKeyPress = this._handleKeyPress.bind(this);
     this.state = {
       currentRef: null,
@@ -136,13 +137,30 @@ class TransactionForm extends Component {
       bankDetailsModalKey: false,
       bankValue: null,
       allBankList: [],
-      editdetails: []
+      editdetails: [],
+      transportationMode: []
     }
   }
+
+  goBack(){
+    this.props.history.goBack();
+    }
 
   loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
 
   componentDidMount = () => {
+    var data = ['Railways','Roadways','Airways','Waterways','Pipelines'];
+    var transportList = [];
+    data.forEach(x => {
+        var d = {
+            value: x,
+            label: x,
+        }
+        transportList.push(d)
+    })
+    this.setState({
+        transportationMode: transportList
+    })
     this.buildRefKey()    
     var location = this.props.match.params.name;
     var current_page = location.split('-');
@@ -456,8 +474,23 @@ class TransactionForm extends Component {
                     despatchValue: obj
                 })
             }
+            console.log(this.state.transportationMode)
+            var transportationModeIndex = this.state.transportationMode.findIndex(x => x.label == data.courier.transportation_mode)
+            var transportModeObj;
+            console.log(transportationModeIndex)
+            if(transportationModeIndex != -1){
+                transportModeObj = this.state.transportationMode[transportationModeIndex]
+            }
+            console.log(transportModeObj)
             this.setState({
                 despatchDetails: data.courier,
+            }, ()=>{
+                var values = {...this.state.despatchDetails}
+                values['bill_lr_rr_date'] = moment(data.courier.bill_lr_rr_date).format('DD/MM/YYYY')
+                values['transportation_mode'] = transportModeObj
+                this.setState({
+                    despatchDetails: values,
+                })
             })
             
         }
@@ -1024,6 +1057,10 @@ class TransactionForm extends Component {
         })  
     }
     else{
+        this.setState({ salesManValue: null}, () => {
+            console.log(this.state.salesManValue)
+            this.refs.others.focus();
+        })
         this.refs.others.focus();
     }  
   }
@@ -2363,7 +2400,7 @@ class TransactionForm extends Component {
                 data3.bill_lr_rr_date = this.state.despatchDetails.bill_lr_rr_date
                 data3.motor_vehicle_no = this.state.despatchDetails.motor_vehicle_no
                 data3.vehicle_type = this.state.despatchDetails.vehicle_type
-                data3.transportation_mode = this.state.despatchDetails.transportation_mode
+                data3.transportation_mode = this.state.despatchDetails.transportation_mode['value']
             }
             data.courier.push(data3);
 
@@ -2638,7 +2675,7 @@ class TransactionForm extends Component {
             data.bill_lr_rr_date = this.state.despatchDetails.bill_lr_rr_date
             data.motor_vehicle_no = this.state.despatchDetails.motor_vehicle_no
             data.vehicle_type = this.state.despatchDetails.vehicle_type
-            data.transportation_mode = this.state.despatchDetails.transportation_mode
+            data.transportation_mode = this.state.despatchDetails.transportation_mode['value']
         }
         if(this.state.bankValue){
             data.bank_id = this.state.bankValue['value']
@@ -3585,7 +3622,7 @@ class TransactionForm extends Component {
                 <Suspense  fallback={this.loading()}>
                     {
                         this.state.preferencesDetails != null && (
-                            <Breadcrumb title={this.state.title} action={this.state.action} getFormSettingData={this.getFormSettingData} preferencesDetails={this.state.preferencesDetails}/>
+                            <Breadcrumb title={this.state.title} action={this.state.action} getFormSettingData={this.getFormSettingData} preferencesDetails={this.state.preferencesDetails} getCancelEvent={this.goBack} getSaveEvent={this.formSubmit}/>
                         )
                     }
                     
@@ -3593,7 +3630,7 @@ class TransactionForm extends Component {
                 {
                     this.state.despatchDetailsModalKey && (
                         <Suspense  fallback={this.loading()}>
-                            <DespatchDetails getDespatchDetailsModalKey={this.getDespatchDetailsModalKey} allDespatchList={this.state.allDespatchList} despatchValue={this.state.despatchValue} getDespatchOnChange={this.getDespatchOnChange} despatchDetails={this.state.despatchDetails} despatchFieldOnChange={this.despatchFieldOnChange}/>
+                            <DespatchDetails getDespatchDetailsModalKey={this.getDespatchDetailsModalKey} allDespatchList={this.state.allDespatchList} despatchValue={this.state.despatchValue} getDespatchOnChange={this.getDespatchOnChange} despatchDetails={this.state.despatchDetails} despatchFieldOnChange={this.despatchFieldOnChange} transportationMode={this.state.transportationMode}/>
                         </Suspense>
                     )
                 }

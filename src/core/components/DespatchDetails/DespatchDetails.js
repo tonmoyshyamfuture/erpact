@@ -16,23 +16,10 @@ class DespatchDetails extends Component {
 
         this.state = {
             show: true,
-            transportationMode: []
         };
     }
 
     componentDidMount = () => {
-        var data = ['Railways','Roadways','Airways','Waterways','Pipelines'];
-        var transportList = [];
-        data.forEach(x => {
-            var d = {
-                value: x,
-                label: x,
-            }
-            transportList.push(d)
-        })
-        this.setState({
-            transportationMode: transportList
-        })
         this.buildRefKey()
         console.log(this.props.despatchDetails)
     }
@@ -192,7 +179,7 @@ class DespatchDetails extends Component {
                                     openMenuOnFocus={true}
                                     value={this.props.despatchDetails['transportation_mode']}
                                     onChange={this.transportationModeOnChange.bind(this)}
-                                    options={this.state.transportationMode} 
+                                    options={this.props.transportationMode} 
                                     styles={customStyles}
                                     placeholder={`Select Transportation Mode`}
                                     ref="transportation_mode" name="transportation_mode"

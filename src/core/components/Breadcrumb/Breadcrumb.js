@@ -10,8 +10,17 @@ class Breadcrumb extends Component {
         this.state = {
             sideBarKey: false
         }
-
+        this.goBack = this.goBack.bind(this)
+        this.save = this.save.bind(this)
         this.openSettingSideBar = this.openSettingSideBar.bind(this)
+    }
+
+    goBack(){
+        this.props.getCancelEvent()
+    }
+
+    save(){
+        this.props.getSaveEvent()
     }
     
     loading = () => <div className="animated fadeIn pt-1 text-center">Loading...</div>
@@ -43,8 +52,8 @@ class Breadcrumb extends Component {
                         <div className="col-xs-7 text-right">
                             <div className="btn-wrapper">
                                 <div className="btn-group btn-group-sm">
-                                    <a href="http://localhost/acthtml/sales-list.php" className="btn btn-default">Cancel</a>
-                                    <a href="" className="btn btn-success">Save</a>
+                                    <a onClick={this.goBack} className="btn btn-default">Cancel</a>
+                                    <a onClick={this.save} className="btn btn-success">Save</a>
                                 </div>
                                 <a onClick={this.openSettingSideBar} className="btn btn-sm btn-default openRightBar"><i className="fa fa-cog"></i></a>
                             </div>
