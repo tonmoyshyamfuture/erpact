@@ -2542,7 +2542,7 @@ class TransactionForm extends Component {
                 var current_credit_limit = parseFloat(((+this.state.shippingDetails.credit_days[0]['LL_creditLimit']) - (+this.state.debtorsValue.data.current_closing_balance)).toFixed(2))
                 if(wqedit['order'][0].grand_total < current_credit_limit){
                     if(this.state.tran_type == '5') {
-                        transactionService.salesUpdate(wqedit).then(res => {
+                        transactionService.transactionUpdate(wqedit).then(res => {
                             console.log(res)
                             if(res.status == 200){
                                 toast.success(`Sales has been successfuly updated`, {
@@ -2580,7 +2580,7 @@ class TransactionForm extends Component {
                 }
             } else{
                 if(this.state.tran_type == '5') {
-                    transactionService.salesUpdate(wqedit).then(res => {
+                    transactionService.transactionUpdate(wqedit).then(res => {
                         console.log(res)
                         if(res.status == 200){
                             toast.success(`Sales has been successfuly updated`, {

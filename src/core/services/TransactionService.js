@@ -89,7 +89,7 @@ export function getTransactionList(params){
     return axios.get(`${global.apiBaseUrl}transactionList${params}`)
 }
 
-export function salesUpdate(data){
+export function transactionUpdate(data){
     return axios.post(`${global.apiBaseUrl}transactionUpdate`,data)
 }
 // http://lab-6.sketchdemos.com/saas-product/access-saas/webservices/transactionUpdate
